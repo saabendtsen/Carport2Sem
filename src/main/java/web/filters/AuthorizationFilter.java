@@ -12,55 +12,28 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(servletNames = {"FrontController"})
-public class AuthorizationFilter implements Filter
-{
-    private enum FailingStrategy
-    {
-        REDIRECT_TO_LOGIN,
-        HARD_ERROR
+public class AuthorizationFilter implements Filter {
+    public void init(FilterConfig filterConfig) throws ServletException {
     }
 
-    public void init(FilterConfig filterConfig) throws ServletException
-    {
-    }
-
-    public void doFilter(
-            ServletRequest request,
-            ServletResponse response,
-            FilterChain filterChain)
-            throws IOException, ServletException
-    {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
         String servletPath = req.getServletPath();
-        if (servletPath != null && servletPath.equals("/fc"))
-        {
+        if (servletPath != null && servletPath.equals("/fc")) {
             Command command = Command.fromPath(req, FrontController.database);
             HttpSession session = req.getSession(false);
-            if (command instanceof CommandProtectedPage)
-            {
+            if (command instanceof CommandProtectedPage) {
                 String roleFromCommand = ((CommandProtectedPage) command).getRole();
-                if (session == null || session.getAttribute("user") == null)
-                {
-                    handleIllegalAccess(
-                            req,
-                            res,
-                            FailingStrategy.HARD_ERROR,
-                            "You are not authenticated. Please login first",
-                            401);
+                if (session == null || session.getAttribute("user") == null) {
+                    handleIllegalAccess(req, res, FailingStrategy.HARD_ERROR, "You are not authenticated. Please login first", 401);
                     return;
-                } else
-                {
+                } else {
                     String role = (String) session.getAttribute("role");
-                    if (role == null || !role.equals(roleFromCommand))
-                    {
-                        handleIllegalAccess(
-                                req,
-                                res,
-                                FailingStrategy.REDIRECT_TO_LOGIN,
-                                "Attempt to call a resource you are not authorized to view ",
-                                403);
+                    if (role == null || !role.equals(roleFromCommand)) {
+                        handleIllegalAccess(req, res, FailingStrategy.REDIRECT_TO_LOGIN, "Attempt to call a resource you are not authorized to view ", 403);
                         return;
                     }
                 }
@@ -75,24 +48,21 @@ public class AuthorizationFilter implements Filter
         filterChain.doFilter(request, response);
     }
 
-    private void handleIllegalAccess(
-            HttpServletRequest req,
-            HttpServletResponse res,
-            FailingStrategy fs,
-            String msg, int errCode)
-            throws IOException, ServletException
-    {
-        if (fs == FailingStrategy.REDIRECT_TO_LOGIN)
-        {
+    private void handleIllegalAccess(HttpServletRequest req, HttpServletResponse res, FailingStrategy fs, String msg, int errCode)
+            throws IOException, ServletException {
+        if (fs == FailingStrategy.REDIRECT_TO_LOGIN) {
             req.setAttribute("error", msg);
             req.getRequestDispatcher("/WEB-INF/loginpage.jsp").forward(req, res);
-        } else
-        {
+        } else {
             res.sendError(errCode);
         }
     }
 
-    public void destroy()
-    {
+    public void destroy() {
+    }
+
+    private enum FailingStrategy {
+        REDIRECT_TO_LOGIN,
+        HARD_ERROR
     }
 }

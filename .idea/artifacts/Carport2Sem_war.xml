@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="sem2-carport-1.0-SNAPSHOT.war">
+    <root id="archive" name="sem2-carport-1.0.war">
       <element id="artifact" artifact-name="Carport2Sem:war exploded" />
     </root>
   </artifact>
