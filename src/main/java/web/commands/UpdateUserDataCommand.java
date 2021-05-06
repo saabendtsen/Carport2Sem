@@ -1,5 +1,6 @@
 package web.commands;
 
+import business.entities.User;
 import business.exceptions.UserException;
 import business.services.UserFacade;
 
@@ -19,12 +20,12 @@ public class UpdateUserDataCommand extends CommandProtectedPage{
 
         String newPassword = request.getParameter("newPassword");
         String newEmail = request.getParameter("newEmail");
-
+        User user = (User)request.getSession().getAttribute("user");
         if(newEmail.length() >= 1){
-            userFacade.UpdateUserEmail(newEmail,request.getParameter("email"));
+            userFacade.UpdateUserEmail(newEmail,user);
         }
         if(newPassword.length() >= 1){
-            userFacade.UpdateUserPassword(newPassword,request.getParameter("email"));
+            userFacade.UpdateUserPassword(newPassword,user);
         }
 
 
