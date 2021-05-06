@@ -3,9 +3,11 @@ package web.commands;
 import business.entities.User;
 import business.exceptions.UserException;
 import business.services.UserFacade;
+import com.mysql.cj.Session;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class UpdateUserDataCommand extends CommandProtectedPage{
     private final UserFacade userFacade;
@@ -27,6 +29,10 @@ public class UpdateUserDataCommand extends CommandProtectedPage{
         if(newEmail.length() >= 1){
             if(!userFacade.CheckUserEmail(newEmail)){
             userFacade.UpdateUserEmail(newEmail,user);
+            user.setEmail(newEmail);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("user",user);
             } else {
                 request.setAttribute("error","User already exist");
             }

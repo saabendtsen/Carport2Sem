@@ -10,9 +10,9 @@
     </jsp:attribute>
 
     <jsp:body>
-        <h1>Hello ${sessionScope.email} </h1>
+        <h1>Hello ${sessionScope.user.email} </h1>
         You are now logged in as a Customer of our wonderful site.
-        Role: ${sessionScope.role}
+        Role: ${sessionScope.user.role}
 
         <form id="form" method="get"  action="${pageContext.request.contextPath}/fc/updateuserdata">
             <label for="newEmail">Update Email:</label><br>
