@@ -64,9 +64,9 @@ public class UserMapper {
 
     public void UpdateUserEmail(String newEmail, User user) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "UPDATE user SET email = ? WHERE email = ?";
+            String sql = "UPDATE user SET email = ? WHERE user_id = ?";
 
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, newEmail);
                 ps.setInt(2, user.getId());
                 ps.executeUpdate();
@@ -83,9 +83,9 @@ public class UserMapper {
 
     public void UpdateUserPassword(String newPassword, User user) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "UPDATE user SET password = ? WHERE email = ?";
+            String sql = "UPDATE user SET password = ? WHERE user_id = ?";
 
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, newPassword);
                 ps.setInt(2, user.getId());
                 ps.executeUpdate();
