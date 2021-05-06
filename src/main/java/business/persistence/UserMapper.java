@@ -61,4 +61,42 @@ public class UserMapper {
             throw new UserException("Connection to database could not be established");
         }
     }
+
+    public void UpdateUserEmail(String newEmail, String oldEmail) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE user SET email = ? WHERE email = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, newEmail);
+                ps.setString(2,oldEmail);
+                ps.executeUpdate();
+
+            }
+            catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        }
+        catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
+    }
+
+    public void UpdateUserPassword(String newPassword, String email) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE user SET password = ? WHERE email = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, newPassword);
+                ps.setString(2, email);
+                ps.executeUpdate();
+
+            }
+            catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        }
+        catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
+    }
 }
