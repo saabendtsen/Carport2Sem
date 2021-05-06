@@ -22,10 +22,12 @@ public class UpdateUserDataCommand extends CommandProtectedPage{
         String newEmail = request.getParameter("newEmail");
         User user = (User)request.getSession().getAttribute("user");
 
-        //TODO: Check om bruger allerede eksistere.
+        //TODO: Viser stadig gammelt username indtil logge ud
         if(newEmail.length() >= 1){
-            if(userFacade.CheckUserEmail(newEmail) != 0){
+            if(userFacade.CheckUserEmail(newEmail) == false){
             userFacade.UpdateUserEmail(newEmail,user);
+            } else {
+                request.setAttribute("error","User already exist");
             }
         }
 
