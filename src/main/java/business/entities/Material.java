@@ -2,10 +2,10 @@ package business.entities;
 
 public class Material {
     private int material_id;
-    private String name;
-    private double length;
-    private double width;
-    private double price;
+    private final String name;
+    private final double length;
+    private final double width;
+    private final double price;
 
     public Material(int material_id, String name, double length, double width, double price) {
         this.material_id = material_id;

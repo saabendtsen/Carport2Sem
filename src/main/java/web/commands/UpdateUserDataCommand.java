@@ -25,7 +25,7 @@ public class UpdateUserDataCommand extends CommandProtectedPage{
         //TODO: Viser stadig gammelt username indtil logge ud
 
         if(newEmail.length() >= 1){
-            if(userFacade.CheckUserEmail(newEmail) == false){
+            if(!userFacade.CheckUserEmail(newEmail)){
             userFacade.UpdateUserEmail(newEmail,user);
             } else {
                 request.setAttribute("error","User already exist");

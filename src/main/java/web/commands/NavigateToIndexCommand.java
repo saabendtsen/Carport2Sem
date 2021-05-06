@@ -21,7 +21,8 @@ public class NavigateToIndexCommand extends CommandProtectedPage {
 
         /// TODO: 06-05-2021 skal laves på et tidspunkt
 
-        request.setAttribute("clothingList", materialFacade.getMaterialByCategoryId(1));
+        request.setAttribute("shedClothingList", materialFacade.getMaterialByCategoryId(1));
+        request.setAttribute("carportClothingList", materialFacade.getMaterialByCategoryId(2));
         System.out.println("Setting up clothingList");
 
         return "index";
