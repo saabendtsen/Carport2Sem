@@ -17,7 +17,7 @@
         <div>
             <h2>Carport test page</h2>
 
-            <form id="form" method="get" action="${pageContext.request.contextPath}">
+            <form id="form" method="get" action="${pageContext.request.contextPath}/fc/orderPage">
                 Carport Bredde
                 <select class="form-select" name="carportWidth" id="carportWidth" aria-label="Default select example">
                     <option selected>Vælg bredde:</option>
