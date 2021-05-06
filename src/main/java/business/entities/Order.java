@@ -31,4 +31,8 @@ public class Order {
     public int getShed_id() {
         return shed_id;
     }
+
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
+    }
 }
