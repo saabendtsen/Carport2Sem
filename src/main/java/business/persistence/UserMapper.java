@@ -62,6 +62,25 @@ public class UserMapper {
         }
     }
 
+    public int CheckUserEmail(String email) throws UserException {
+        int affetedRows;
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM user WHERE email=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, email);
+                affetedRows = ps.executeUpdate();
+            }
+            catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        }
+        catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+        return affetedRows;
+    }
+
     public int UpdateUserEmail(String newEmail, User user) throws UserException {
         int rowsAffeted;
         try (Connection connection = database.connect()) {

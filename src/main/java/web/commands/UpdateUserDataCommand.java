@@ -24,19 +24,15 @@ public class UpdateUserDataCommand extends CommandProtectedPage{
 
         //TODO: Check om bruger allerede eksistere.
         if(newEmail.length() >= 1){
-
-            //Check if no rows has been affeted
-            if(userFacade.UpdateUserEmail(newEmail,user) < 1){
-            request.setAttribute("error", "Something went wrong");
+            if(userFacade.CheckUserEmail(newEmail) != 0){
+            userFacade.UpdateUserEmail(newEmail,user);
             }
         }
+
         if(newPassword.length() >= 1){
-            //Check if no rows has been affeted
             if(userFacade.UpdateUserPassword(newPassword,user) < 1){
-
             }
         }
-
 
         return super.execute(request, response);
 

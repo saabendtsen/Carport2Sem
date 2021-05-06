@@ -30,4 +30,8 @@ public class UserFacade {
         return userMapper.UpdateUserEmail(newEmail, user);
     }
 
+    public int CheckUserEmail(String email) throws UserException{
+        return userMapper.CheckUserEmail(email);
+    }
+
 }
