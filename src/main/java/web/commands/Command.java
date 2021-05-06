@@ -26,6 +26,7 @@ public abstract class Command {
         commands.put("customerpage", new CommandProtectedPage("customerpage", "customer"));
         commands.put("employeepage", new CommandProtectedPage("employeepage", "employee"));
         commands.put("updateuserdata", new UpdateUserDataCommand("customerpage","customer"));
+        commands.put("orderPage", new MakeOrderCommand("index", "customer"));
     }
 
     public static Command fromPath(HttpServletRequest request, Database db) {
