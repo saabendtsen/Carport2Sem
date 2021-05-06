@@ -21,11 +21,20 @@ public class UpdateUserDataCommand extends CommandProtectedPage{
         String newPassword = request.getParameter("newPassword");
         String newEmail = request.getParameter("newEmail");
         User user = (User)request.getSession().getAttribute("user");
+
+        //TODO: Check om bruger allerede eksistere.
         if(newEmail.length() >= 1){
-            userFacade.UpdateUserEmail(newEmail,user);
+
+            //Check if no rows has been affeted
+            if(userFacade.UpdateUserEmail(newEmail,user) < 1){
+            request.setAttribute("error", "Something went wrong");
+            }
         }
         if(newPassword.length() >= 1){
-            userFacade.UpdateUserPassword(newPassword,user);
+            //Check if no rows has been affeted
+            if(userFacade.UpdateUserPassword(newPassword,user) < 1){
+
+            }
         }
 
 
