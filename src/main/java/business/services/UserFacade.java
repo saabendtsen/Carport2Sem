@@ -22,4 +22,12 @@ public class UserFacade {
         return user;
     }
 
+    public void UpdateUserPassword(String newPassword, User user) throws UserException{
+        userMapper.UpdateUserPassword(newPassword,user);
+    }
+
+    public void UpdateUserEmail(String newEmail, User user) throws UserException{
+        userMapper.UpdateUserEmail(newEmail, user);
+    }
+
 }

@@ -13,6 +13,14 @@
         <h1>Hello ${sessionScope.email} </h1>
         You are now logged in as a Customer of our wonderful site.
         Role: ${sessionScope.role}
+
+        <form id="form" method="get"  action="${pageContext.request.contextPath}/fc/updateuserdata">
+            <label for="newEmail">Update Email:</label><br>
+            <input type="text" id="newEmail" name="newEmail"><br>
+            <label for="newPassword">Updater kodeord:</label><br>
+            <input type="text" id="newPassword" name="newPassword"><br><br>
+            <button id="submit" type="submit" class="btn btn-primary btn-sm">Send Forespørgsel</button>
+        </form>
     </jsp:body>
 
 </t:genericpage>
