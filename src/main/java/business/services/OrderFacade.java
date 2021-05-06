@@ -15,8 +15,8 @@ public class OrderFacade {
     }
 
 
-    public void createOrder(int user_id, double carportLength, double carportWidth) throws UserException{
-     orderMapper.createOrder(user_id, carportLength, carportWidth);
+    public void createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth) throws UserException{
+     orderMapper.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
     }
 
 

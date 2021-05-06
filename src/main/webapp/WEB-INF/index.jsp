@@ -32,30 +32,39 @@
                         <option value="${carportLength.index}">${carportLength.index} cm</option>
                     </c:forEach>
                 </select><br>
-                <hr>
-                Carport Tag
+                Carport Tagbeklædning
                 <select class="form-select" name="carportRoof" id="carportRoof" aria-label="Default select example">
                     <option selected>Vælg tag:</option>
-                    <option value="supertag">nogle stumper træ</option>
+                    <c:forEach var="clothing" items="${requestScope.clothingList}" >
+                        <option value=""></option>
+                    </c:forEach>
+
                 </select><br>
                 <hr>
                 Redskabsrums Bredde
                 <select class="form-select" name="shedWidth" id="shedWidth" aria-label="Default select example">
-                    <option selected value="null">Ønsker ikke redskabsrum</option>
+                    <option selected value="0">Ønsker ikke redskabsrum</option>
                     <c:forEach begin="210" end="720" step="30" var="shedWidth" varStatus="shedWidth">
                         <option value="${shedWidth.index}">${shedWidth.index} cm</option>
                     </c:forEach>
                 </select><br>
                 Redskabsrums Længde
                 <select class="form-select" name="shedLength" id="shedLength" aria-label="Default select example">
-                    <option selected value="null">Ønsker ikke redskabsrum</option>
+                    <option selected value="0">Ønsker ikke redskabsrum</option>
                     <c:forEach begin="150" end="690" step="30" var="shedLength" varStatus="shedLength">
                         <option value="${shedLength.index}">${shedLength.index} cm</option>
                     </c:forEach>
                 </select><br>
+                Redskabsskur Sidebeklædning
+                <select class="form-select" name="shedRoof" id="shedRoof" aria-label="Default select example">
+                    <option selected>Vælg tag:</option>
+                    <c:forEach var="clothing" items="${requestScope.clothingList}" >
+                        <option value="${clothing.name}">${clothing.name} - ${clothing.price} pr/m</option>
+                    </c:forEach>
+                </select><br>
+                <hr>
                 <button id="submit" type="submit" class="btn btn-primary btn-sm">Send Forespørgsel</button>
             </form>
-
         </div>
 
     </jsp:body>

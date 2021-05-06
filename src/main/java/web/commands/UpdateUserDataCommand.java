@@ -21,6 +21,7 @@ public class UpdateUserDataCommand extends CommandProtectedPage{
         String newPassword = request.getParameter("newPassword");
         String newEmail = request.getParameter("newEmail");
         User user = (User)request.getSession().getAttribute("user");
+
         if(newEmail.length() >= 1){
             userFacade.UpdateUserEmail(newEmail,user);
         }
