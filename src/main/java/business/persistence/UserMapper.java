@@ -63,14 +63,17 @@ public class UserMapper {
         }
     }
 
-    public void UpdateUserEmail(String newEmail, User user) throws UserException {
+    public boolean CheckUserEmail(String email) throws UserException {
+        boolean userExist = false;
         try (Connection connection = database.connect()) {
-            String sql = "UPDATE user SET email = ? WHERE email = ?";
+            String sql = "SELECT * FROM user WHERE email=?";
 
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setString(1, newEmail);
-                ps.setInt(2, user.getId());
-                ps.executeUpdate();
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    userExist = true;
+                }
 
             }
             catch (SQLException ex) {
@@ -78,18 +81,20 @@ public class UserMapper {
             }
         }
         catch (SQLException ex) {
-            throw new UserException(ex.getMessage());
+            throw new UserException("Connection to database could not be established");
         }
+        return userExist;
     }
 
-    public void UpdateUserPassword(String newPassword, User user) throws UserException {
+    public int UpdateUserEmail(String newEmail, User user) throws UserException {
+        int rowsAffeted;
         try (Connection connection = database.connect()) {
-            String sql = "UPDATE user SET password = ? WHERE email = ?";
+            String sql = "UPDATE user SET email = ? WHERE user_id = ?";
 
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setString(1, newPassword);
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, newEmail);
                 ps.setInt(2, user.getId());
-                ps.executeUpdate();
+                rowsAffeted = ps.executeUpdate();
 
             }
             catch (SQLException ex) {
@@ -99,5 +104,27 @@ public class UserMapper {
         catch (SQLException ex) {
             throw new UserException(ex.getMessage());
         }
+        return rowsAffeted;
+    }
+
+    public int UpdateUserPassword(String newPassword, User user) throws UserException {
+        int rowsAffeted;
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE user SET password = ? WHERE user_id = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, newPassword);
+                ps.setInt(2, user.getId());
+                rowsAffeted = ps.executeUpdate();
+
+            }
+            catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        }
+        catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
+        return rowsAffeted;
     }
 }

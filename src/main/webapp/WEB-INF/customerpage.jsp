@@ -19,6 +19,12 @@
             <input type="text" id="newEmail" name="newEmail"><br>
             <label for="newPassword">Updater kodeord:</label><br>
             <input type="text" id="newPassword" name="newPassword"><br><br>
+            <c:if test="${requestScope.error != null }">
+                <p style="color:red">
+                        ${requestScope.error}
+                </p>
+            </c:if>
+
             <button id="submit" type="submit" class="btn btn-primary btn-sm">Send Forespørgsel</button>
         </form>
     </jsp:body>
