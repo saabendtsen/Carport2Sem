@@ -45,8 +45,8 @@
                     <h6 class="font-weight-bold">Carport Tagbeklædning</h6>
                 <select class="form-select" name="carportRoof" id="carportRoof" aria-label="Default select example">
                     <option selected value="0">Vælg Tagbeklædning:</option>
-                    <c:forEach var="clothing" items="${requestScope.carportClothingList}" >
-                        <option value="${clothing.material_id}">${clothing.name}</option>
+                    <c:forEach var="order" items="${requestScope.carportClothingList}" >
+                        <option value="${order.material_id}">${order.name}</option>
                     </c:forEach>
 
                 </select><br>
@@ -68,8 +68,8 @@
                 <h6 class="font-weight-bold">Redskabsskur Sidebeklædning</h6>
                 <select class="form-select" name="shedRoof" id="shedRoof" aria-label="Default select example">
                     <option selected value="0">Vælg Sidebeklædning:</option>
-                    <c:forEach var="clothing" items="${requestScope.shedClothingList}" >
-                        <option value="${clothing.material_id}">${clothing.name}</option>
+                    <c:forEach var="order" items="${requestScope.shedClothingList}" >
+                        <option value="${order.material_id}">${order.name}</option>
                     </c:forEach>
                 </select><br>
                 <c:if test="${requestScope.error != null }">

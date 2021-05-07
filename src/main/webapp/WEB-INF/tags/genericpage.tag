@@ -35,7 +35,7 @@
         <c:if test="${addHomeLink == null }">
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/navigatetoindex">Home</a>
         </c:if>
-        <a class="p-2 text-dark" href="#">Orders</a>
+        <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showmyorders">Orders</a>
         <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/customerpage">Profile</a>
         <a class="p-2 text-dark" href="#">About</a>
     </nav>

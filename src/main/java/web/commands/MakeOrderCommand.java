@@ -7,6 +7,7 @@ import business.services.OrderFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class MakeOrderCommand extends CommandProtectedPage {
     private final OrderFacade orderFacade;
@@ -20,9 +21,25 @@ public class MakeOrderCommand extends CommandProtectedPage {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
         try {
             double carportLength = Double.parseDouble(request.getParameter("carportLength"));
+            request.setAttribute("carportLength",carportLength);
+
             double carportWidth = Double.parseDouble(request.getParameter("carportWidth"));
+            request.setAttribute("carportWidth",carportWidth);
+
             double shedLength = Double.parseDouble(request.getParameter("shedLength"));
+            request.setAttribute("shedLength",shedLength);
+
             double shedWidth = Double.parseDouble(request.getParameter("shedWidth"));
+            request.setAttribute("shedWidth",shedWidth);
+
+
+            double totalLength = carportLength-shedLength;
+            double totalwidth = carportWidth-shedWidth;
+
+            if (totalLength < 30 || totalwidth < 30 ) {
+                request.setAttribute("error", "Redskabsrums er større end carporten, vælg en mindre størrelse");
+            }
+
 
             User user = (User) request.getSession().getAttribute("user");
             int user_id = user.getId();
@@ -31,9 +48,12 @@ public class MakeOrderCommand extends CommandProtectedPage {
             orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Du mangler at udfylde nogle felter!");
+            Command command = new NavigateToIndexCommand("index", "customer");
+            return command.execute(request,response);
         }
-        /// TODO: 06-05-2021 PLACEHOLDER Skal ændres til ordre page når vi har en
-        Command command = new NavigateToIndexCommand("index", "customer");
-        return command.execute(request, response);
+
+
+        return pageToShow;
+
     }
 }
