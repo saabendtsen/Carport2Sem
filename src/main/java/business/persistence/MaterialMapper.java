@@ -1,6 +1,7 @@
 package business.persistence;
 
 import business.entities.Material;
+import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
 
@@ -44,7 +45,23 @@ public class MaterialMapper {
 
 
 
-    public void calcMaterialList(){
+    public void calcMaterialList(Order order) throws UserException {
+
+        //Beregn rem længde
+
+        List<Material> materialList = getMaterialByCategoryId(3);
+
+        double counter = order.getCarport().getLength()/materialList.get(1).getLength();
+
+        //Beregn antal spær + længde
+
+        //Beregn antal stolper
+
+        //Beregn antal beklædning til skur
+
+        //
+
+
 
     }
 
