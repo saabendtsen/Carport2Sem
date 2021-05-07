@@ -23,6 +23,12 @@ public class MakeOrderCommand extends CommandProtectedPage {
             double carportWidth = Double.parseDouble(request.getParameter("carportWidth"));
             double shedLength = Double.parseDouble(request.getParameter("shedLength"));
             double shedWidth = Double.parseDouble(request.getParameter("shedWidth"));
+            double totalLength = carportLength-shedLength;
+            double totalwidth = carportWidth-shedWidth;
+
+            if (totalLength < 30 || totalwidth < 30 ) {
+                request.setAttribute("error", "Redskabsrums er større end carporten, vælg en mindre størrelse");
+            }
 
             User user = (User) request.getSession().getAttribute("user");
             int user_id = user.getId();
@@ -31,8 +37,9 @@ public class MakeOrderCommand extends CommandProtectedPage {
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Du mangler at udfylde nogle felter!");
         }
+
+
         /// TODO: 06-05-2021 PLACEHOLDER Skal ændres til ordre page når vi har en
-        Command command = new NavigateToIndexCommand("index", "customer");
-        return command.execute(request, response);
+        return "orderspage";
     }
 }
