@@ -27,6 +27,7 @@ public class MakeOrderCommand extends CommandProtectedPage {
             User user = (User) request.getSession().getAttribute("user");
             int user_id = user.getId();
 
+
             orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Du mangler at udfylde nogle felter!");
