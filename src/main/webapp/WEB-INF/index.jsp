@@ -14,6 +14,11 @@
 
     <jsp:body>
 
+        <c:if test="${sessionScope.user == null}">
+            <h3>Du skal have en konto for at kunne bestille en Carport</h3>
+        </c:if>
+
+        <c:if test="${sessionScope.role == 'customer' }">
         <div>
             <h2>QUICK-BYG TILBUD - CARPORT</h2>
             <p>Med et specialudviklet computerprogram kan vi lynhurtigt beregne prisen og udskrive en skitsetegning på en carport indenfor vores standardprogram.</p>
@@ -75,6 +80,7 @@
                 <button id="submit" type="submit" class="btn btn-primary btn-sm">Bestil tilbud</button>
             </form>
         </div>
+        </c:if>
 
     </jsp:body>
 </t:genericpage>

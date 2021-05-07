@@ -25,8 +25,12 @@ CREATE TABLE IF NOT EXISTS `carport`.`user` (
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(16) NOT NULL,
   `role` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`user_id`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -36,28 +40,15 @@ CREATE TABLE IF NOT EXISTS `carport`.`order` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `orderdate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `shed_id` INT NULL,
   PRIMARY KEY (`order_id`, `user_id`),
   INDEX `fk_order_user_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_order_user`
     FOREIGN KEY (`user_id`)
-    REFERENCES `carport`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `carport`.`material`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `carport`.`material` (
-  `material_id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `length` DOUBLE NULL,
-  `width` DOUBLE NULL,
-  `price` DOUBLE NOT NULL,
-  PRIMARY KEY (`material_id`))
-ENGINE = InnoDB;
+    REFERENCES `carport`.`user` (`user_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -66,55 +57,34 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `carport`.`carport` (
   `carport_id` INT NOT NULL AUTO_INCREMENT,
   `order_id` INT NOT NULL,
-  `total` DOUBLE NOT NULL,
+  `total` DOUBLE NULL DEFAULT NULL,
+  `length` DOUBLE NOT NULL,
+  `width` DOUBLE NOT NULL,
   PRIMARY KEY (`carport_id`),
   INDEX `fk_carport_order1_idx` (`order_id` ASC) VISIBLE,
   CONSTRAINT `fk_carport_order1`
     FOREIGN KEY (`order_id`)
-    REFERENCES `carport`.`order` (`order_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `carport`.`order` (`order_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `carport`.`shed`
+-- Table `carport`.`material`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `carport`.`shed` (
-  `shed_id` INT NOT NULL AUTO_INCREMENT,
-  `order_id` INT NOT NULL,
-  `total` DOUBLE NOT NULL,
-  PRIMARY KEY (`shed_id`),
-  INDEX `fk_shed_order1_idx` (`order_id` ASC) VISIBLE,
-  CONSTRAINT `fk_shed_order1`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `carport`.`order` (`order_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `carport`.`shed_has_material_list`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `carport`.`shed_has_material_list` (
-  `shed_id` INT NOT NULL,
-  `material_id` INT NOT NULL,
-  `quantity` FLOAT NOT NULL,
-  PRIMARY KEY (`material_id`, `shed_id`),
-  INDEX `fk_shed_has_material_list_material1_idx` (`material_id` ASC) VISIBLE,
-  INDEX `fk_shed_has_material_list_shed1_idx` (`shed_id` ASC) VISIBLE,
-  CONSTRAINT `fk_shed_has_material_list_material1`
-    FOREIGN KEY (`material_id`)
-    REFERENCES `carport`.`material` (`material_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_shed_has_material_list_shed1`
-    FOREIGN KEY (`shed_id`)
-    REFERENCES `carport`.`shed` (`shed_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `carport`.`material` (
+  `material_id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `length` DOUBLE NULL DEFAULT NULL,
+  `width` DOUBLE NULL DEFAULT NULL,
+  `price` DOUBLE NOT NULL,
+  PRIMARY KEY (`material_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -129,15 +99,13 @@ CREATE TABLE IF NOT EXISTS `carport`.`carport_has_material_list` (
   INDEX `fk_carport_has_material_list_material1_idx` (`material_id` ASC) VISIBLE,
   CONSTRAINT `fk_carport_has_material_list_carport1`
     FOREIGN KEY (`carport_id`)
-    REFERENCES `carport`.`carport` (`carport_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `carport`.`carport` (`carport_id`),
   CONSTRAINT `fk_carport_has_material_list_material1`
     FOREIGN KEY (`material_id`)
-    REFERENCES `carport`.`material` (`material_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `carport`.`material` (`material_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -145,9 +113,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `carport`.`material_category` (
   `material_category_id` INT NOT NULL AUTO_INCREMENT,
-  `category_name` VARCHAR(45) NULL,
+  `category_name` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`material_category_id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -160,15 +131,54 @@ CREATE TABLE IF NOT EXISTS `carport`.`material_has_material_category` (
   INDEX `fk_material_has_material_category_material_category1_idx` (`material_category_id` ASC) VISIBLE,
   CONSTRAINT `fk_material_has_material_category_material1`
     FOREIGN KEY (`material_id`)
-    REFERENCES `carport`.`material` (`material_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `carport`.`material` (`material_id`),
   CONSTRAINT `fk_material_has_material_category_material_category1`
     FOREIGN KEY (`material_category_id`)
-    REFERENCES `carport`.`material_category` (`material_category_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `carport`.`material_category` (`material_category_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carport`.`shed`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `carport`.`shed` (
+  `shed_id` INT NOT NULL AUTO_INCREMENT,
+  `order_id` INT NOT NULL,
+  `total` DOUBLE NULL DEFAULT NULL,
+  `length` DOUBLE NULL DEFAULT NULL,
+  `width` DOUBLE NULL DEFAULT NULL,
+  PRIMARY KEY (`shed_id`),
+  INDEX `fk_shed_order1_idx` (`order_id` ASC) VISIBLE,
+  CONSTRAINT `fk_shed_order1`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `carport`.`order` (`order_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carport`.`shed_has_material_list`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `carport`.`shed_has_material_list` (
+  `shed_id` INT NOT NULL,
+  `material_id` INT NOT NULL,
+  `quantity` FLOAT NOT NULL,
+  PRIMARY KEY (`material_id`, `shed_id`),
+  INDEX `fk_shed_has_material_list_material1_idx` (`material_id` ASC) VISIBLE,
+  INDEX `fk_shed_has_material_list_shed1_idx` (`shed_id` ASC) VISIBLE,
+  CONSTRAINT `fk_shed_has_material_list_material1`
+    FOREIGN KEY (`material_id`)
+    REFERENCES `carport`.`material` (`material_id`),
+  CONSTRAINT `fk_shed_has_material_list_shed1`
+    FOREIGN KEY (`shed_id`)
+    REFERENCES `carport`.`shed` (`shed_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
