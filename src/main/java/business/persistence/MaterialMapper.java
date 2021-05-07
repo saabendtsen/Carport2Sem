@@ -1,6 +1,7 @@
 package business.persistence;
 
 import business.entities.Material;
+import business.entities.User;
 import business.exceptions.UserException;
 
 import java.sql.*;
@@ -39,6 +40,12 @@ public class MaterialMapper {
         } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
         }
+    }
+
+
+
+    public void calcMaterialList(){
+
     }
 
 }
