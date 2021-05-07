@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `carport`.`user` (
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `carport`.`order` (
     FOREIGN KEY (`user_id`)
     REFERENCES `carport`.`user` (`user_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 40
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `carport`.`carport` (
     FOREIGN KEY (`order_id`)
     REFERENCES `carport`.`order` (`order_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 39
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `carport`.`material` (
   `price` DOUBLE NOT NULL,
   PRIMARY KEY (`material_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `carport`.`material_category` (
   `category_name` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`material_category_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `carport`.`shed` (
     FOREIGN KEY (`order_id`)
     REFERENCES `carport`.`order` (`order_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 30
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
