@@ -12,13 +12,11 @@
     <jsp:body>
         <h1>Hello ${sessionScope.user.email} </h1>
         Tak for din ordre. Du vil blive kontaktet af en sælger hurtigst muligt
-        Role: ${sessionScope.user.role}
 
         <div>
             <h2>Du har bestilt følgende</h2>
             <h6>Carport i målende</h6>
             Brede: ${requestScope.carportWidth}<br>
-            //TODO: HVORFOR VISER DEN IKKE LÆNGE FOR HELVED
             længde: ${requestScope.carportLength}<br>
             Tag til carport ${requestScope.carportRoof}<br><br>
 
