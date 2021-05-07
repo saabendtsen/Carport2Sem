@@ -27,8 +27,16 @@
                 <c:if test="${order != null && not empty order}">
                     <table class="table table-dark table-hover">
                         <tr>
-                            <th colspan="2">Ordrer nr: ${order.order_id}</th>
-                            <th colspan="4">Oprettet: ${order.orderDate}</th>
+                            <th>Ordrer nr: ${order.order_id}</th>
+                            <th colspan="3">Status:
+                                <c:if test="${order.order_state}">
+                                    <p style="color: greenyellow">Færdig udarbejdet<p>
+                                </c:if>
+                                <c:if test="${!order.order_state}">
+                                    <p style="color: red">behandles<p>
+                                </c:if>
+                            </th>
+                            <th colspan="2">Oprettet: ${order.orderDate}</th>
                         </tr>
                         <tr>
                             <th>Carport længde</th>

@@ -2,12 +2,10 @@ package web.commands;
 
 import business.entities.User;
 import business.exceptions.UserException;
-import business.services.MaterialFacade;
 import business.services.OrderFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class MakeOrderCommand extends CommandProtectedPage {
     private final OrderFacade orderFacade;
@@ -38,11 +36,12 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             if (totalLength < 30 || totalwidth < 30 ) {
                 request.setAttribute("error", "Redskabsrums er større end carporten, vælg en mindre størrelse");
+                return "index";
             }
 
 
             User user = (User) request.getSession().getAttribute("user");
-            int user_id = user.getId();
+            int user_id = user.getUser_id();
 
             orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
         } catch (NumberFormatException e) {

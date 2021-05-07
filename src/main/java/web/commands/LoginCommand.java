@@ -35,7 +35,11 @@ public class LoginCommand extends CommandUnprotectedPage {
             session.setAttribute("role", user.getRole());
             session.setAttribute("email", email);
 
-            return getDataAndIndex;
+            if(user.getRole().equals("employee")) {
+                return "employeepage";
+            } else {
+                return getDataAndIndex;
+            }
 
         } catch (UserException ex) {
             request.setAttribute("error", "Wrong username or password!");

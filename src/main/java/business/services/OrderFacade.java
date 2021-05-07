@@ -26,4 +26,8 @@ public class OrderFacade {
         return orderMapper.getOrderByUserId(user_id);
     }
 
+    public int updateOrder(int order_id) throws UserException {
+        return orderMapper.updateOrder(order_id);
+    }
+
 }

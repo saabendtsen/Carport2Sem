@@ -83,7 +83,7 @@ public class OrderMapper {
 
     public List<Order> getOrderByUserId(int user_id) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "select `order`.order_id, `order`.orderdate, s.shed_id, s.total, s.length, s.width, c.carport_id, c.total, c.length, c.width from `order`\n" +
+            String sql = "select `order`.order_id, `order`.order_state , `order`.orderdate, s.shed_id, s.total, s.length, s.width, c.carport_id, c.total, c.length, c.width from `order`\n" +
                     "join carport c on `order`.order_id = c.order_id\n" +
                     "join shed s on `order`.order_id = s.order_id where `order`.user_id = ?";
 
@@ -95,6 +95,7 @@ public class OrderMapper {
                 while (rs.next()) {
                     int order_id = rs.getInt("order_id");
                     Timestamp orderdate = rs.getTimestamp("orderdate");
+                    boolean order_state = rs.getBoolean("order_state");
                     int shed_id = rs.getInt("s.shed_id");
                     double s_total = rs.getDouble("s.total");
                     double s_length = rs.getDouble("s.length");
@@ -104,13 +105,31 @@ public class OrderMapper {
                     double c_length = rs.getDouble("c.length");
                     double c_width = rs.getDouble("c.width");
 
-                    orderList.add(new Order(order_id, user_id, orderdate, new Carport(carport_id, order_id, c_total, c_length, c_width), new Shed(shed_id, order_id, s_total, s_length, s_width)));
+                    orderList.add(new Order(order_id, user_id,orderdate, order_state, new Carport(carport_id, order_id, c_total, c_length, c_width), new Shed(shed_id, order_id, s_total, s_length, s_width)));
 
                 }
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
             return orderList;
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
+    public int updateOrder(int order_id) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE `order` SET order_state = 1 WHERE order_id = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1, order_id);
+
+                return ps.executeUpdate();
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
         } catch (SQLException ex) {
             throw new UserException("Connection to database could not be established");
         }
