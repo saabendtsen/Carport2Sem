@@ -35,6 +35,9 @@
                     <p style="font-size: large">${param.msg}</p>
                 </c:if>
                 <button class="btn btn-primary" type="submit" value="Login">Log ind</button>
+
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/fc/registerpage">Opret konto</a>
+
             </form>
 
 
