@@ -16,21 +16,21 @@
 
         <div>
             <h2>Du har bestilt følgende</h2>
-            Carport i målende
-            Brede ${requestScope.carportWidth}
-            længde ${requestScope.carportLength}
-            Tag til carport ${requestScope.carportRoof}
+            <h6>Carport i målende</h6>
+            Brede: ${requestScope.carportWidth}<br>
+            //TODO: HVORFOR VISER DEN IKKE LÆNGE FOR HELVED
+            længde: ${requestScope.carportLength}<br>
+            Tag til carport ${requestScope.carportRoof}<br><br>
 
-            <c:if test="${requestScope.shedLength != null}">
-                Tilvalgt redskabsskur i målende:
-                Brede ${requestScope.shedWidth}
-                Længde: ${requestScope.shedLength}
-                Beklædning: ${requestScope.shedRoof}
+            <c:if test="${requestScope.shedLength != 0}">
+                <h3>Tilvalgt redskabsskur i målende:</h3><br>
+                Brede ${requestScope.shedWidth}<br>
+                Længde: ${requestScope.shedLength}<br>
+                Beklædning: ${requestScope.shedRoof}<br>
             </c:if>
 
 
         </div>
-
 
 
         </form>
