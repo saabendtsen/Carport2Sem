@@ -4,12 +4,13 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         <h3 style="color:darkred">Oops!</h3>
+         <h3 style="color:darkred">Hoovsa!</h3>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
     </jsp:attribute>
     <jsp:body>
+        <div>
         <div>
 
             <h2><span class="badge rounded-pill  bg-danger">${pageContext.errorData.statusCode}</span></h2>
@@ -21,16 +22,14 @@
 
             <c:if test="${pageContext.errorData.statusCode == 401 }">
                 <h4 style="color:darkred;font-size: larger">
-                    Attempt to access a protected resource without being authenticated.
-                    <a href="loginpage">Please login first!</a>
-                </h4>.
+                    Vær venlig at oprette en bruger og <a href="${pageContext.request.contextPath}/fc/loginpage">log ind</a> for se denne side!
+                </h4>
 
-                </p>
             </c:if>
 
             <c:if test="${pageContext.errorData.statusCode == 403 }">
                 <h4 style="color:darkred">
-                    Attempt to call a resource you are not authorized to view!
+                    <a href="${pageContext.request.contextPath}/fc/loginpage">Log venligst ind</a> på en konto med de korrekte rettigheder for se denne side!
                 </h4>
             </c:if>
 
