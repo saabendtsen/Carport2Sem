@@ -16,6 +16,11 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
+-- -----------------------------------------------------
+-- Schema carport
+-- -----------------------------------------------------
+USE `carport` ;
+
 --
 -- Dumping data for table `material`
 --
