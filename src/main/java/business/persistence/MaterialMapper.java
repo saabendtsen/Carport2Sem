@@ -47,22 +47,42 @@ public class MaterialMapper {
 
     public void calcMaterialList(Order order) throws UserException {
 
+        List<Material> stkliste = new ArrayList<>();
+
         //Beregn rem længde
+        List<Material> materialList = getMaterialByCategoryId(2);
+        //Sort på længde, længst først.
+        double rest = order.getCarport().getLength();
+        remCalc(rest,materialList,stkliste);
 
-        List<Material> materialList = getMaterialByCategoryId(3);
 
-        double counter = order.getCarport().getLength()/materialList.get(1).getLength();
+
+    }
+    public List<Material> remCalc (double rest, List<Material> materialList, List<Material> stkListe){
+
+            for (int i = 0; i < materialList.size(); i++) {
+                if (materialList.get(i).getLength() < rest) {
+                    stkListe.add(materialList.get(i));
+                    rest =- materialList.get(i).getLength();
+                    remCalc(rest,materialList,stkListe);
+
+                } else {
+                    i++;
+
+                }
+            }
+            return stkListe;
+        }
+
 
         //Beregn antal spær + længde
 
         //Beregn antal stolper
 
+
+
         //Beregn antal beklædning til skur
 
         //
-
-
-
-    }
 
 }
