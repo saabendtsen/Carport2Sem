@@ -7,6 +7,7 @@ import business.exceptions.UserException;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MaterialMapper {
@@ -20,7 +21,7 @@ public class MaterialMapper {
 
     public List<Material> getMaterialByCategoryId(int materialCategory_id) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "SELECT * FROM material JOIN material_has_material_category mhmc ON material.material_id = mhmc.material_id WHERE material_category_id = ?";
+            String sql = "SELECT * FROM material JOIN material_has_material_category mhmc ON material.material_id = mhmc.material_id WHERE material_category_id = ? ORDER BY length";
             List<Material>  materials = new ArrayList<>();
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, materialCategory_id);
@@ -51,6 +52,29 @@ public class MaterialMapper {
 
         //Beregn rem længde
         List<Material> materialList = getMaterialByCategoryId(2);
+        double rest = 0;
+        for(Material m : materialList){
+            if (m.getLength()< order.getCarport().getLength()){
+                continue;
+            } else {
+                rest = m.getLength() - order.getCarport().getLength();
+                m.setLength(m.getLength()-rest);
+
+                if(order.getCarport().getWidth() > 500){
+                    stkliste.add(m);
+                    stkliste.add(m);
+                    stkliste.add(m);
+                } else {
+                    stkliste.add(m);
+                    stkliste.add(m);
+                }
+            }
+        }
+
+
+
+
+
         //Sort på længde, længst først.
         double rest = order.getCarport().getLength();
         remCalc(rest,materialList,stkliste);

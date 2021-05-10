@@ -3,7 +3,7 @@ package business.entities;
 public class Material {
     private int material_id;
     private final String name;
-    private final double length;
+    private double length;
     private final double width;
     private final double price;
 
@@ -41,5 +41,9 @@ public class Material {
 
     public double getPrice() {
         return price;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
     }
 }
