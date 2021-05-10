@@ -53,9 +53,7 @@ public class MaterialMapper {
 
         //Beregn rem længde
         remCalc(order);
-
         spærCalc(order);
-
 
 
 
@@ -107,20 +105,30 @@ public class MaterialMapper {
     }
 
     public void stolpeCalc(Order order) throws UserException {
-
+        int counter=0;
         //Beregn stolper pr rem
         List<Material> stolpeList = getMaterialByCategoryId(4);
 
         if (order.getShed() == null) {
-
-            double counter = Math.ceil(order.getCarport().getLength() - 90 / 300);
-            counter =+ 2;
-            for (int i = 0; i < counter; i++) {
-                stkliste.add(stolpeList.get(0));
+            counter += 2;
+            if(order.getCarport().getLength() - 90 >= 600){
+                counter += 2;
+            } else if (order.getCarport().getLength() - 90 >= 300){
+                counter += 1;
             }
 
+        } else {
+            //There is a shed
+            counter += 3;
+            if((order.getCarport().getLength() - 45 - order.getShed().getLength()) > 300){
+                counter += 1;
+            }
+        }
+        for (int i = 0; i < counter; i++) {
+            stkliste.add(stolpeList.get(0));
         }
     }
+
 }
 
 
