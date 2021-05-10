@@ -16,7 +16,7 @@ public class MaterialMapper {
     private List<Material> stkliste = new ArrayList<>();
 
 
-    public MaterialMapper(Database database) throws UserException {
+    public MaterialMapper(Database database) {
         this.database = database;
     }
 
@@ -54,8 +54,24 @@ public class MaterialMapper {
         //Beregn rem længde
         remCalc(order);
         spærCalc(order);
+        beklædningCalc(order);
 
 
+
+    }
+
+
+    public void beklædningCalc (Order order) {
+
+        //2cm overlap på hver side af beklædning
+        int counter = (int) ((order.getShed().getClothing().getWidth()-4) / order.getShed().getLength());
+        counter += (int) ((order.getShed().getClothing().getLength()-4) / order.getShed().getLength());
+
+        counter *= 2;
+
+        for (int i = 0; i < counter; i++) {
+            stkliste.add(order.getShed().getClothing());
+        }
 
     }
 
