@@ -70,7 +70,7 @@ public class MaterialMapper {
                 rest = m.getLength() - order.getCarport().getWidth();
                 m.setLength(m.getLength() - rest);
 
-                int counter = (int) (order.getCarport().getLength() / 55);
+                int counter = (int) (order.getCarport().getLength() - m.getWidth() / 55);
                 for (int i = 0; i < counter; i++) {
                     stkliste.add(m);
                 }
