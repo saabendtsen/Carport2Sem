@@ -17,15 +17,23 @@ public class ShowOrdersCommand extends CommandProtectedPage {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
+
         try {
             User user = (User)request.getSession().getAttribute("user");
 
-            request.setAttribute("ordersList", orderFacade.getOrderByUserId(user.getId()));
+            request.setAttribute("ordersList", orderFacade.getOrderByUserId(user.getUser_id()));
 
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Du mangler at udfylde nogle felter!");
         }
 
+        String updateOrder = request.getParameter("updateOrder");
+        if (updateOrder != null){
+            int order_id = Integer.parseInt(updateOrder);
+            orderFacade.updateOrder(order_id);
+            Command command = new ShowCustomersForEmployeeCommand("showcustomerorderpage", "employee");
+            return command.execute(request,response);
+        }
 
         return pageToShow;
     }

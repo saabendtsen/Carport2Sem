@@ -32,12 +32,20 @@
         </p>
     </div>
     <nav class="my-2 my-md-0 me-md-3">
-        <c:if test="${addHomeLink == null }">
-            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/navigatetoindex">Home</a>
+
+
+        <c:if test="${sessionScope.role == 'employee' }">
+            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/employeepage">Admin side</a>
+            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showcustomers">Se Brugere</a>
         </c:if>
-        <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showmyorders">Orders</a>
-        <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/customerpage">Profile</a>
-        <a class="p-2 text-dark" href="#">About</a>
+
+        <c:if test="${sessionScope.role == 'customer' }">
+            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/navigatetoindex">Bestil Carport</a>
+            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/customerpage">Min side</a>
+            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showmyorders">Orders</a>
+        </c:if>
+
+
     </nav>
 
     <div>
@@ -53,13 +61,13 @@
         <c:if test="${isNotLoginPage && isNotRegisterPage}">
             <c:if test="${sessionScope.user != null }">
                 <a type="button" class="btn btn-sm  btn-outline-secondary"
-                href="${pageContext.request.contextPath}/fc/logoutcommand">Logout</a>
+                href="${pageContext.request.contextPath}/fc/logoutcommand">Log ud</a>
             </c:if>
             <c:if test="${sessionScope.user == null }">
-                <a type="button" class="btn btn-sm  btn-outline-secondary"
-                   href="${pageContext.request.contextPath}/fc/loginpage">Login</a>
-                <a type="button" class="btn btn-sm  btn-outline-secondary"
-                   href="${pageContext.request.contextPath}/fc/registerpage">Sign up</a>
+                <a type="button" class="btn btn-outline-info"
+                   href="${pageContext.request.contextPath}/fc/loginpage">Log ind</a>
+                <a type="button" class="btn btn-outline-success"
+                   href="${pageContext.request.contextPath}/fc/registerpage">Register dig</a>
             </c:if>
     </div>
     </c:if>

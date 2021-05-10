@@ -7,6 +7,7 @@ public class Material {
     private final double width;
     private final double price;
 
+
     public Material(int material_id, String name, double length, double width, double price) {
         this.material_id = material_id;
         this.name = name;
@@ -20,6 +21,7 @@ public class Material {
         this.width = width;
         this.price = price;
     }
+
 
     public int getMaterial_id() {
         return material_id;

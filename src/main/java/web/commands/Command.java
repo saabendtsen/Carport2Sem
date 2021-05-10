@@ -27,8 +27,12 @@ public abstract class Command {
         commands.put("employeepage", new CommandProtectedPage("employeepage", "employee"));
         commands.put("updateuserdata", new UpdateUserDataCommand("customerpage","customer"));
         commands.put("orderPage", new MakeOrderCommand("receiptPage", "customer"));
+        commands.put("updatestatuscommand", new ShowOrdersCommand("showcustomerorderpage", "employee"));
         commands.put("navigatetoindex", new NavigateToIndexCommand("index", "customer"));
         commands.put("showmyorders", new ShowOrdersCommand("showmyorderspage", "customer"));
+        commands.put("showcustomers", new ShowCustomersForEmployeeCommand("showcustomerslisting", "employee"));
+        commands.put("showcustomersorders", new ShowCustomersForEmployeeCommand("showcustomerorderpage", "employee"));
+        commands.put("changeinfo", new CommandProtectedPage("changeuserdata", "customer"));
     }
 
     public static Command fromPath(HttpServletRequest request, Database db) {

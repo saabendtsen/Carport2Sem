@@ -5,6 +5,8 @@ import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.UserMapper;
 
+import java.util.List;
+
 public class UserFacade {
     UserMapper userMapper;
 
@@ -32,6 +34,10 @@ public class UserFacade {
 
     public boolean CheckUserEmail(String email) throws UserException{
         return userMapper.CheckUserEmail(email);
+    }
+
+    public List<User> getAllUsers() throws UserException {
+        return userMapper.getAllUsers();
     }
 
 }

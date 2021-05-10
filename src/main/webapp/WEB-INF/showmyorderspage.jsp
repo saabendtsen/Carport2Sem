@@ -22,16 +22,41 @@
         <div>
             <h6 class="font-weight-bold">Dine gamle ordre</h6>
 
-                    <c:forEach var="order" items="${requestScope.ordersList}" >
-                        Ordre - ${order.order_id}
-                        Dato - ${order.orderDate}
-                        Carport længde - ${order.carport.length}
-                        Carport bredde - ${order.carport.width}
-                        Carport total - ${order.carport.total}
-                        Redskabsskur længde - ${order.shed.length}
-                        Redskabsskur bredde - ${order.shed.width}
-                        Redskabsskur total - ${order.shed.total}
-                    </c:forEach>
+
+            <c:forEach var="order" items="${requestScope.ordersList}">
+                <c:if test="${order != null && not empty order}">
+                    <table class="table table-dark table-hover">
+                        <tr>
+                            <th>Ordrer nr: ${order.order_id}</th>
+                            <th colspan="3">Status:
+                                <c:if test="${order.order_state}">
+                                    <p style="color: greenyellow">Færdig udarbejdet<p>
+                                </c:if>
+                                <c:if test="${!order.order_state}">
+                                    <p style="color: red">behandles<p>
+                                </c:if>
+                            </th>
+                            <th colspan="2">Oprettet: ${order.orderDate}</th>
+                        </tr>
+                        <tr>
+                            <th>Carport længde</th>
+                            <th>Carport bredde</th>
+                            <th>Carport total</th>
+                            <th>Redskabsskur længde</th>
+                            <th>Redskabsskur bredde</th>
+                            <th>Redskabsskur total</th>
+                        </tr>
+                        <tr>
+                            <td>${order.carport.length}0 cm</td>
+                            <td>${order.carport.width}0 cm</td>
+                            <td>${order.carport.total}0</td>
+                            <td>${order.shed.length}0 cm</td>
+                            <td>${order.shed.width}0 cm</td>
+                            <td>${order.shed.total}0</td>
+                        </tr>
+                    </table>
+                </c:if>
+            </c:forEach>
 
         </div>
         </c:if>

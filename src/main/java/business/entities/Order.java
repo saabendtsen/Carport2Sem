@@ -7,13 +7,15 @@ public class Order {
     private int order_id;
     private int user_id;
     private Timestamp orderDate;
+    private boolean order_state;
     Carport carport;
     Shed shed;
 
-    public Order(int order_id, int user_id,Timestamp orderDate, Carport carport, Shed shed) {
+    public Order(int order_id, int user_id, Timestamp orderDate, boolean order_state, Carport carport, Shed shed) {
         this.order_id = order_id;
         this.user_id = user_id;
         this.orderDate = orderDate;
+        this.order_state = order_state;
         this.carport = carport;
         this.shed = shed;
     }
@@ -30,16 +32,15 @@ public class Order {
         return orderDate;
     }
 
+    public boolean isOrder_state() {
+        return order_state;
+    }
+
     public Carport getCarport() {
         return carport;
     }
 
-
     public Shed getShed() {
         return shed;
-    }
-
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
     }
 }
