@@ -76,7 +76,7 @@ public class MaterialMapper {
 
 
         //Sort på længde, længst først.
-        double rest = order.getCarport().getLength();
+       //double rest = order.getCarport().getLength();
         remCalc(rest,materialList,stkliste);
 
 

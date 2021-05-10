@@ -19,7 +19,7 @@ public class NavigateToIndexCommand extends CommandProtectedPage {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
 
 
-        /// TODO: 06-05-2021 skal laves på et tidspunkt
+        /// TODO: 06-05-2021 Her skal der tilføjes flere materialer
 
         request.setAttribute("shedClothingList", materialFacade.getMaterialByCategoryId(1));
         request.setAttribute("carportClothingList", materialFacade.getMaterialByCategoryId(2));

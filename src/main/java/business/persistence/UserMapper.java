@@ -29,7 +29,6 @@ public class UserMapper {
                 user.setUser_id(id);
             }
             catch (SQLException ex) {
-                /// TODO: 06-05-2021 gør det mere brugervenligt at få en (unik username) error
                 throw new UserException(ex.getMessage());
             }
         }

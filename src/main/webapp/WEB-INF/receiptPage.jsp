@@ -4,24 +4,24 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         ReceiptPage
+         Din Kvittering
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
 
     <jsp:body>
-        <h1>Hello ${sessionScope.user.email} </h1>
-        Tak for din ordre. Du vil blive kontaktet af en sælger hurtigst muligt
-
+        <h2>Tak for din ordre.</h2>
+        <h2>Du vil blive kontaktet af en sælger hurtigst muligt</h2><br><br><br>
         <div>
-            <h2>Du har bestilt følgende</h2>
+            <h4>Du har bestilt følgende</h4>
             <h6>Carport i målende</h6>
             Brede: ${requestScope.carportWidth}<br>
             længde: ${requestScope.carportLength}<br>
             Tag til carport ${requestScope.carportRoof}<br><br>
 
             <c:if test="${requestScope.shedLength != 0}">
-                <h3>Tilvalgt redskabsskur i målende:</h3><br>
+                <h3>Tilvalgt:</h3>
+                <h6>Redskabsskur i målende</h6>
                 Brede ${requestScope.shedWidth}<br>
                 Længde: ${requestScope.shedLength}<br>
                 Beklædning: ${requestScope.shedRoof}<br>
@@ -29,9 +29,6 @@
 
 
         </div>
-
-
-        </form>
     </jsp:body>
 
 </t:genericpage>
