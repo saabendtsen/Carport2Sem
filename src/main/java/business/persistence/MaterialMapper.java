@@ -13,8 +13,10 @@ import java.util.List;
 public class MaterialMapper {
 
     private final Database database;
+    private List<Material> stkliste = new ArrayList<>();
 
-    public MaterialMapper(Database database) {
+
+    public MaterialMapper(Database database) throws UserException {
         this.database = database;
     }
 
@@ -22,7 +24,7 @@ public class MaterialMapper {
     public List<Material> getMaterialByCategoryId(int materialCategory_id) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM material JOIN material_has_material_category mhmc ON material.material_id = mhmc.material_id WHERE material_category_id = ? ORDER BY length";
-            List<Material>  materials = new ArrayList<>();
+            List<Material> materials = new ArrayList<>();
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, materialCategory_id);
                 ResultSet rs = ps.executeQuery();
@@ -32,7 +34,7 @@ public class MaterialMapper {
                     double width = rs.getDouble("width");
                     double price = rs.getDouble("price");
 
-                    materials.add(new Material(name,length,width,price));
+                    materials.add(new Material(name, length, width, price));
                 }
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
@@ -45,69 +47,83 @@ public class MaterialMapper {
     }
 
 
-
     public void calcMaterialList(Order order) throws UserException {
 
-        List<Material> stkliste = new ArrayList<>();
+        stkliste.clear();
 
         //Beregn rem længde
-        List<Material> materialList = getMaterialByCategoryId(2);
-        double rest = 0;
-        for(Material m : materialList){
-            if (m.getLength()< order.getCarport().getLength()){
-                continue;
-            } else {
-                rest = m.getLength() - order.getCarport().getLength();
-                m.setLength(m.getLength()-rest);
+        remCalc(order);
 
-                if(order.getCarport().getWidth() > 500){
-                    stkliste.add(m);
-                    stkliste.add(m);
-                    stkliste.add(m);
-                } else {
-                    stkliste.add(m);
-                    stkliste.add(m);
-                }
-            }
-        }
+        spærCalc(order);
 
-
-
-
-
-        //Sort på længde, længst først.
-        double rest = order.getCarport().getLength();
-        remCalc(rest,materialList,stkliste);
 
 
 
     }
-    public List<Material> remCalc (double rest, List<Material> materialList, List<Material> stkListe){
 
-            for (int i = 0; i < materialList.size(); i++) {
-                if (materialList.get(i).getLength() < rest) {
-                    stkListe.add(materialList.get(i));
-                    rest =- materialList.get(i).getLength();
-                    remCalc(rest,materialList,stkListe);
+    public void spærCalc(Order order) throws UserException {
+        //Beregn spær
+        double rest = 0;
+        List<Material> spærList = getMaterialByCategoryId(3);
+        for (Material m : spærList) {
+            if (m.getLength() < order.getCarport().getWidth()) {
+                continue;
+            } else {
+                rest = m.getLength() - order.getCarport().getWidth();
+                m.setLength(m.getLength() - rest);
 
-                } else {
-                    i++;
-
+                int counter = (int) (order.getCarport().getLength() / 55);
+                for (int i = 0; i < counter; i++) {
+                    stkliste.add(m);
                 }
             }
-            return stkListe;
         }
 
+    }
 
-        //Beregn antal spær + længde
+    public void remCalc(Order order) throws UserException {
+        List<Material> remList = getMaterialByCategoryId(2);
+        double rest = 0;
 
-        //Beregn antal stolper
+        for (Material m : remList) {
+            if (m.getLength() < order.getCarport().getLength()) {
+                continue;
+            } else {
+                rest = m.getLength() - order.getCarport().getLength();
+                m.setLength(m.getLength() - rest);
+                if (order.getCarport().getWidth() > 500) {
+                    for (int i = 0; i < 3; i++) {
+                        stkliste.add(m);
+                        stolpeCalc(order);
+                    }
+                } else {
+                    for (int i = 0; i < 2; i++) {
+                        stkliste.add(m);
+                        stolpeCalc(order);
+                    }
+                }
+            }
+        }
+    }
 
+    public void stolpeCalc(Order order) throws UserException {
 
+        //Beregn stolper pr rem
+        List<Material> stolpeList = getMaterialByCategoryId(4);
 
-        //Beregn antal beklædning til skur
+        if (order.getShed() == null) {
 
-        //
+            double counter = Math.ceil(order.getCarport().getLength() - 90 / 300);
+            counter =+ 2;
+            for (int i = 0; i < counter; i++) {
+                stkliste.add(stolpeList.get(0));
+            }
 
-
+        }
+    }
 }
+
+
+
+
+
