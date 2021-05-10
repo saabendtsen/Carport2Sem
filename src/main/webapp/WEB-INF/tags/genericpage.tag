@@ -42,7 +42,7 @@
         <c:if test="${sessionScope.role == 'customer' }">
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/navigatetoindex">Bestil Carport</a>
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/customerpage">Min side</a>
-            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showmyorders">Orders</a>
+            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showmyorders">Mine Ordre</a>
         </c:if>
 
 

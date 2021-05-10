@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `carport` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `carport`;
 -- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: carport
@@ -22,7 +24,7 @@
 
 LOCK TABLES `material` WRITE;
 /*!40000 ALTER TABLE `material` DISABLE KEYS */;
-INSERT INTO `material` VALUES (1,'Høvlet Mahogni',300,300,1000),(2,'Plastik - Sort',300,300,1000),(3,'Tagsten - Sort',300,300,1000),(4,'Tagsten - Rødt',300,300,1000),(5,'TEST',300,300,1000),(6,'TEST',300,300,1000),(7,'TEST',300,300,1000),(8,'TEST',300,300,1000);
+INSERT INTO `material` VALUES (1,'Høvlet Mahogni',300,200,NULL,5000),(2,'Plastik - Sort',350,250,NULL,250),(3,'Tagsten - Sort',120,120,NULL,250),(4,'Tagsten - Rødt',240,240,NULL,450);
 /*!40000 ALTER TABLE `material` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -42,9 +44,10 @@ UNLOCK TABLES;
 
 LOCK TABLES `material_has_material_category` WRITE;
 /*!40000 ALTER TABLE `material_has_material_category` DISABLE KEYS */;
-INSERT INTO `material_has_material_category` VALUES (1,1),(2,1),(3,1),(4,1),(5,2),(6,2),(7,2),(8,2);
+INSERT INTO `material_has_material_category` VALUES (1,1),(2,1),(3,2),(4,2);
 /*!40000 ALTER TABLE `material_has_material_category` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 --
 -- Dumping data for table `user`
@@ -52,7 +55,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','1','employee'),(2,'user','1','customer');
+INSERT INTO `user` VALUES (1,'user','1','customer'),(2,'admin','1','employee'),(3,'user1','1','customer'),(4,'user2','1','customer'),(5,'user3','1','customer'),(6,'user4','1','customer'),(7,'user5','1','customer');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -65,4 +68,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-07 12:21:35
+-- Dump completed on 2021-05-10 10:46:13
