@@ -13,7 +13,7 @@ import java.util.List;
 public class MaterialMapper {
 
     private final Database database;
-    private List<Material> stkliste = new ArrayList<>();
+    private final List<Material> stkliste = new ArrayList<>();
 
 
     public MaterialMapper(Database database) {
