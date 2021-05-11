@@ -5,22 +5,25 @@ public class Material {
     private final String name;
     private double length;
     private final double width;
-    private final double price;
+    private final double salesPrice;
+    private final double costPrice;
     private int quantity;
 
 
-    public Material(int material_id, String name, double length, double width, double price) {
+    public Material(int material_id, String name, double length, double width, double price, double costPrice) {
         this.material_id = material_id;
         this.name = name;
         this.length = length;
         this.width = width;
-        this.price = price;
+        this.salesPrice = price;
+        this.costPrice = costPrice;
     }
-    public Material(String name, double length, double width, double price) {
+    public Material(String name, double length, double width, double price, double costPrice) {
         this.name = name;
         this.length = length;
         this.width = width;
-        this.price = price;
+        this.salesPrice = price;
+        this.costPrice = costPrice;
     }
 
 
@@ -41,7 +44,7 @@ public class Material {
     }
 
     public double getPrice() {
-        return price;
+        return salesPrice;
     }
 
     public void setLength(double length) {
