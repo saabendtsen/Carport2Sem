@@ -27,15 +27,18 @@ public class MaterialMapper {
                 ps.setInt(1, materialCategory_id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
+                    int id = rs.getInt("material_id");
                     String name = rs.getString("name");
                     double length = rs.getDouble("length");
                     double width = rs.getDouble("width");
+
 
                     //todo nye colonnenavne
                     double salesPrice = rs.getDouble("price");
                     double costPrice = rs.getDouble("price");
 
                     materials.add(new Material(name, length, width, salesPrice, costPrice));
+
                 }
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
