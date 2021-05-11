@@ -6,6 +6,7 @@ public class Material {
     private double length;
     private final double width;
     private final double price;
+    private int quantity;
 
 
     public Material(int material_id, String name, double length, double width, double price) {
@@ -45,5 +46,13 @@ public class Material {
 
     public void setLength(double length) {
         this.length = length;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

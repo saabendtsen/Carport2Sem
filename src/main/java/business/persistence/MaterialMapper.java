@@ -57,21 +57,19 @@ public class MaterialMapper {
         beklædningCalc(order);
 
 
-
     }
 
 
-    public void beklædningCalc (Order order) {
+    public void beklædningCalc(Order order) {
 
         //2cm overlap på hver side af beklædning
-        int counter = (int) ((order.getShed().getClothing().getWidth()-4) / order.getShed().getLength());
-        counter += (int) ((order.getShed().getClothing().getLength()-4) / order.getShed().getLength());
+        int counter = (int) Math.ceil(order.getShed().getLength() / (order.getShed().getClothing().getWidth() - 4));
+        counter += (int) Math.ceil(order.getShed().getWidth() / (order.getShed().getClothing().getWidth() - 4));
 
         counter *= 2;
 
-        for (int i = 0; i < counter; i++) {
-            stkliste.add(order.getShed().getClothing());
-        }
+        order.getShed().getClothing().setQuantity(counter);
+        stkliste.add(order.getShed().getClothing());
 
     }
 
@@ -85,11 +83,10 @@ public class MaterialMapper {
             } else {
                 rest = m.getLength() - order.getCarport().getWidth();
                 m.setLength(m.getLength() - rest);
-
                 int counter = (int) ((order.getCarport().getLength() - m.getWidth()) / 55);
-                for (int i = 0; i < counter; i++) {
-                    stkliste.add(m);
-                }
+                m.setQuantity(counter);
+                stkliste.add(m);
+
             }
         }
 
@@ -106,43 +103,44 @@ public class MaterialMapper {
                 rest = m.getLength() - order.getCarport().getLength();
                 m.setLength(m.getLength() - rest);
                 if (order.getCarport().getWidth() > 500) {
-                    for (int i = 0; i < 3; i++) {
-                        stkliste.add(m);
-                        stolpeCalc(order);
-                    }
+                    m.setQuantity(3);
+                    stkliste.add(m);
+                    stolpeCalc(order,3);
+
                 } else {
-                    for (int i = 0; i < 2; i++) {
-                        stkliste.add(m);
-                        stolpeCalc(order);
-                    }
+                    m.setQuantity(2);
+                    stkliste.add(m);
+                    stolpeCalc(order,2);
+
                 }
             }
         }
     }
 
-    public void stolpeCalc(Order order) throws UserException {
-        int counter=0;
+    public void stolpeCalc(Order order, int remCount) throws UserException {
+        int counter = 0;
         //Beregn stolper pr rem
         List<Material> stolpeList = getMaterialByCategoryId(4);
 
         if (order.getShed() == null) {
             counter += 2;
-            if(order.getCarport().getLength() - 90 >= 600){
+            if (order.getCarport().getLength() - 90 >= 600) {
                 counter += 2;
-            } else if (order.getCarport().getLength() - 90 >= 300){
+            } else if (order.getCarport().getLength() - 90 >= 300) {
                 counter += 1;
             }
 
         } else {
             //There is a shed
             counter += 3;
-            if((order.getCarport().getLength() - 45 - order.getShed().getLength()) > 300){
+            if ((order.getCarport().getLength() - 45 - order.getShed().getLength()) > 300) {
                 counter += 1;
             }
         }
-        for (int i = 0; i < counter; i++) {
+            counter *= remCount;
+            stolpeList.get(0).setQuantity(counter);
             stkliste.add(stolpeList.get(0));
-        }
+
     }
 
 }
