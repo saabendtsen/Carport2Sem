@@ -31,12 +31,22 @@ public class MakeOrderCommand extends CommandProtectedPage {
             request.setAttribute("shedWidth",shedWidth);
 
 
+            // TODO: 11-05-2021 mangler at bruge dem, de henter material_id btw!!
+            int carportRoof = Integer.parseInt(request.getParameter("carportRoof"));
+            request.setAttribute("carportRoof",carportRoof);
+
+            int shedRoof = Integer.parseInt(request.getParameter("shedRoof"));
+            request.setAttribute("shedRoof",shedRoof);
+
+
             double totalLength = carportLength-shedLength;
             double totalwidth = carportWidth-shedWidth;
 
             if (totalLength < 30 || totalwidth < 30 ) {
                 request.setAttribute("error", "Redskabsrums er større end carporten, vælg en mindre størrelse");
-                return "index";
+
+                Command command = new NavigateToIndexCommand("index", "customer");
+                return command.execute(request,response);
             }
 
 
@@ -45,8 +55,11 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
 
             orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
+
+
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Du mangler at udfylde nogle felter!");
+
             Command command = new NavigateToIndexCommand("index", "customer");
             return command.execute(request,response);
         }
