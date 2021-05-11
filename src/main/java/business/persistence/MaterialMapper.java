@@ -2,12 +2,10 @@ package business.persistence;
 
 import business.entities.Material;
 import business.entities.Order;
-import business.entities.User;
 import business.exceptions.UserException;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MaterialMapper {
@@ -33,9 +31,14 @@ public class MaterialMapper {
                     String name = rs.getString("name");
                     double length = rs.getDouble("length");
                     double width = rs.getDouble("width");
-                    double price = rs.getDouble("price");
 
-                    materials.add(new Material(id, name, length, width, price));
+
+                    //todo nye colonnenavne
+                    double salesPrice = rs.getDouble("price");
+                    double costPrice = rs.getDouble("price");
+
+                    materials.add(new Material(name, length, width, salesPrice, costPrice));
+
                 }
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
