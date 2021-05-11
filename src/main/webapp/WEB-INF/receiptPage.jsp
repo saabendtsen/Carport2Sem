@@ -27,6 +27,20 @@
                 Beklædning: ${requestScope.shedRoof}<br>
             </c:if>
 
+            <br>
+
+            <h4>Styk liste: </h4>
+            <c:forEach items="${requestScope.stkList}" var="mats" >
+                Materiale navn: ${mats.name} id:${mats.material_id}<br>
+                Længde: ${mats.length}<br>
+                Bredde: ${mats.width}<br>
+                Pris/stk: ${mats.price}<br>
+                Antal: ${mats.quantity}<br>
+                <br>
+            </c:forEach>
+
+
+
         </div>
     </jsp:body>
 

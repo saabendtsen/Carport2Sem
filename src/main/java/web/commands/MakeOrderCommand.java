@@ -62,9 +62,9 @@ public class MakeOrderCommand extends CommandProtectedPage {
             orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
 
             //Todo skal slette, kun brugt til test
-//            List<Order> order = orderFacade.getOrderByUserId(user_id);
-//            List<Material> stkList = materialFacade.calcMaterialList(order.get(order.size()-1));
-//            request.setAttribute("stkList",stkList);
+            List<Order> order = orderFacade.getOrderByUserId(user_id);
+            List<Material> stkList = materialFacade.calcMaterialList(order.get(order.size()-1));
+            request.setAttribute("stkList",stkList);
 
 
         } catch (NumberFormatException e) {
