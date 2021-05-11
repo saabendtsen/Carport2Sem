@@ -1,6 +1,7 @@
 package business.services;
 
 import business.entities.Material;
+import business.entities.Order;
 import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.MaterialMapper;
@@ -18,6 +19,10 @@ public class MaterialFacade {
 
     public List<Material> getMaterialByCategoryId(int materialCategory_id) throws UserException {
        return materialMapper.getMaterialByCategoryId(materialCategory_id);
+    }
+
+    public List<Material> calcMaterialList(Order order) throws UserException{
+        return materialMapper.calcMaterialList(order);
     }
 
 }

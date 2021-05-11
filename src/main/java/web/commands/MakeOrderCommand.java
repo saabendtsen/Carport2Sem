@@ -1,18 +1,24 @@
 package web.commands;
 
+import business.entities.Material;
+import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
+import business.services.MaterialFacade;
 import business.services.OrderFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class MakeOrderCommand extends CommandProtectedPage {
     private final OrderFacade orderFacade;
+    private MaterialFacade materialFacade;
 
     public MakeOrderCommand(String pageToShow, String role) {
         super(pageToShow, role);
         this.orderFacade = new OrderFacade(database);
+        this.materialFacade = new MaterialFacade(database);
     }
 
     @Override
@@ -43,13 +49,21 @@ public class MakeOrderCommand extends CommandProtectedPage {
             User user = (User) request.getSession().getAttribute("user");
             int user_id = user.getUser_id();
 
-
             orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
+
+            //Todo skal slette, kun brugt til test
+            List<Order> order = orderFacade.getOrderByUserId(user_id);
+            List<Material> stkList = materialFacade.calcMaterialList(order.get(order.size()));
+            request.setAttribute("stkList",stkList);
+
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Du mangler at udfylde nogle felter!");
             Command command = new NavigateToIndexCommand("index", "customer");
             return command.execute(request,response);
         }
+
+
+
 
 
         return pageToShow;
