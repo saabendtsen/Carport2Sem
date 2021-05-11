@@ -7,6 +7,9 @@ public class Shed {
     private double total;
     private double length;
     private double width;
+    private Material clothing;
+
+    //TODO: Set cloting fra bestilling
 
     public Shed(int shed_id, int order_id, double total, double length, double width) {
         this.shed_id = shed_id;
@@ -34,5 +37,13 @@ public class Shed {
 
     public double getWidth() {
         return width;
+    }
+
+    public Material getClothing() {
+        return clothing;
+    }
+
+    public void setClothing(Material clothing) {
+        this.clothing = clothing;
     }
 }
