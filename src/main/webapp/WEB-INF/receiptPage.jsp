@@ -27,20 +27,6 @@
                 Beklædning: ${requestScope.shedRoof}<br>
             </c:if>
 
-
-            <c:forEach items="${requestScope.stkList}" var="mats" >
-                ${mats.name}<br>
-                ${mats.length}<br>
-                ${mats.width}<br>
-                ${mats.price}<br>
-                ${mats.quantity}<br>
-
-
-
-            </c:forEach>
-
-
-
         </div>
     </jsp:body>
 

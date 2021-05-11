@@ -54,7 +54,7 @@ public class MaterialMapper {
         //Beregn rem længde
         remCalc(order);
         spærCalc(order);
-        beklædningCalc(order);
+        //beklædningCalc(order);
 
         return stkliste;
 
@@ -95,7 +95,7 @@ public class MaterialMapper {
     }
 
     public void remCalc(Order order) throws UserException {
-        List<Material> remList = getMaterialByCategoryId(2);
+        List<Material> remList = getMaterialByCategoryId(4);
         double rest = 0;
 
         for (Material m : remList) {
@@ -122,7 +122,7 @@ public class MaterialMapper {
     public void stolpeCalc(Order order, int remCount) throws UserException {
         int counter = 0;
         //Beregn stolper pr rem
-        List<Material> stolpeList = getMaterialByCategoryId(4);
+        List<Material> stolpeList = getMaterialByCategoryId(5);
 
         if (order.getShed() == null) {
             counter += 2;
