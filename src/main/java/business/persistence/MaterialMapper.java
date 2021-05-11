@@ -47,7 +47,7 @@ public class MaterialMapper {
     }
 
 
-    public void calcMaterialList(Order order) throws UserException {
+    public List<Material> calcMaterialList(Order order) throws UserException {
 
         stkliste.clear();
 
@@ -55,6 +55,8 @@ public class MaterialMapper {
         remCalc(order);
         spærCalc(order);
         beklædningCalc(order);
+
+        return stkliste;
 
 
     }
