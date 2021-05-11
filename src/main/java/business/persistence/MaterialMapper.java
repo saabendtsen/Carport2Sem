@@ -89,7 +89,7 @@ public class MaterialMapper {
                 int counter = (int) ((order.getCarport().getLength() - m.getWidth()) / 55);
                 m.setQuantity(counter);
                 stkliste.add(m);
-
+                break;
             }
         }
 
@@ -109,12 +109,12 @@ public class MaterialMapper {
                     m.setQuantity(3);
                     stkliste.add(m);
                     stolpeCalc(order,3);
-
+                    break;
                 } else {
                     m.setQuantity(2);
                     stkliste.add(m);
                     stolpeCalc(order,2);
-
+                    break;
                 }
             }
         }

@@ -36,7 +36,7 @@ public class OrderMapper {
         }
     }
 
-    public void createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth) throws UserException {
+    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO `order` (user_id) VALUES (?)";
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -53,7 +53,7 @@ public class OrderMapper {
                 if (shedLength != 0 && shedWidth != 0) {
                     insertIntoShed(shedLength, shedWidth, id);
                 }
-
+                return id;
 
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
@@ -82,11 +82,48 @@ public class OrderMapper {
         }
     }
 
+    public Order getOrderByOrderId(int order_id) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM carport.carport\n" +
+                    "LEFT OUTER JOIN carport.shed\n" +
+                    "ON carport.order_id = shed.order_id JOIN `order` o on o.order_id = carport.order_id WHERE o.order_id = ?";
+            Order newOrder = null;
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, order_id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int user_id = rs.getInt("user_id");
+                    Timestamp orderdate = rs.getTimestamp("orderdate");
+                    boolean order_state = rs.getBoolean("order_state");
+                    int shed_id = rs.getInt("shed_id");
+                    double s_total = rs.getDouble("shed.total");
+                    double s_length = rs.getDouble("shed.length");
+                    double s_width = rs.getDouble("shed.width");
+                    int carport_id = rs.getInt("carport_id");
+                    double c_total = rs.getDouble("carport.total");
+                    double c_length = rs.getDouble("carport.length");
+                    double c_width = rs.getDouble("carport.width");
+
+                   newOrder = new Order(order_id, user_id,orderdate, order_state, new Carport(carport_id, order_id, c_total, c_length, c_width), new Shed(shed_id, order_id, s_total, s_length, s_width));
+
+                }
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+            return newOrder;
+
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
+
     public List<Order> getOrderByUserId(int user_id) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "select `order`.order_id, `order`.order_state , `order`.orderdate, s.shed_id, s.total, s.length, s.width, c.carport_id, c.total, c.length, c.width from `order`\n" +
-                    "join carport c on `order`.order_id = c.order_id\n" +
-                    "join shed s on `order`.order_id = s.order_id where `order`.user_id = ?";
+            String sql = "SELECT * FROM carport.carport LEFT OUTER JOIN carport.shed\n" +
+                    "ON carport.order_id = shed.order_id JOIN `order` o on o.order_id = carport.order_id WHERE user_id = ?";
 
             List<Order> orderList = new ArrayList<>();
 
@@ -94,17 +131,17 @@ public class OrderMapper {
                 ps.setInt(1, user_id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    int order_id = rs.getInt("order_id");
+                    int order_id = rs.getInt("o.order_id");
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
-                    int shed_id = rs.getInt("s.shed_id");
-                    double s_total = rs.getDouble("s.total");
-                    double s_length = rs.getDouble("s.length");
-                    double s_width = rs.getDouble("s.width");
-                    int carport_id = rs.getInt("c.carport_id");
-                    double c_total = rs.getDouble("c.total");
-                    double c_length = rs.getDouble("c.length");
-                    double c_width = rs.getDouble("c.width");
+                    int shed_id = rs.getInt("shed_id");
+                    double s_total = rs.getDouble("shed.total");
+                    double s_length = rs.getDouble("shed.length");
+                    double s_width = rs.getDouble("shed.width");
+                    int carport_id = rs.getInt("carport_id");
+                    double c_total = rs.getDouble("carport.total");
+                    double c_length = rs.getDouble("carport.length");
+                    double c_width = rs.getDouble("carport.width");
 
                     orderList.add(new Order(order_id, user_id,orderdate, order_state, new Carport(carport_id, order_id, c_total, c_length, c_width), new Shed(shed_id, order_id, s_total, s_length, s_width)));
 

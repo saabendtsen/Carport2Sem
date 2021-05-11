@@ -18,8 +18,8 @@ public class OrderFacade {
     }
 
 
-    public void createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth) throws UserException{
-        orderMapper.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
+    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth) throws UserException{
+        return orderMapper.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
     }
 
     public List<Order> getOrderByUserId(int user_id) throws UserException {
@@ -28,6 +28,10 @@ public class OrderFacade {
 
     public int updateOrder(int order_id) throws UserException {
         return orderMapper.updateOrder(order_id);
+    }
+
+    public Order getOrderByOrderId(int order_id) throws UserException {
+        return orderMapper.getOrderByOrderId(order_id);
     }
 
 }

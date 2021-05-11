@@ -66,7 +66,7 @@
                     </c:forEach>
                 </select><br>
                 <h6 class="font-weight-bold">Redskabsskur Sidebeklædning</h6>
-                <select class="form-select" name="shedRoof" id="shedRoof" aria-label="Default select example">
+                <select class="form-select" name="shedClothing" id="shedClothing" aria-label="Default select example">
                     <option selected value="0">Vælg Sidebeklædning:</option>
                     <c:forEach var="order" items="${requestScope.shedClothingList}" >
                         <option value="${order.material_id}">${order.name}</option>

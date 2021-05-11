@@ -41,8 +41,8 @@ public class MakeOrderCommand extends CommandProtectedPage {
             int carportRoof = Integer.parseInt(request.getParameter("carportRoof"));
             request.setAttribute("carportRoof",carportRoof);
 
-            int shedRoof = Integer.parseInt(request.getParameter("shedRoof"));
-            request.setAttribute("shedRoof",shedRoof);
+            int shedClothing = Integer.parseInt(request.getParameter("shedClothing"));
+            request.setAttribute("shedClothing",shedClothing);
 
 
             double totalLength = carportLength-shedLength;
@@ -59,11 +59,10 @@ public class MakeOrderCommand extends CommandProtectedPage {
             User user = (User) request.getSession().getAttribute("user");
             int user_id = user.getUser_id();
 
-            orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
+            int orderid = orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
 
-            //Todo skal slette, kun brugt til test
-            List<Order> order = orderFacade.getOrderByUserId(user_id);
-            List<Material> stkList = materialFacade.calcMaterialList(order.get(order.size()-1));
+
+            List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid));
             request.setAttribute("stkList",stkList);
 
 
