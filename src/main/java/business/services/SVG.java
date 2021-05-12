@@ -18,6 +18,8 @@ public class SVG {
             " preserveAspectRatio=\"xMinYMin\">";
 
     private final String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #ffffff\" />";
+    private final String line = "<line x1=\"%d\" y2=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000;  />";
+    private final String dashArray = "<line x1=\"%d\" y2=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000 stroke-dasharray=\"4 1\" /> />";
 
     public SVG(int x, int y, String viewBox, int width, int height) {
         this.x = x;
@@ -32,7 +34,21 @@ public class SVG {
         svg.append(String.format(rectTemplate, x, y, height, width));
     }
 
-    public void addLine(int x1, int y1, int x2, int y2) {
+    public void addLine(int x1,int y1,int x2, int y2,boolean dasharray){
+        if(dasharray == true){
+            svg.append(String.format(dashArray,x1,y1,x2,y2));
+        } else {
+            svg.append(String.format(line,x1,y1,x2,y2));
+        }
+    }
+
+    //todo: lave Arrow template
+    public void addArrow(){
+
+    }
+
+    //todo: lave Text template
+    public void addText(){
 
     }
 
