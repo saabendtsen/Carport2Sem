@@ -99,6 +99,8 @@ public class MaterialMapper {
         order.setStkListe(stkliste);
         //todo: insert stkliste i database på ordre
 
+        insertMaterialIntoCarport(order);
+
         return stkliste;
 
 
