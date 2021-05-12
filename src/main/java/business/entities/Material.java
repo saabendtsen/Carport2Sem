@@ -23,14 +23,6 @@ public class Material {
         this.costPrice = costPrice;
         this.category = category;
     }
-    public Material(String name, double length, double width, double price, double costPrice, int category) {
-        this.name = name;
-        this.length = length;
-        this.width = width;
-        this.salesPrice = price;
-        this.costPrice = costPrice;
-        this.category = category;
-    }
 
     public double getHeight() {
         return height;
