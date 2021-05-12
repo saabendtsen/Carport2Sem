@@ -26,6 +26,9 @@
             Standardbyggevejledning medfølger ved bestilling.</p>
             <h6 class="font-weight-bold">Udfyld nedenstående omhyggeligt og klik på "Bestil tilbud"</h6>
 
+            //TODO: TEST FOR regning, skal slettet igen
+            <p>En tegning</p>
+            ${requestScope.svgdrawing}
 
             <form id="form" method="post" action="${pageContext.request.contextPath}/fc/orderPage">
                 <h6 class="font-weight-bold">Carport bredde</h6>

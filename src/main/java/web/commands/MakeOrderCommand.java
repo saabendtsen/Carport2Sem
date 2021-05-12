@@ -66,9 +66,10 @@ public class MakeOrderCommand extends CommandProtectedPage {
             List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid));
 
             SvgMapper svgMapper = new SvgMapper();
-            String svg = svgMapper.drawCarport(stkList);
 
-            request.setAttribute("svgdrawing",svg);
+            //TODO: Kun til test, disse skal ud.
+            //String svg = svgMapper.drawCarport(stkList);
+            //request.setAttribute("svgdrawing",svg);
 
             request.setAttribute("stkList",stkList);
 

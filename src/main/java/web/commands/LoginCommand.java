@@ -2,6 +2,7 @@ package web.commands;
 
 import business.entities.User;
 import business.exceptions.UserException;
+import business.persistence.SvgMapper;
 import business.services.UserFacade;
 import web.FrontController;
 
@@ -34,6 +35,11 @@ public class LoginCommand extends CommandUnprotectedPage {
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());
             session.setAttribute("email", email);
+
+            //TODO: FUCK VIRK MAND
+            SvgMapper svgMapper = new SvgMapper();
+            String svg = svgMapper.drawCarport();
+            session.setAttribute("svgdrawing",svg);
 
             if(user.getRole().equals("employee")) {
                 return "employeepage";
