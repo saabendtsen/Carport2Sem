@@ -39,4 +39,8 @@ public class OrderFacade {
         return orderMapper.getOrderByOrderId(order_id, carportRoof_materialID, shedClothing_materialID);
     }
 
+    public void insertIntoOrderHasMaterial(Order order) throws UserException {
+        orderMapper.insertIntoOrderHasMaterial(order);
+    }
+
 }

@@ -3,6 +3,7 @@ package business.persistence;
 import business.entities.Material;
 import business.entities.Order;
 import business.exceptions.UserException;
+import business.services.OrderFacade;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,12 +13,10 @@ public class MaterialMapper {
 
     private final Database database;
     private final List<Material> stkliste = new ArrayList<>();
-    private final OrderMapper orderMapper;
 
 
     public MaterialMapper(Database database) {
         this.database = database;
-        this.orderMapper = new OrderMapper(database);
     }
 
 
@@ -88,6 +87,7 @@ public class MaterialMapper {
 
 
     public List<Material> calcMaterialList(Order order) throws UserException {
+        OrderFacade of = new OrderFacade(database);
 
 
         stkliste.clear();
@@ -103,7 +103,7 @@ public class MaterialMapper {
         order.setStkListe(stkliste);
         //todo: insert stkliste i database på ordre
 
-        orderMapper.insertIntoOrderHasMaterial(order);
+        of.insertIntoOrderHasMaterial(order);
 
         return stkliste;
 

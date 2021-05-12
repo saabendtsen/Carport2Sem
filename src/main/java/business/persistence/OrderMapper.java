@@ -14,11 +14,8 @@ import java.util.List;
 public class OrderMapper {
 
     private final Database database;
-    private final MaterialMapper materialMapper;
     public OrderMapper(Database database) {
         this.database = database;
-        this.materialMapper = new MaterialMapper(database);
-
 
     }
 
@@ -155,6 +152,7 @@ public class OrderMapper {
                     newOrder = new Order(order_id, user_id, orderdate, order_state,
                             new Carport(carport_id, order_id, c_total, c_length, c_width, mf.getMaterialByMaterialId(carportRoof_materialID)),
                             new Shed(shed_id, order_id, s_total, s_length, s_width, selectFromShedHasMaterial(shed_id)));
+
                     newOrder.setStkListe(selectFromCarportHasMaterial(carport_id));
                 }
 
@@ -248,17 +246,19 @@ public class OrderMapper {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `carport_has_material_list` WHERE carport_id=?";
             List<Material> stkListe = null;
+            MaterialFacade mf = new MaterialFacade(database);
+
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1,carport_id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
 
                     int material_id = rs.getInt("material_id");
-                    Material material = materialMapper.getMaterialByMaterialId(material_id);
+                    Material material = mf.getMaterialByMaterialId(material_id);
                     int quantity = (int) rs.getFloat("quantity");
                     material.setQuantity(quantity);
                     stkListe.add(material);
-
                 }
 
             } catch (SQLException ex) {
@@ -274,14 +274,15 @@ public class OrderMapper {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `shed_has_material_list` WHERE shed_id=?";
             Material clothing = null;
-
+            MaterialFacade mf = new MaterialFacade(database);
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1,shed_id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
 
                     int material_id = rs.getInt("material_id");
-                    clothing = materialMapper.getMaterialByMaterialId(material_id);
+                    clothing = mf.getMaterialByMaterialId(material_id);
                     int quantity = (int) rs.getFloat("quantity");
                     clothing.setQuantity(quantity);
 
