@@ -35,7 +35,6 @@ public class ShowCustomersForEmployeeCommand extends CommandProtectedPage {
                 return "showcustomerorderpage";
             }
 
-
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Du mangler at vælge noget!");
         }

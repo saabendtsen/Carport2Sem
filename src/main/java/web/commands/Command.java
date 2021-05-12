@@ -32,6 +32,9 @@ public abstract class Command {
         commands.put("showmyorders", new ShowOrdersCommand("showmyorderspage", "customer"));
         commands.put("showcustomers", new ShowCustomersForEmployeeCommand("showcustomerslisting", "employee"));
         commands.put("showcustomersorders", new ShowCustomersForEmployeeCommand("showcustomerorderpage", "employee"));
+
+        commands.put("showactiveorders", new ShowActiveOrdersForEmployeeCommand("showallactiveorderpage", "employee"));
+
         commands.put("changeinfo", new CommandProtectedPage("changeuserdata", "customer"));
     }
 

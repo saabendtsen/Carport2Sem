@@ -202,6 +202,43 @@ public class OrderMapper {
         }
     }
 
+    public List<Order> getAllOrdersByState() throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM carport.carport LEFT OUTER JOIN carport.shed\n" +
+                    "ON carport.order_id = shed.order_id JOIN `order` o on o.order_id = carport.order_id WHERE order_state = 0";
+
+            List<Order> orderList = new ArrayList<>();
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int user_id = rs.getInt("user_id");
+                    int order_id = rs.getInt("o.order_id");
+                    Timestamp orderdate = rs.getTimestamp("orderdate");
+                    boolean order_state = rs.getBoolean("order_state");
+                    int shed_id = rs.getInt("shed_id");
+                    double s_total = rs.getDouble("shed.total");
+                    double s_length = rs.getDouble("shed.length");
+                    double s_width = rs.getDouble("shed.width");
+                    int carport_id = rs.getInt("carport_id");
+                    double c_total = rs.getDouble("carport.total");
+                    double c_length = rs.getDouble("carport.length");
+                    double c_width = rs.getDouble("carport.width");
+
+                    orderList.add(new Order(order_id, user_id, orderdate, order_state,
+                            new Carport(carport_id, order_id, c_total, c_length, c_width),
+                            new Shed(shed_id, order_id, s_total, s_length, s_width)));
+
+                }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+            return orderList;
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
     public int updateOrder(int order_id) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "UPDATE `order` SET order_state = 1 WHERE order_id = ?";
