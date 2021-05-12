@@ -93,16 +93,13 @@ public class MaterialMapper {
         remCalc(order);
         spærCalc(order);
         beklædningCalc(order);
-
         carportroofCalc(order);
-
         order.setStkListe(stkliste);
         //todo: insert stkliste i database på ordre
 
         insertMaterialIntoCarport(order);
 
         return stkliste;
-
 
 
     }
