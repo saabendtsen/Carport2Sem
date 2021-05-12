@@ -12,10 +12,12 @@ public class MaterialMapper {
 
     private final Database database;
     private final List<Material> stkliste = new ArrayList<>();
+    private final OrderMapper orderMapper;
 
 
     public MaterialMapper(Database database) {
         this.database = database;
+        this.orderMapper = new OrderMapper(database);
     }
 
 
@@ -87,15 +89,21 @@ public class MaterialMapper {
 
     public List<Material> calcMaterialList(Order order) throws UserException {
 
+
         stkliste.clear();
 
         //Beregn rem længde
         remCalc(order);
         spærCalc(order);
-        beklædningCalc(order);
+        if (order.getShed().getClothing() != null){
+            beklædningCalc(order);
+        }
+
         carportroofCalc(order);
         order.setStkListe(stkliste);
         //todo: insert stkliste i database på ordre
+
+        orderMapper.insertIntoOrderHasMaterial(order);
 
         return stkliste;
 

@@ -35,7 +35,7 @@ public class SVG {
     }
 
     public void addLine(int x1,int y1,int x2, int y2,boolean dasharray){
-        if(dasharray == true){
+        if(dasharray){
             svg.append(String.format(dashArray,x1,y1,x2,y2));
         } else {
             svg.append(String.format(line,x1,y1,x2,y2));
