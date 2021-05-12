@@ -30,7 +30,11 @@ public class ShowOrdersCommand extends CommandProtectedPage {
         String updateOrder = request.getParameter("updateOrder");
         if (updateOrder != null){
             int order_id = Integer.parseInt(updateOrder);
-            orderFacade.updateOrder(order_id);
+            if (orderFacade.updateOrder(order_id) > 0){
+                request.setAttribute("error", "Ordrens status er nu opdateret!");
+            } else {
+                request.setAttribute("error", "Der skete en fejl under status ændringen");
+            }
             Command command = new ShowCustomersForEmployeeCommand("showcustomerorderpage", "employee");
             return command.execute(request,response);
         }

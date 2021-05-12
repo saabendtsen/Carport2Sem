@@ -31,6 +31,15 @@ public class OrderFacade {
         return orderMapper.updateOrder(order_id);
     }
 
+    public int updateCarportHasMaterial(int carport_id, int material_id, int quantity) throws UserException {
+        return orderMapper.updateCarportHasMaterial(carport_id, material_id, quantity);
+    }
+
+    public int updateShedHasMaterial(int shed_id, int material_id, int quantity) throws UserException {
+        return orderMapper.updateShedHasMaterial(shed_id, material_id, quantity);
+    }
+
+
     public Order getOrderByOrderId(int order_id, int carportRoof_materialID, int shedClothing_materialID) throws UserException {
         return orderMapper.getOrderByOrderId(order_id, carportRoof_materialID, shedClothing_materialID);
     }

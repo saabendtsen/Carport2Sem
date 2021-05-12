@@ -1,7 +1,6 @@
 package business.persistence;
 
 import business.entities.Carport;
-import business.entities.Material;
 import business.entities.Order;
 import business.entities.Shed;
 import business.exceptions.UserException;
@@ -18,6 +17,34 @@ public class OrderMapper {
     public OrderMapper(Database database) {
         this.database = database;
 
+    }
+
+
+    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth, int carportRoof_materialID, int shedClothing_materialID) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "INSERT INTO `order` (user_id) VALUES (?)";
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setInt(1, user_id);
+                ps.executeUpdate();
+
+                ResultSet order_id = ps.getGeneratedKeys();
+                order_id.next();
+                int id = order_id.getInt(1);
+
+                insertIntoCarport(carportLength, carportWidth, id, carportRoof_materialID);
+
+                //check if the value of shed is 0, if so dont add a shed to the order
+                if (shedLength != 0 && shedWidth != 0) {
+                    insertIntoShed(shedLength, shedWidth, id, shedClothing_materialID);
+                }
+                return id;
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
     }
 
 
@@ -54,31 +81,6 @@ public class OrderMapper {
                 ps.setInt(2, carportRoof_materialID);
                 ps.setFloat(3, 0);
                 ps.executeUpdate();
-            }
-        } catch (SQLException ex) {
-            throw new UserException(ex.getMessage());
-        }
-
-    }
-
-    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth, int carportRoof_materialID, int shedClothing_materialID) throws UserException {
-        try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO `order` (user_id) VALUES (?)";
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setInt(1, user_id);
-                ps.executeUpdate();
-
-                ResultSet order_id = ps.getGeneratedKeys();
-                order_id.next();
-                int id = order_id.getInt(1);
-
-                insertIntoCarport(carportLength, carportWidth, id, carportRoof_materialID);
-
-                //check if the value of shed is 0, if so dont add a shed to the order
-                if (shedLength != 0 && shedWidth != 0) {
-                    insertIntoShed(shedLength, shedWidth, id, shedClothing_materialID);
-                }
-                return id;
 
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
@@ -87,6 +89,26 @@ public class OrderMapper {
             throw new UserException(ex.getMessage());
         }
     }
+
+    public int updateCarportHasMaterial(int carport_id, int material_id, int quantity) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE carport_has_material_list SET quantity = ? WHERE carport_id = ? AND material_id = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1, quantity);
+                ps.setInt(2, carport_id);
+                ps.setInt(3, material_id);
+
+                return ps.executeUpdate();
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
 
     public void insertIntoShed(double shedLength, double shedWidth, int order_id, int shedClothing_materialID) throws UserException {
         try (Connection connection = database.connect()) {
@@ -121,9 +143,31 @@ public class OrderMapper {
                 ps.setInt(2, shedClothing);
                 ps.setFloat(3, 0);
                 ps.executeUpdate();
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
             }
         } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
+        }
+    }
+
+    public int updateShedHasMaterial(int shed_id, int material_id, int quantity) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE shed_has_material_list SET quantity = ? WHERE shed_id = ? AND material_id = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1, quantity);
+                ps.setInt(2, shed_id);
+                ps.setInt(3, material_id);
+
+                return ps.executeUpdate();
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
         }
     }
 
@@ -153,8 +197,8 @@ public class OrderMapper {
                     double c_width = rs.getDouble("carport.width");
 
                     newOrder = new Order(order_id, user_id, orderdate, order_state,
-                               new Carport(carport_id, order_id, c_total, c_length, c_width, mf.getMaterialByMaterialId(carportRoof_materialID)),
-                               new Shed(shed_id, order_id, s_total, s_length, s_width, mf.getMaterialByMaterialId(shedClothing_materialID)));
+                            new Carport(carport_id, order_id, c_total, c_length, c_width, mf.getMaterialByMaterialId(carportRoof_materialID)),
+                            new Shed(shed_id, order_id, s_total, s_length, s_width, mf.getMaterialByMaterialId(shedClothing_materialID)));
                 }
 
             } catch (SQLException ex) {
@@ -169,7 +213,6 @@ public class OrderMapper {
 
     public List<Order> getOrderByUserId(int user_id) throws UserException {
         try (Connection connection = database.connect()) {
-            MaterialFacade mf = new MaterialFacade(database);
             String sql = "SELECT * FROM carport.carport LEFT OUTER JOIN carport.shed\n" +
                     "ON carport.order_id = shed.order_id JOIN `order` o on o.order_id = carport.order_id WHERE user_id = ?";
 
@@ -192,8 +235,8 @@ public class OrderMapper {
                     double c_width = rs.getDouble("carport.width");
 
                     orderList.add(new Order(order_id, user_id, orderdate, order_state,
-                                  new Carport(carport_id, order_id, c_total, c_length, c_width),
-                                  new Shed(shed_id, order_id, s_total, s_length, s_width)));
+                            new Carport(carport_id, order_id, c_total, c_length, c_width),
+                            new Shed(shed_id, order_id, s_total, s_length, s_width)));
 
                 }
             } catch (SQLException ex) {

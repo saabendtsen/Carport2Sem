@@ -92,12 +92,12 @@ public class MaterialMapper {
         //Beregn rem længde
         remCalc(order);
         spærCalc(order);
-        //beklædningCalc(order);
+        beklædningCalc(order);
 
         order.setStkListe(stkliste);
         //todo: insert stkliste i database på ordre
-        return stkliste;
 
+        return stkliste;
 
     }
 
