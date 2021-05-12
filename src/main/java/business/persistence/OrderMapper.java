@@ -52,17 +52,11 @@ public class OrderMapper {
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO `carport` (order_id, length, width) VALUES (?, ?, ?)";
 
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, order_id);
                 ps.setDouble(2, carportLength);
                 ps.setDouble(3, carportWidth);
                 ps.executeUpdate();
-
-                ResultSet id = ps.getGeneratedKeys();
-                id.next();
-                int carport_id = id.getInt(1);
-
-                insertIntoCarportHasMaterial(carport_id, carportRoof_materialID);
 
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
@@ -80,12 +74,9 @@ public class OrderMapper {
                 for (Material m : order.getStkListe()) {
                     //Check if Shed clothing
                     if (m.getCategory() == 1) {
-                        updateShedHasMaterial(order.getShed().getShed_id(),m.getMaterial_id(),m.getQuantity());
+                        insertIntoShedHasMaterial(order.getShed().getShed_id(), m.getMaterial_id(), m.getQuantity());
 
-                        //check if carport roof
-                    } else if(m.getCategory() == 2) {
-                        updateCarportHasMaterial(order.getCarport().getCarport_id(),m.getMaterial_id(),m.getQuantity());
-                    } else{
+                    } else {
 
                         ps.setInt(1, order.getCarport().getCarport_id());
                         ps.setInt(2, m.getMaterial_id());
@@ -102,24 +93,6 @@ public class OrderMapper {
         }
     }
 
-
-    public void insertIntoCarportHasMaterial(int carport_id, int carportRoof_materialID) throws UserException {
-        try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO `carport_has_material_list` (carport_id,material_id,quantity) VALUES (?, ?, ?)";
-
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1, carport_id);
-                ps.setInt(2, carportRoof_materialID);
-                ps.setFloat(3, 0);
-                ps.executeUpdate();
-
-            } catch (SQLException ex) {
-                throw new UserException(ex.getMessage());
-            }
-        } catch (SQLException ex) {
-            throw new UserException(ex.getMessage());
-        }
-    }
 
     public int updateCarportHasMaterial(int carport_id, int material_id, int quantity) throws UserException {
         try (Connection connection = database.connect()) {
@@ -151,12 +124,6 @@ public class OrderMapper {
                 ps.setDouble(3, shedWidth);
                 ps.executeUpdate();
 
-                ResultSet id = ps.getGeneratedKeys();
-                id.next();
-                int shed_id = id.getInt(1);
-
-                insertIntoShedHasMaterial(shed_id, shedClothing_materialID);
-
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
@@ -165,14 +132,14 @@ public class OrderMapper {
         }
     }
 
-    public void insertIntoShedHasMaterial(int shed_id, int shedClothing) throws UserException {
+    public void insertIntoShedHasMaterial(int shed_id, int material_id, int quantity) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO `shed_has_material_list` (shed_id,material_id,quantity) VALUES (?, ?, ?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, shed_id);
-                ps.setInt(2, shedClothing);
-                ps.setFloat(3, 0);
+                ps.setInt(2, material_id);
+                ps.setFloat(3, quantity);
                 ps.executeUpdate();
 
             } catch (SQLException ex) {
