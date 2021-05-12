@@ -4,6 +4,7 @@ import business.entities.Material;
 import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
+import business.persistence.SvgMapper;
 import business.services.MaterialFacade;
 import business.services.OrderFacade;
 
@@ -41,6 +42,7 @@ public class MakeOrderCommand extends CommandProtectedPage {
             int carportRoof = Integer.parseInt(request.getParameter("carportRoof"));
             request.setAttribute("carportRoof",carportRoof);
 
+
             int shedClothing = Integer.parseInt(request.getParameter("shedClothing"));
             request.setAttribute("shedClothing",shedClothing);
 
@@ -59,11 +61,18 @@ public class MakeOrderCommand extends CommandProtectedPage {
             User user = (User) request.getSession().getAttribute("user");
             int user_id = user.getUser_id();
 
-            int orderid = orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
+            int orderid = orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth, shedClothing);
 
 
             List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid));
+
+//            SvgMapper svgMapper = new SvgMapper();
+//            String svg = svgMapper.drawCarport(stkList);
+
+//            request.setAttribute("svgdrawing",svg);
+
             request.setAttribute("stkList",stkList);
+
 
 
         } catch (NumberFormatException e) {

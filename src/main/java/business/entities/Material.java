@@ -1,5 +1,6 @@
 package business.entities;
 
+
 public class Material {
     private int material_id;
     private final String name;
@@ -8,22 +9,25 @@ public class Material {
     private final double salesPrice;
     private final double costPrice;
     private int quantity;
+    private int category;
 
 
-    public Material(int material_id, String name, double length, double width, double price, double costPrice) {
+    public Material(int material_id, String name, double length, double width, double price, double costPrice, int category) {
         this.material_id = material_id;
         this.name = name;
         this.length = length;
         this.width = width;
         this.salesPrice = price;
         this.costPrice = costPrice;
+        this.category = category;
     }
-    public Material(String name, double length, double width, double price, double costPrice) {
+    public Material(String name, double length, double width, double price, double costPrice, int category) {
         this.name = name;
         this.length = length;
         this.width = width;
         this.salesPrice = price;
         this.costPrice = costPrice;
+        this.category = category;
     }
 
 
@@ -57,5 +61,9 @@ public class Material {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getCategory() {
+        return category;
     }
 }

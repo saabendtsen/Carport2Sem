@@ -1,6 +1,7 @@
 package business.entities;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Order {
 
@@ -10,6 +11,7 @@ public class Order {
     private boolean order_state;
     Carport carport;
     Shed shed;
+    List<Material> stkListe;
 
     public Order(int order_id, int user_id, Timestamp orderDate, boolean order_state, Carport carport, Shed shed) {
         this.order_id = order_id;
@@ -42,5 +44,13 @@ public class Order {
 
     public Shed getShed() {
         return shed;
+    }
+
+    public List<Material> getStkListe() {
+        return stkListe;
+    }
+
+    public void setStkListe(List<Material> stkListe) {
+        this.stkListe = stkListe;
     }
 }

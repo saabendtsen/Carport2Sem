@@ -27,6 +27,23 @@
                 Beklædning: ${requestScope.shedClothing}<br>
             </c:if>
 
+            <br>
+
+            <p>Tegning af Carport</p>
+            ${requestScope.svgdrawing}
+
+            <h4>Styk liste: </h4>
+            <c:forEach items="${requestScope.stkList}" var="mats" >
+                Materiale navn: ${mats.name} id:${mats.material_id}<br>
+                Længde: ${mats.length}<br>
+                Bredde: ${mats.width}<br>
+                Pris/stk: ${mats.price}<br>
+                Antal: ${mats.quantity}<br>
+                <br>
+            </c:forEach>
+
+
+
 
         </div>
     </jsp:body>
