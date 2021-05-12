@@ -9,10 +9,9 @@ public class Order {
     private int user_id;
     private Timestamp orderDate;
     private boolean order_state;
-    Carport carport;
-    Shed shed;
-
-
+    private Carport carport;
+    private Shed shed;
+    private double costprice;
     List<Material> stkListe;
 
     public Order(int order_id, int user_id, Timestamp orderDate, boolean order_state, Carport carport, Shed shed) {
@@ -54,5 +53,12 @@ public class Order {
 
     public void setStkListe(List<Material> stkListe) {
         this.stkListe = stkListe;
+    }
+
+    public double getCostprice() {
+        for (Material m : this.stkListe) {
+            costprice += m.getCostPrice() * m.getQuantity();
+        }
+        return costprice;
     }
 }

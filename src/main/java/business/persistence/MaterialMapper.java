@@ -94,11 +94,27 @@ public class MaterialMapper {
         spærCalc(order);
         beklædningCalc(order);
 
+        carportroofCalc(order);
+
         order.setStkListe(stkliste);
         //todo: insert stkliste i database på ordre
 
         return stkliste;
 
+
+
+    }
+
+
+    public void carportroofCalc(Order order) {
+
+        //2cm overlap på hver side af tagpap
+
+        //count length roof
+        int counter = (int) Math.ceil(order.getCarport().getLength() / (order.getCarport().getRoof().getLength())-4);
+        counter += (int) Math.ceil(order.getCarport().getWidth() / (order.getCarport().getRoof().getWidth())-4);
+        order.getCarport().getRoof().setQuantity(counter);
+        stkliste.add(order.getCarport().getRoof());
     }
 
 
