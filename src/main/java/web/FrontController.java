@@ -2,6 +2,7 @@ package web;
 
 import business.exceptions.UserException;
 import business.persistence.Database;
+import business.persistence.SvgMapper;
 import web.commands.Command;
 import web.commands.CommandUnknown;
 
@@ -34,6 +35,12 @@ public class FrontController extends HttpServlet {
             }
         }
         // Initialize whatever global datastructures needed here:
+
+        //TODO: SHIT NOT WORKING, TEGN NOGET PÅ INDEX FOR HELVEDE
+        SvgMapper svgMapper = new SvgMapper();
+        svgMapper.drawCarport();
+
+
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
