@@ -1,6 +1,5 @@
 package business.entities;
 
-import jdk.jfr.Category;
 
 public class Material {
     private int material_id;

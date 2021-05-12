@@ -61,13 +61,53 @@ public class MaterialMapper {
         //beklædningCalc(order);
 
         order.setStkListe(stkliste);
-
+        carportHasMaterial_list(order);
         //todo: insert stkliste i database på ordre
         return stkliste;
 
 
     }
 
+    public void carportHasMaterial_list(Order order) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "INSERT INTO `carport_has_material_list` (carport_id,material_id,quantity) VALUES (?, ?, ?)";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                    for (Material m : order.getStkListe()) {
+                        if(m.getCategory() == 1){
+                            insertIntoShedHasMaterial(order, m);
+                        }else {
+                            ps.setInt(1, order.getCarport().getCarport_id());
+                            ps.setInt(2, m.getMaterial_id());
+                            ps.setFloat(3, m.getQuantity());
+                            ps.executeUpdate();
+                        }
+                }
+            }
+        } catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
+
+    }
+
+    public void insertIntoShedHasMaterial(Order order, Material i) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "INSERT INTO `shed_has_material_list` (shed_id,material_id,quantity) VALUES (?, ?, ?)";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                        ps.setInt(1, order.getShed().getShed_id());
+                        ps.setInt(2, shedClothing);
+                        ps.setFloat(3, i.getQuantity());
+                        ps.executeUpdate();
+
+
+            }
+        } catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
+    }
 
     public void beklædningCalc(Order order) {
 
@@ -114,12 +154,12 @@ public class MaterialMapper {
                 if (order.getCarport().getWidth() > 500) {
                     m.setQuantity(3);
                     stkliste.add(m);
-                    stolpeCalc(order,3);
+                    stolpeCalc(order, 3);
                     break;
                 } else {
                     m.setQuantity(2);
                     stkliste.add(m);
-                    stolpeCalc(order,2);
+                    stolpeCalc(order, 2);
                     break;
                 }
             }
@@ -146,9 +186,9 @@ public class MaterialMapper {
                 counter += 1;
             }
         }
-            counter *= remCount;
-            stolpeList.get(0).setQuantity(counter);
-            stkliste.add(stolpeList.get(0));
+        counter *= remCount;
+        stolpeList.get(0).setQuantity(counter);
+        stkliste.add(stolpeList.get(0));
 
     }
 

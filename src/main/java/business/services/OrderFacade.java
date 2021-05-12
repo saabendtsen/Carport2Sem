@@ -1,5 +1,6 @@
 package business.services;
 
+import business.entities.Material;
 import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
@@ -18,8 +19,8 @@ public class OrderFacade {
     }
 
 
-    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth) throws UserException{
-        return orderMapper.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
+    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth, int shedClothing) throws UserException{
+        return orderMapper.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth, shedClothing);
     }
 
     public List<Order> getOrderByUserId(int user_id) throws UserException {
