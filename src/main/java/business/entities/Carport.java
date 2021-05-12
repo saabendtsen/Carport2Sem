@@ -7,13 +7,26 @@ public class Carport {
     private double total;
     private double length;
     private double width;
+    private Material roof;
 
+    public Carport(int carport_id, int order_id, double total, double length, double width, Material roof) {
+        this.carport_id = carport_id;
+        this.order_id = order_id;
+        this.total = total;
+        this.length = length;
+        this.width = width;
+        this.roof = roof;
+    }
     public Carport(int carport_id, int order_id, double total, double length, double width) {
         this.carport_id = carport_id;
         this.order_id = order_id;
         this.total = total;
         this.length = length;
         this.width = width;
+    }
+
+    public Material getRoof() {
+        return roof;
     }
 
     public int getCarport_id() {

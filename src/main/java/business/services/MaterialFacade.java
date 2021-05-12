@@ -25,4 +25,8 @@ public class MaterialFacade {
         return materialMapper.calcMaterialList(order);
     }
 
+    public Material getMaterialByMaterialId(int material_id) throws UserException {
+        return materialMapper.getMaterialByMaterialId(material_id);
+    }
+
 }

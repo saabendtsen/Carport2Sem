@@ -6,17 +6,19 @@ public class Material {
     private final String name;
     private double length;
     private final double width;
+    private double height;
     private final double salesPrice;
     private final double costPrice;
     private int quantity;
-    private int category;
+    private final int category;
 
 
-    public Material(int material_id, String name, double length, double width, double price, double costPrice, int category) {
+    public Material(int material_id, String name, double length, double width, double height, double price, double costPrice, int category) {
         this.material_id = material_id;
         this.name = name;
         this.length = length;
         this.width = width;
+        this.height = height;
         this.salesPrice = price;
         this.costPrice = costPrice;
         this.category = category;
@@ -30,6 +32,21 @@ public class Material {
         this.category = category;
     }
 
+    public double getHeight() {
+        return height;
+    }
+
+    public double getSalesPrice() {
+        return salesPrice;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getCostPrice() {
+        return costPrice;
+    }
 
     public int getMaterial_id() {
         return material_id;

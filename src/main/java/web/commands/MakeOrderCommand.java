@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MakeOrderCommand extends CommandProtectedPage {
     private final OrderFacade orderFacade;
-    private MaterialFacade materialFacade;
+    private final MaterialFacade materialFacade;
 
     public MakeOrderCommand(String pageToShow, String role) {
         super(pageToShow, role);
@@ -37,14 +37,11 @@ public class MakeOrderCommand extends CommandProtectedPage {
             double shedWidth = Double.parseDouble(request.getParameter("shedWidth"));
             request.setAttribute("shedWidth",shedWidth);
 
+            int carportRoof_materialID = Integer.parseInt(request.getParameter("carportRoof"));
+            request.setAttribute("carportRoof_materialID",materialFacade.getMaterialByMaterialId(carportRoof_materialID));
 
-            // TODO: 11-05-2021 mangler at bruge dem, de henter material_id btw!!
-            int carportRoof = Integer.parseInt(request.getParameter("carportRoof"));
-            request.setAttribute("carportRoof",carportRoof);
-
-
-            int shedClothing = Integer.parseInt(request.getParameter("shedClothing"));
-            request.setAttribute("shedClothing",shedClothing);
+            int shedClothing_materialID = Integer.parseInt(request.getParameter("shedClothing"));
+            request.setAttribute("shedClothing_materialID",materialFacade.getMaterialByMaterialId(shedClothing_materialID));
 
 
             double totalLength = carportLength-shedLength;
@@ -61,10 +58,10 @@ public class MakeOrderCommand extends CommandProtectedPage {
             User user = (User) request.getSession().getAttribute("user");
             int user_id = user.getUser_id();
 
-            int orderid = orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth, shedClothing);
+            int orderid = orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth, carportRoof_materialID, shedClothing_materialID);
 
 
-            List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid));
+            List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid, carportRoof_materialID, shedClothing_materialID));
 
             SvgMapper svgMapper = new SvgMapper();
             //TODO: Kun til test, disse skal ud.

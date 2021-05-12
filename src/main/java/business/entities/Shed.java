@@ -11,6 +11,15 @@ public class Shed {
 
     //TODO: Set cloting fra bestilling
 
+    public Shed(int shed_id, int order_id, double total, double length, double width, Material clothing) {
+        this.shed_id = shed_id;
+        this.order_id = order_id;
+        this.total = total;
+        this.length = length;
+        this.width = width;
+        this.clothing = clothing;
+    }
+
     public Shed(int shed_id, int order_id, double total, double length, double width) {
         this.shed_id = shed_id;
         this.order_id = order_id;
@@ -18,6 +27,8 @@ public class Shed {
         this.length = length;
         this.width = width;
     }
+
+
 
     public int getShed_id() {
         return shed_id;

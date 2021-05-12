@@ -19,11 +19,11 @@ public class OrderFacade {
     }
 
 
-    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth, int shedClothing) throws UserException{
-        return orderMapper.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth, shedClothing);
+    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth, int carportRoof_materialID, int shedClothing_materialID) throws UserException {
+        return orderMapper.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth, carportRoof_materialID, shedClothing_materialID);
     }
 
-    public List<Order> getOrderByUserId(int user_id) throws UserException {
+        public List<Order> getOrderByUserId(int user_id) throws UserException {
         return orderMapper.getOrderByUserId(user_id);
     }
 
@@ -31,8 +31,8 @@ public class OrderFacade {
         return orderMapper.updateOrder(order_id);
     }
 
-    public Order getOrderByOrderId(int order_id) throws UserException {
-        return orderMapper.getOrderByOrderId(order_id);
+    public Order getOrderByOrderId(int order_id, int carportRoof_materialID, int shedClothing_materialID) throws UserException {
+        return orderMapper.getOrderByOrderId(order_id, carportRoof_materialID, shedClothing_materialID);
     }
 
 }

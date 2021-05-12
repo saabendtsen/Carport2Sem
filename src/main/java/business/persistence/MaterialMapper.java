@@ -31,19 +31,53 @@ public class MaterialMapper {
                     String name = rs.getString("name");
                     double length = rs.getDouble("length");
                     double width = rs.getDouble("width");
+                    double height = rs.getDouble("height");
 
 
                     //todo nye colonnenavne
                     double salesPrice = rs.getDouble("price");
                     double costPrice = rs.getDouble("price");
 
-                    materials.add(new Material(id,name, length, width, salesPrice, costPrice,materialCategory_id));
+                    materials.add(new Material(id,name, length, width, height, salesPrice, costPrice,materialCategory_id));
 
                 }
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
             return materials;
+
+        } catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
+    }
+
+    public Material getMaterialByMaterialId(int material_id) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM material\n" +
+                    "JOIN material_has_material_category mh ON material.material_id = mh.material_id\n" +
+                    "WHERE material.material_id=?";
+            Material newMaterial = null;
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, material_id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+
+                    String name = rs.getString("name");
+                    double length = rs.getDouble("length");
+                    double width = rs.getDouble("width");
+                    double height = rs.getDouble("height");
+                    //todo nye colonnenavne
+                    double salesPrice = rs.getDouble("price");
+                    double costPrice = rs.getDouble("price");
+                    int materialCategory_id = rs.getInt("material_category_id");
+
+                    newMaterial = new Material(material_id,name, length, width, height, salesPrice, costPrice,materialCategory_id);
+
+                }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+            return newMaterial;
 
         } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
@@ -61,53 +95,12 @@ public class MaterialMapper {
         //beklædningCalc(order);
 
         order.setStkListe(stkliste);
-        carportHasMaterial_list(order);
         //todo: insert stkliste i database på ordre
         return stkliste;
 
 
     }
 
-    public void carportHasMaterial_list(Order order) throws UserException {
-        try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO `carport_has_material_list` (carport_id,material_id,quantity) VALUES (?, ?, ?)";
-
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-
-                    for (Material m : order.getStkListe()) {
-                        if(m.getCategory() == 1){
-                            insertIntoShedHasMaterial(order, m);
-                        }else {
-                            ps.setInt(1, order.getCarport().getCarport_id());
-                            ps.setInt(2, m.getMaterial_id());
-                            ps.setFloat(3, m.getQuantity());
-                            ps.executeUpdate();
-                        }
-                }
-            }
-        } catch (SQLException ex) {
-            throw new UserException(ex.getMessage());
-        }
-
-    }
-
-    public void insertIntoShedHasMaterial(Order order, Material i) throws UserException {
-        try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO `shed_has_material_list` (shed_id,material_id,quantity) VALUES (?, ?, ?)";
-
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-
-                        ps.setInt(1, order.getShed().getShed_id());
-                      //  ps.setInt(2, shedClothing);
-                        ps.setFloat(3, i.getQuantity());
-                        ps.executeUpdate();
-
-
-            }
-        } catch (SQLException ex) {
-            throw new UserException(ex.getMessage());
-        }
-    }
 
     public void beklædningCalc(Order order) {
 

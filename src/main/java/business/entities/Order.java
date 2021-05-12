@@ -11,6 +11,8 @@ public class Order {
     private boolean order_state;
     Carport carport;
     Shed shed;
+
+
     List<Material> stkListe;
 
     public Order(int order_id, int user_id, Timestamp orderDate, boolean order_state, Carport carport, Shed shed) {
