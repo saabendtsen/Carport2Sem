@@ -17,28 +17,15 @@
             <h6>Carport i målende</h6>
             Brede: ${requestScope.carportWidth}<br>
             længde: ${requestScope.carportLength}<br>
-            Tag til carport ${requestScope.carportRoof}<br><br>
+            Tag: ${requestScope.carportRoof}<br>
 
             <c:if test="${requestScope.shedLength != 0}">
                 <h3>Tilvalgt:</h3>
                 <h6>Redskabsskur i målende</h6>
-                Brede ${requestScope.shedWidth}<br>
+                Bredde ${requestScope.shedWidth}<br>
                 Længde: ${requestScope.shedLength}<br>
-                Beklædning: ${requestScope.shedRoof}<br>
+                Beklædning: ${requestScope.shedClothing}<br>
             </c:if>
-
-            <br>
-
-            <h4>Styk liste: </h4>
-            <c:forEach items="${requestScope.stkList}" var="mats" >
-                Materiale navn: ${mats.name} id:${mats.material_id}<br>
-                Længde: ${mats.length}<br>
-                Bredde: ${mats.width}<br>
-                Pris/stk: ${mats.price}<br>
-                Antal: ${mats.quantity}<br>
-                <br>
-            </c:forEach>
-
 
 
         </div>

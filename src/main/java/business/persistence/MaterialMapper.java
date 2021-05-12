@@ -37,7 +37,7 @@ public class MaterialMapper {
                     double salesPrice = rs.getDouble("price");
                     double costPrice = rs.getDouble("price");
 
-                    materials.add(new Material(name, length, width, salesPrice, costPrice));
+                    materials.add(new Material(id ,name, length, width, salesPrice, costPrice));
 
                 }
             } catch (SQLException ex) {
