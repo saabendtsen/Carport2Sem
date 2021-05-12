@@ -73,16 +73,40 @@ public class MaterialMapper {
             String sql = "INSERT INTO `carport_has_material_list` (carport_id,material_id,quantity) VALUES (?, ?, ?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1, order.getCarport().getCarport_id());
-                ps.setDouble(2, order.);
-                ps.setDouble(3, order.);
-                ps.executeUpdate();
 
+                    for (Material m : order.getStkListe()) {
+                        if(m.getCategory() == 1){
+                            insertIntoShedHasMaterial(order, m);
+                        }else {
+                            ps.setInt(1, order.getCarport().getCarport_id());
+                            ps.setInt(2, m.getMaterial_id());
+                            ps.setFloat(3, m.getQuantity());
+                            ps.executeUpdate();
+                        }
+                }
             }
         } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
         }
 
+    }
+
+    public void insertIntoShedHasMaterial(Order order, Material i) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "INSERT INTO `shed_has_material_list` (shed_id,material_id,quantity) VALUES (?, ?, ?)";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                        ps.setInt(1, order.getShed().getShed_id());
+                        ps.setInt(2, shedClothing);
+                        ps.setFloat(3, i.getQuantity());
+                        ps.executeUpdate();
+
+
+            }
+        } catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
     }
 
     public void beklædningCalc(Order order) {
