@@ -46,6 +46,32 @@ public class OrderMapper {
         }
     }
 
+    public void insertIntoOrderHasMaterial(Order order) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "INSERT INTO `carport_has_material_list` (carport_id,material_id,quantity) VALUES (?, ?, ?)";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                for (Material m : order.getStkListe()) {
+                    //Check if Shed clothing
+                    if (m.getCategory() == 1) {
+                        insertIntoShedHasMaterial(order.getShed().getShed_id(),m.getMaterial_id(),m.getQuantity());
+
+                    } else {
+                        ps.setInt(1, order.getCarport().getCarport_id());
+                        ps.setInt(2, m.getMaterial_id());
+                        ps.setFloat(3, m.getQuantity());
+                        ps.executeUpdate();
+                    }
+                }
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
+    }
+
     public void insertIntoCarport(double carportLength, double carportWidth, int order_id) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO `carport` (order_id, length, width) VALUES (?, ?, ?)";
@@ -73,34 +99,6 @@ public class OrderMapper {
                 ps.setDouble(2, shedLength);
                 ps.setDouble(3, shedWidth);
                 ps.executeUpdate();
-
-            } catch (SQLException ex) {
-                throw new UserException(ex.getMessage());
-            }
-        } catch (SQLException ex) {
-            throw new UserException(ex.getMessage());
-        }
-    }
-
-    public void insertIntoOrderHasMaterial(Order order) throws UserException {
-        try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO `carport_has_material_list` (carport_id,material_id,quantity) VALUES (?, ?, ?)";
-
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                for (Material m : order.getStkListe()) {
-                    //Check if Shed clothing
-                    if (m.getCategory() == 1) {
-                        updateShedHasMaterial(order.getShed().getShed_id(),m.getMaterial_id(),m.getQuantity());
-                        //check if carport roof
-                    } else if(m.getCategory() == 2) {
-                        updateCarportHasMaterial(order.getCarport().getCarport_id(),m.getMaterial_id(),m.getQuantity());
-                    } else {
-                        ps.setInt(1, order.getCarport().getCarport_id());
-                        ps.setInt(2, m.getMaterial_id());
-                        ps.setFloat(3, m.getQuantity());
-                        ps.executeUpdate();
-                    }
-                }
 
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
