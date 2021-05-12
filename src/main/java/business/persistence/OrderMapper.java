@@ -81,7 +81,6 @@ public class OrderMapper {
                     //Check if Shed clothing
                     if (m.getCategory() == 1) {
                         updateShedHasMaterial(order.getShed().getShed_id(),m.getMaterial_id(),m.getQuantity());
-
                         //check if carport roof
                     } else if(m.getCategory() == 2) {
                         updateCarportHasMaterial(order.getCarport().getCarport_id(),m.getMaterial_id(),m.getQuantity());
