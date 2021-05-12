@@ -90,10 +90,11 @@ public class OrderMapper {
                 for (Material m : order.getStkListe()) {
                     //Check if Shed clothing
                     if (m.getCategory() == 1) {
-                        insertIntoShedHasMaterial(order.getShed().getShed_id(), m.getMaterial_id(), m.getQuantity());
-
+                        updateShedHasMaterial(order.getShed().getShed_id(),m.getMaterial_id(),m.getQuantity());
+                        //check if carport roof
+                    } else if(m.getCategory() == 2) {
+                        updateCarportHasMaterial(order.getCarport().getCarport_id(),m.getMaterial_id(),m.getQuantity());
                     } else {
-
                         ps.setInt(1, order.getCarport().getCarport_id());
                         ps.setInt(2, m.getMaterial_id());
                         ps.setFloat(3, m.getQuantity());
