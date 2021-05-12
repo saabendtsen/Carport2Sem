@@ -60,6 +60,9 @@ public class MaterialMapper {
         spærCalc(order);
         //beklædningCalc(order);
 
+        order.setStkListe(stkliste);
+
+        //todo: insert stkliste i database på ordre
         return stkliste;
 
 

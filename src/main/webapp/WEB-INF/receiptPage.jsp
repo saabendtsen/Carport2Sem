@@ -29,6 +29,9 @@
 
             <br>
 
+            <p>Tegning af Carport</p>
+            ${requestScope.svgdrawing}
+
             <h4>Styk liste: </h4>
             <c:forEach items="${requestScope.stkList}" var="mats" >
                 Materiale navn: ${mats.name} id:${mats.material_id}<br>

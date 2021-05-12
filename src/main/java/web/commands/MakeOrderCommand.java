@@ -4,6 +4,7 @@ import business.entities.Material;
 import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
+import business.persistence.SvgMapper;
 import business.services.MaterialFacade;
 import business.services.OrderFacade;
 
@@ -64,6 +65,7 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid));
             request.setAttribute("stkList",stkList);
+
 
 
         } catch (NumberFormatException e) {
