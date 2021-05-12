@@ -1,6 +1,7 @@
 package business.persistence;
 
 import business.entities.Carport;
+import business.entities.Material;
 import business.entities.Order;
 import business.entities.Shed;
 import business.exceptions.UserException;
@@ -30,7 +31,6 @@ public class OrderMapper {
                 ResultSet order_id = ps.getGeneratedKeys();
                 order_id.next();
                 int id = order_id.getInt(1);
-
                 insertIntoCarport(carportLength, carportWidth, id, carportRoof_materialID);
 
                 //check if the value of shed is 0, if so dont add a shed to the order
@@ -71,6 +71,37 @@ public class OrderMapper {
             throw new UserException(ex.getMessage());
         }
     }
+
+    public void insertIntoOrderHasMaterial(Order order) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "INSERT INTO `carport_has_material_list` (carport_id,material_id,quantity) VALUES (?, ?, ?)";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                for (Material m : order.getStkListe()) {
+                    //Check if Shed clothing
+                    if (m.getCategory() == 1) {
+                        updateShedHasMaterial(order.getShed().getShed_id(),m.getMaterial_id(),m.getQuantity());
+
+                        //check if carport roof
+                    } else if(m.getCategory() == 2) {
+                        updateCarportHasMaterial(order.getCarport().getCarport_id(),m.getMaterial_id(),m.getQuantity());
+                    } else{
+
+                        ps.setInt(1, order.getCarport().getCarport_id());
+                        ps.setInt(2, m.getMaterial_id());
+                        ps.setFloat(3, m.getQuantity());
+                        ps.executeUpdate();
+                    }
+                }
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException(ex.getMessage());
+        }
+    }
+
 
     public void insertIntoCarportHasMaterial(int carport_id, int carportRoof_materialID) throws UserException {
         try (Connection connection = database.connect()) {
