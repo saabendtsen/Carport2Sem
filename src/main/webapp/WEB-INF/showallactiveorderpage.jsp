@@ -41,7 +41,7 @@
                                     <th>
                                         <c:if test="${!order.order_state}">
                                         <form action="${pageContext.request.contextPath}/fc/showorderdetails" method="post">
-                                            <button onclick="" class="btn btn-outline-success edition" type="submit" name="showorderdetails" value="${order.order_id}">Færdiggør ordre</button>
+                                            <button onclick="" class="btn btn-outline-success edition" type="submit" name="showorderdetails" value="${order.order_id}">Se denne ordre</button>
                                         </form>
                                         </c:if>
                                     </th>

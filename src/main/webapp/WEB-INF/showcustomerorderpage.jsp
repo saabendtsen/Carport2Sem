@@ -52,13 +52,13 @@
                                     <th>Carport længde</th>
                                     <th>Carport bredde</th>
                                     <th>Redskabsskur længde</th>
-                                    <th>Redskabsskur bredde</th>
+                                    <th colspan="2">Redskabsskur bredde</th>
                                 </tr>
                                 <tr>
                                     <td>${order.carport.length}0 cm</td>
                                     <td>${order.carport.width}0 cm</td>
                                     <td>${order.shed.length}0 cm</td>
-                                    <td>${order.shed.width}0 cm</td>
+                                    <td colspan="2">${order.shed.width}0 cm</td>
                                 </tr>
                             </table>
                         </c:if>
