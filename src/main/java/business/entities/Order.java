@@ -15,13 +15,14 @@ public class Order {
     private double saleprice;
     List<Material> stkListe;
 
-    public Order(int order_id, int user_id, Timestamp orderDate, boolean order_state, Carport carport, Shed shed) {
+    public Order(int order_id, int user_id, Timestamp orderDate, boolean order_state, double costprice, Carport carport, Shed shed) {
         this.order_id = order_id;
         this.user_id = user_id;
         this.orderDate = orderDate;
         this.order_state = order_state;
         this.carport = carport;
         this.shed = shed;
+        this.costprice = costprice;
     }
 
     public int getOrder_id() {
