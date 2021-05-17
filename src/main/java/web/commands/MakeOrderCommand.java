@@ -61,7 +61,7 @@ public class MakeOrderCommand extends CommandProtectedPage {
             int orderid = orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
 
 
-            List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid, carportRoof_materialID, shedClothing_materialID));
+            //List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid, carportRoof_materialID, shedClothing_materialID));
 
             SvgMapper svgMapper = new SvgMapper();
             //TODO: Kun til test, disse skal ud.
@@ -72,7 +72,7 @@ public class MakeOrderCommand extends CommandProtectedPage {
 //            request.setAttribute("svgdrawing",svg);
 
 
-            request.setAttribute("stkList",stkList);
+           // request.setAttribute("stkList",stkList);
 
 
 

@@ -12,6 +12,7 @@ public class Order {
     private Carport carport;
     private Shed shed;
     private double costprice;
+    private double saleprice;
     List<Material> stkListe;
 
     public Order(int order_id, int user_id, Timestamp orderDate, boolean order_state, Carport carport, Shed shed) {
@@ -60,5 +61,13 @@ public class Order {
             costprice += m.getCostPrice() * m.getQuantity();
         }
         return costprice;
+    }
+
+    public double getSaleprice() {
+        return saleprice;
+    }
+
+    public void setSaleprice(double saleprice) {
+        this.saleprice = saleprice;
     }
 }
