@@ -76,7 +76,7 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
 
 
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             request.setAttribute("error", "Du mangler at udfylde nogle felter!");
 
             Command command = new NavigateToIndexCommand("index", "customer");
