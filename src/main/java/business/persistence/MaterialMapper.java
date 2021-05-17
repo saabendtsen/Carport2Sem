@@ -37,7 +37,9 @@ public class MaterialMapper {
 
                     //todo nye colonnenavne
                     double salesPrice = rs.getDouble("price");
-                    double costPrice = rs.getDouble("price");
+
+                    //Kostpris Easymode. 30%
+                    double costPrice = salesPrice * 0.7;
 
                     materials.add(new Material(id,name, length, width, height, salesPrice, costPrice,materialCategory_id));
 
