@@ -69,7 +69,9 @@
                     </c:forEach>
                 </c:when>
                 <c:otherwise>
-                    <p>Kunden har endnu ingen Carport ordrer</p>
+                    <div class="jumbotron-fluid card-body">
+                        <h2>Der eksistere ingen aktive Carport ordrer i systemet!</h2>
+                    </div>
                 </c:otherwise>
             </c:choose>
         </c:if>

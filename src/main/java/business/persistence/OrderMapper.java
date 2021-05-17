@@ -125,7 +125,7 @@ public class OrderMapper {
         }
     }
 
-    public Order getOrderByOrderId(int order_id, int carportRoof_materialID, int shedClothing_materialID) throws UserException {
+    public Order getOrderByOrderId(int order_id, int carportRoof_materialID) throws UserException {
         try (Connection connection = database.connect()) {
             MaterialFacade mf = new MaterialFacade(database);
             String sql = "SELECT * FROM carport.carport\n" +
@@ -140,23 +140,21 @@ public class OrderMapper {
                     int user_id = rs.getInt("user_id");
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
+
                     int shed_id = rs.getInt("shed_id");
-                    double s_total = rs.getDouble("shed.total");
                     double s_length = rs.getDouble("shed.length");
                     double s_width = rs.getDouble("shed.width");
+
                     int carport_id = rs.getInt("carport_id");
-                    double c_total = rs.getDouble("carport.total");
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
                     newOrder = new Order(order_id, user_id, orderdate, order_state,
-                            new Carport(carport_id, order_id, c_total, c_length, c_width, mf.getMaterialByMaterialId(carportRoof_materialID)),
-                            new Shed(shed_id, order_id, s_total, s_length, s_width, selectFromShedHasMaterial(shed_id)));
+                               new Carport(carport_id, order_id, c_length, c_width, mf.getMaterialByMaterialId(carportRoof_materialID)),
+                               new Shed(shed_id, order_id, s_length, s_width, selectFromShedHasMaterial(shed_id)));
 
                     newOrder.setStkListe(selectFromCarportHasMaterial(carport_id));
                 }
-
-
 
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
@@ -182,18 +180,18 @@ public class OrderMapper {
                     int order_id = rs.getInt("o.order_id");
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
+
                     int shed_id = rs.getInt("shed_id");
-                    double s_total = rs.getDouble("shed.total");
                     double s_length = rs.getDouble("shed.length");
                     double s_width = rs.getDouble("shed.width");
+
                     int carport_id = rs.getInt("carport_id");
-                    double c_total = rs.getDouble("carport.total");
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
                     orderList.add(new Order(order_id, user_id, orderdate, order_state,
-                            new Carport(carport_id, order_id, c_total, c_length, c_width),
-                            new Shed(shed_id, order_id, s_total, s_length, s_width)));
+                                  new Carport(carport_id, order_id, c_length, c_width),
+                                  new Shed(shed_id, order_id, s_length, s_width)));
 
                 }
             } catch (SQLException ex) {
@@ -219,18 +217,18 @@ public class OrderMapper {
                     int order_id = rs.getInt("o.order_id");
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
+
                     int shed_id = rs.getInt("shed_id");
-                    double s_total = rs.getDouble("shed.total");
                     double s_length = rs.getDouble("shed.length");
                     double s_width = rs.getDouble("shed.width");
+
                     int carport_id = rs.getInt("carport_id");
-                    double c_total = rs.getDouble("carport.total");
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
                     orderList.add(new Order(order_id, user_id, orderdate, order_state,
-                            new Carport(carport_id, order_id, c_total, c_length, c_width),
-                            new Shed(shed_id, order_id, s_total, s_length, s_width)));
+                                  new Carport(carport_id, order_id, c_length, c_width),
+                                  new Shed(shed_id, order_id, s_length, s_width)));
 
                 }
             } catch (SQLException ex) {

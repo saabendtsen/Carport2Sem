@@ -5,7 +5,7 @@
 <t:genericpage>
 
     <jsp:attribute name="header">
-         Home
+         Bruger listen
     </jsp:attribute>
 
     <jsp:attribute name="footer">
