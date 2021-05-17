@@ -69,7 +69,9 @@ public class MakeOrderCommand extends CommandProtectedPage {
             //TODO: Kun til test, disse skal ud.
             String svg = svgMapper.drawCarport();
             request.setAttribute("svgdrawing",svg);
-
+//            SvgMapper svgMapper = new SvgMapper();
+//            String svg = svgMapper.drawCarport(stkList);
+//            request.setAttribute("svgdrawing",svg);
 
 
            // request.setAttribute("stkList",stkList);
