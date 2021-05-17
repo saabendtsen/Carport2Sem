@@ -20,8 +20,6 @@ public class OrderMapper {
     }
 
     public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth ) throws UserException {
-        
-
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO `order` (user_id) VALUES (?)";
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -37,6 +35,7 @@ public class OrderMapper {
                 if (shedLength != 0 && shedWidth != 0) {
                     insertIntoShed(shedLength, shedWidth, id);
                 }
+
                 return id;
 
             } catch (SQLException ex) {
@@ -85,6 +84,7 @@ public class OrderMapper {
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
+
         } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
         }
@@ -141,6 +141,7 @@ public class OrderMapper {
                     int user_id = rs.getInt("user_id");
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
+                    double costprice = rs.getDouble("costprice");
 
                     int shed_id = rs.getInt("shed_id");
                     double s_length = rs.getDouble("shed.length");
@@ -150,7 +151,7 @@ public class OrderMapper {
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
-                    newOrder = new Order(order_id, user_id, orderdate, order_state,
+                    newOrder = new Order(order_id, user_id, orderdate, order_state, costprice,
                                new Carport(carport_id, order_id, c_length, c_width, mf.getMaterialByMaterialId(carportRoof_materialID)),
                                new Shed(shed_id, order_id, s_length, s_width, selectFromShedHasMaterial(shed_id)));
 
@@ -181,6 +182,7 @@ public class OrderMapper {
                     int order_id = rs.getInt("o.order_id");
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
+                    double costprice = rs.getDouble("costprice");
 
                     int shed_id = rs.getInt("shed_id");
                     double s_length = rs.getDouble("shed.length");
@@ -190,7 +192,7 @@ public class OrderMapper {
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
-                    orderList.add(new Order(order_id, user_id, orderdate, order_state,
+                    orderList.add(new Order(order_id, user_id, orderdate, order_state, costprice,
                                   new Carport(carport_id, order_id, c_length, c_width),
                                   new Shed(shed_id, order_id, s_length, s_width)));
 
@@ -218,6 +220,7 @@ public class OrderMapper {
                     int order_id = rs.getInt("o.order_id");
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
+                    double costprice = rs.getDouble("costprice");
 
                     int shed_id = rs.getInt("shed_id");
                     double s_length = rs.getDouble("shed.length");
@@ -227,7 +230,7 @@ public class OrderMapper {
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
-                    orderList.add(new Order(order_id, user_id, orderdate, order_state,
+                    orderList.add(new Order(order_id, user_id, orderdate, order_state, costprice,
                                   new Carport(carport_id, order_id, c_length, c_width),
                                   new Shed(shed_id, order_id, s_length, s_width)));
 

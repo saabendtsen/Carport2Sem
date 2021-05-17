@@ -60,14 +60,21 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             int orderid = orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
 
-            List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid, carportRoof_materialID));
+            Order order = orderFacade.getOrderByOrderId(orderid,carportRoof_materialID);
+
+            order.getShed().setClothing(materialFacade.getMaterialByMaterialId(shedClothing_materialID));
+
+            List<Material> stkList = materialFacade.calcMaterialList(order);
+
 
 
             SvgMapper svgMapper = new SvgMapper();
             //TODO: Kun til test, disse skal ud.
             String svg = svgMapper.drawCarport();
             request.setAttribute("svgdrawing",svg);
-
+//            SvgMapper svgMapper = new SvgMapper();
+//            String svg = svgMapper.drawCarport(stkList);
+//            request.setAttribute("svgdrawing",svg);
 
 
            // request.setAttribute("stkList",stkList);
