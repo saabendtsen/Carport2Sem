@@ -35,8 +35,8 @@ public class OrderFacade {
         return orderMapper.getAllOrdersByState();
     }
 
-    public Order getOrderByOrderId(int order_id, int carportRoof_materialID, int shedClothing_materialID) throws UserException {
-        return orderMapper.getOrderByOrderId(order_id, carportRoof_materialID, shedClothing_materialID);
+    public Order getOrderByOrderId(int order_id, int carportRoof_materialID) throws UserException {
+        return orderMapper.getOrderByOrderId(order_id, carportRoof_materialID);
     }
 
     public void insertIntoOrderHasMaterial(Order order) throws UserException {
