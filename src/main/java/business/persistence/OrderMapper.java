@@ -20,8 +20,6 @@ public class OrderMapper {
     }
 
     public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth ) throws UserException {
-        
-
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO `order` (user_id) VALUES (?)";
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -37,6 +35,7 @@ public class OrderMapper {
                 if (shedLength != 0 && shedWidth != 0) {
                     insertIntoShed(shedLength, shedWidth, id);
                 }
+
                 return id;
 
             } catch (SQLException ex) {
@@ -86,6 +85,7 @@ public class OrderMapper {
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
+
         } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
         }

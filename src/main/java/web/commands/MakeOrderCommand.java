@@ -60,6 +60,8 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             int orderid = orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
 
+            Order order = orderFacade.getOrderByOrderId(orderid,carportRoof_materialID);
+
             List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid, carportRoof_materialID));
 
 
