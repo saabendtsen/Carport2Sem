@@ -19,13 +19,14 @@
             Bredde: ${requestScope.order.carport.width}<br>
             Længde: ${requestScope.order.carport.Length}<br>
             Tag: ${requestScope.order.carport.roof.name}<br>
+            total: ${requestScope.order.costprice}<br>
 
             <c:if test="${requestScope.order.shed.shedLength != 0}">
                 <h3>Tilvalgt:</h3>
                 <h6>Redskabsskur i målene</h6>
-                Bredde ${order.}<br>
-                Længde: ${requestScope.shedLength}<br>
-                Beklædning: ${requestScope.shedClothing_materialID.name}<br>
+                Bredde ${requestScope.order.shed.width}<br>
+                Længde: ${requestScope.order.shed.length}<br>
+                Beklædning: ${requestScope.order.shed.clothing.name}<br>
             </c:if>
 
             <br>
@@ -35,10 +36,10 @@
             ${requestScope.svgdrawing}
             </c:if>
 
-            <c:if test="${requestScope.stkList != null}">
+            <c:if test="${requestScope.order.stkList != null}">
             <h4>Styk liste: </h4>
 
-            <c:forEach items="${requestScope.stkList}" var="mats" >
+            <c:forEach items="${requestScope.order.stkList}" var="mats" >
                 ${mats.name} <br>
                 Længde: ${mats.length}<br>
                 Bredde: ${mats.width}<br>
