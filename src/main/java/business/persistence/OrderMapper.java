@@ -20,6 +20,8 @@ public class OrderMapper {
     }
 
     public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth ) throws UserException {
+        
+
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO `order` (user_id) VALUES (?)";
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
