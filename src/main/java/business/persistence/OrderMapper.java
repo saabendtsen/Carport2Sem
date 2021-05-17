@@ -56,7 +56,6 @@ public class OrderMapper {
                     //Check if Shed clothing
                     if (m.getCategory() == 1) {
                         insertIntoShedHasMaterial(order.getShed().getShed_id(),m.getMaterial_id(),m.getQuantity());
-
                     } else {
                         ps.setInt(1, order.getCarport().getCarport_id());
                         ps.setInt(2, m.getMaterial_id());
