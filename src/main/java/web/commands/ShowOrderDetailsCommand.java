@@ -25,8 +25,8 @@ public class ShowOrderDetailsCommand extends CommandProtectedPage{
         int order_id = Integer.parseInt(request.getParameter("order_id"));
 
         //Skal bruge roofid?
-        Order order = of.getOrderByOrderId(order_id);
-        request.setAttribute("order",order);
+        //Order order = of.getOrderByOrderId(order_id);
+        //request.setAttribute("order",order);
 
         return pageToShow;
 

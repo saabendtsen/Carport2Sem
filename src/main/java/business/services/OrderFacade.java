@@ -43,4 +43,8 @@ public class OrderFacade {
         orderMapper.insertIntoOrderHasMaterial(order);
     }
 
+    public int updateOrderTotal(Order order) throws UserException {
+        return orderMapper.updateOrderTotal(order);
+    }
+
 }
