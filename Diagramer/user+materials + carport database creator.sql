@@ -27,7 +27,6 @@ DROP TABLE IF EXISTS `carport`;
 CREATE TABLE `carport` (
   `carport_id` int NOT NULL AUTO_INCREMENT,
   `order_id` int NOT NULL,
-  `total` double DEFAULT NULL,
   `length` double NOT NULL,
   `width` double NOT NULL,
   PRIMARY KEY (`carport_id`),
@@ -132,7 +131,7 @@ CREATE TABLE `material_has_material_category` (
 
 LOCK TABLES `material_has_material_category` WRITE;
 /*!40000 ALTER TABLE `material_has_material_category` DISABLE KEYS */;
-INSERT INTO `material_has_material_category` VALUES (1,1),(2,1),(3,2),(4,2),(5,3),(6,3),(7,3),(8,3),(9,3),(10,3),(11,3),(12,3),(14,4),(13,5),(15,4),(16,4),(17,4),(18,4),(19,4),(20,4),(21,4),(22,4),(23,4),(24,4),(25,4),(26,4),(27,4),(28,4),(29,4),(30,4),(31,4),(32,4),(33,4);
+INSERT INTO `material_has_material_category` VALUES (1,1),(2,1),(3,2),(4,2),(5,3),(6,3),(7,3),(8,3),(9,3),(10,3),(11,3),(12,3),(14,4),(15,4),(16,4),(17,4),(18,4),(19,4),(20,4),(21,4),(22,4),(23,4),(24,4),(25,4),(26,4),(27,4),(28,4),(29,4),(30,4),(31,4),(32,4),(33,4),(13,5);
 /*!40000 ALTER TABLE `material_has_material_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,6 +147,8 @@ CREATE TABLE `order` (
   `user_id` int NOT NULL,
   `orderdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `order_state` tinyint DEFAULT '0',
+  `costprice` double DEFAULT NULL,
+  `saleprice` double DEFAULT NULL,
   PRIMARY KEY (`order_id`,`user_id`),
   KEY `fk_order_user_idx` (`user_id`),
   CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
@@ -164,7 +165,6 @@ DROP TABLE IF EXISTS `shed`;
 CREATE TABLE `shed` (
   `shed_id` int NOT NULL AUTO_INCREMENT,
   `order_id` int NOT NULL,
-  `total` double DEFAULT NULL,
   `length` double DEFAULT NULL,
   `width` double DEFAULT NULL,
   PRIMARY KEY (`shed_id`),
@@ -172,6 +172,7 @@ CREATE TABLE `shed` (
   CONSTRAINT `fk_shed_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `shed_has_material_list`
@@ -192,6 +193,14 @@ CREATE TABLE `shed_has_material_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `shed_has_material_list`
+--
+
+LOCK TABLES `shed_has_material_list` WRITE;
+/*!40000 ALTER TABLE `shed_has_material_list` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shed_has_material_list` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -207,7 +216,7 @@ CREATE TABLE `user` (
   `role` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,7 +225,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'user','1','customer'),(2,'admin','1','employee');
+INSERT INTO `user` VALUES (1,'user','1','customer'),(2,'admin','1','employee'),(3,'','','customer');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -229,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-12 21:21:48
+-- Dump completed on 2021-05-17 14:23:21

@@ -198,7 +198,9 @@ public class OrderMapper {
                             new Carport(carport_id, order_id, c_length, c_width),
                             new Shed(shed_id, order_id, s_length, s_width, selectFromShedHasMaterial(shed_id)));
 
-                    newOrder.setStkListe(selectFromCarportHasMaterial(carport_id));
+                    List<Material> hey = selectFromCarportHasMaterial(carport_id);
+
+                    newOrder.setStkListe(hey);
 
                     for (Material m : newOrder.getStkListe()) {
                         if (m.getCategory() == 2) {
@@ -296,9 +298,8 @@ public class OrderMapper {
     public List<Material> selectFromCarportHasMaterial(int carport_id) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `carport_has_material_list` WHERE carport_id=?";
-            List<Material> stkListe = null;
+            List<Material> stkListe = new ArrayList<>();
             MaterialFacade mf = new MaterialFacade(database);
-
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1,carport_id);
