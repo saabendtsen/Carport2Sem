@@ -23,6 +23,7 @@ public class SVG {
     private final String line = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000;  />";
     private final String dashArray = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000 stroke-dasharray=\"4 1\" />";
 
+
     public SVG(int x, int y, String viewBox, int width, int height) {
         this.x = x;
         this.y = y;
@@ -41,6 +42,7 @@ public class SVG {
             svg.append(String.format(dashArray,x1,y1,x2,y2));
         } else {
             svg.append(String.format(line,x1,y1,x2,y2));
+
         }
     }
 

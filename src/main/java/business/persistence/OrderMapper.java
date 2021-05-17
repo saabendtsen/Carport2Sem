@@ -35,6 +35,7 @@ public class OrderMapper {
                 if (shedLength != 0 && shedWidth != 0) {
                     insertIntoShed(shedLength, shedWidth, id);
                 }
+
                 return id;
 
             } catch (SQLException ex) {
@@ -84,6 +85,7 @@ public class OrderMapper {
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
+
         } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
         }

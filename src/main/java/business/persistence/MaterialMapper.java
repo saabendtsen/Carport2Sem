@@ -69,9 +69,10 @@ public class MaterialMapper {
                     double length = rs.getDouble("length");
                     double width = rs.getDouble("width");
                     double height = rs.getDouble("height");
-                    //todo nye colonnenavne
                     double salesPrice = rs.getDouble("price");
-                    double costPrice = rs.getDouble("price");
+
+                    //Kostpris easymode
+                    double costPrice = salesPrice * 0.7;
                     int materialCategory_id = rs.getInt("material_category_id");
 
                     newMaterial = new Material(material_id,name, length, width, height, salesPrice, costPrice,materialCategory_id);
