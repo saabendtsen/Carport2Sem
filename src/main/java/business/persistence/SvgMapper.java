@@ -15,12 +15,12 @@ public class SvgMapper {
     public String drawCarport() {
 
         //String viewBox = "0 0 " + stkListe.getCarport().getWidth() + " " + order.getCarport().getLength();
-        String viewBox = "0 0 " + 1080 + " " + 960;
+        String viewBox = "0 0 1080 960";
 
         SVG svg = new SVG(0, 0, viewBox, 100, 100);
 
-        svg.addRect(0, 0, 100, 100);
-        svg.addLine(0, 0, 1000, 800, false);
+        svg.addRect(50, 50, 100, 100);
+        svg.addLine(0, 0, 500, 500, false);
 
 /*
         for(Material m : stkListe){
