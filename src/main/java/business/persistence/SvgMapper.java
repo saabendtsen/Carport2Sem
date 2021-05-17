@@ -24,11 +24,24 @@ public class SvgMapper {
 
 /*
         for(Material m : stkListe){
+            //If spær
             if(m.getCategory() == 3){
+                for(int i = 0; i < m.getQuantity(); i++)
                 svg.addRect(0,0,m.getWidth(),m.getLength());
+
+                //if rem
+            } else if(m.getCategory() == 4){
+                for(int i = 0; i < m.getQuantity(); i++)
+                    svg.addRect(0,0,m.getWidth(),m.getLength());
+                //if stolpe
+            } else if(m.getCategory() == 5){
+                for(int i = 0; i < m.getQuantity(); i++)
+                    svg.addRect(0,0,m.getWidth(),m.getLength());
             }
         }
-*/
+        */
+
+
 
         return svg.toString();
 
