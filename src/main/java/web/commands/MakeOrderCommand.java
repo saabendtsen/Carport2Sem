@@ -62,7 +62,10 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             Order order = orderFacade.getOrderByOrderId(orderid,carportRoof_materialID);
 
-            List<Material> stkList = materialFacade.calcMaterialList(orderFacade.getOrderByOrderId(orderid, carportRoof_materialID));
+            order.getShed().setClothing(materialFacade.getMaterialByMaterialId(shedClothing_materialID));
+
+            List<Material> stkList = materialFacade.calcMaterialList(order);
+
 
 
             SvgMapper svgMapper = new SvgMapper();

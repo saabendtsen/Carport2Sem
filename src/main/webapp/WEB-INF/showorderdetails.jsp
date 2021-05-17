@@ -16,14 +16,14 @@
         <div>
             <h4>Du har bestilt følgende</h4>
             <h6>Carport i målende</h6>
-            Bredde: ${requestScope.order}<br>
-            Længde: ${requestScope.carportLength}<br>
-            Tag: ${requestScope.carportRoof_materialID.name}<br>
+            Bredde: ${requestScope.order.carport.width}<br>
+            Længde: ${requestScope.order.carport.Length}<br>
+            Tag: ${requestScope.order.carport.roof.name}<br>
 
-            <c:if test="${requestScope.shedLength != 0}">
+            <c:if test="${requestScope.order.shed.shedLength != 0}">
                 <h3>Tilvalgt:</h3>
                 <h6>Redskabsskur i målene</h6>
-                Bredde ${requestScope.shedWidth}<br>
+                Bredde ${order.}<br>
                 Længde: ${requestScope.shedLength}<br>
                 Beklædning: ${requestScope.shedClothing_materialID.name}<br>
             </c:if>
