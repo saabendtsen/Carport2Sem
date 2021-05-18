@@ -65,6 +65,9 @@ public class Order {
     }
 
     public double getSaleprice() {
+        for(Material m: this.stkListe){
+            saleprice += m.getSalesPrice() * m.getQuantity();
+        }
         return saleprice;
     }
 

@@ -27,6 +27,17 @@ public class ShowOrderDetailsCommand extends CommandProtectedPage{
         Order order = of.getOrderByOrderId(showorderdetails);
         request.setAttribute("order",order);
 
+
+
+        if(request.getParameter("newPrice") != null){
+            double newPrice = Double.parseDouble(request.getParameter("newPrice"));
+            double oldPrice = Double.parseDouble(request.getParameter("oldPrice"));
+            double discount = ((oldPrice - newPrice) / oldPrice) * 100;
+            request.setAttribute("Discount",discount);
+            return pageToShow;
+        }
+
+
         return pageToShow;
 
     }

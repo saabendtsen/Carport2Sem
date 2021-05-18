@@ -45,6 +45,9 @@
                                             <input type="hidden" name="chosen_userid" value="${order.user_id}">
                                         </form>
                                         </c:if>
+                                        <form action="${pageContext.request.contextPath}/fc/showorderdetails" method="post">
+                                            <button onclick="" class="btn btn-outline-success edition" type="submit" name="showorderdetails" value="${order.order_id}">Se denne ordre</button>
+                                        </form>
                                     </th>
                                     <th colspan="2">Oprettet: ${order.orderDate}</th>
                                 </tr>

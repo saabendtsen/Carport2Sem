@@ -19,15 +19,40 @@
             Bredde: ${requestScope.order.carport.width}<br>
             Længde: ${requestScope.order.carport.length}<br>
             Tag: ${requestScope.order.carport.roof.name}<br>
-            total: ${requestScope.order.costprice}<br>
 
             <c:if test="${requestScope.order.shed.length != 0}">
-                <h3>Tilvalgt:</h3>
+                <h4>Tilvalgt:</h4>
                 <h6>Redskabsskur i målene</h6>
                 Bredde ${requestScope.order.shed.width}<br>
                 Længde: ${requestScope.order.shed.length}<br>
                 Beklædning: ${requestScope.order.shed.clothing.name}<br>
             </c:if>
+
+            <h5>total: ${requestScope.order.saleprice}<br></h5>
+
+
+            <form name="newPrice" action="${pageContext.request.contextPath}/fc/showorderdetails"  method="POST">
+                <div class="row mb-3">
+                    <label class="col-form-label" for="newPrice">Indtast ny pris</label>
+                    <div class="col-sm-4">
+                        <input id="newPrice" class="form-control" type="text" name="newPrice" >
+                        <input id="oldPrice" type="hidden" value="${requestScope.order.saleprice}" >
+                        <input id="showorderdetails" type="hidden" value="${requestScope.order.order_id}" >
+
+                    </div>
+                </div>
+
+                Rabat givet: ${requestScope.Discount}
+
+
+
+                <c:if test="${not empty param.msg}">
+                    <p style="font-size: large">${param.msg}</p>
+                </c:if>
+                <button class="btn btn-primary" type="submit" value="Login">Beregn rabat</button>
+            </form>
+
+
 
             <br>
 
@@ -45,7 +70,7 @@
                 Bredde: ${mats.width}<br>
                 Antal: ${mats.quantity}<br>
                 Pris/stk: ${mats.price}<br>
-                Total: ${mats.price * mats.quantity}<br>
+                Total Mat price: ${mats.price * mats.quantity}<br>
                 <br>
             </c:forEach>
             </c:if>
