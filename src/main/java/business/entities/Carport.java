@@ -34,6 +34,10 @@ public class Carport {
         return order_id;
     }
 
+    public void setRoof(Material roof) {
+        this.roof = roof;
+    }
+
     public double getLength() {
         return length;
     }

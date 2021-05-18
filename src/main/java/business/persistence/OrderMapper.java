@@ -168,6 +168,56 @@ public class OrderMapper {
         }
     }
 
+    public Order getOrderByOrderId(int order_id) throws UserException {
+        try (Connection connection = database.connect()) {
+            MaterialFacade mf = new MaterialFacade(database);
+            String sql = "SELECT * FROM carport.carport\n" +
+                    "LEFT OUTER JOIN carport.shed\n" +
+                    "ON carport.order_id = shed.order_id JOIN `order` o on o.order_id = carport.order_id WHERE o.order_id = ?";
+            Order newOrder = null;
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, order_id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int user_id = rs.getInt("user_id");
+                    Timestamp orderdate = rs.getTimestamp("orderdate");
+                    boolean order_state = rs.getBoolean("order_state");
+                    double costprice = rs.getDouble("costprice");
+
+                    int shed_id = rs.getInt("shed_id");
+                    double s_length = rs.getDouble("shed.length");
+                    double s_width = rs.getDouble("shed.width");
+
+                    int carport_id = rs.getInt("carport_id");
+                    double c_length = rs.getDouble("carport.length");
+                    double c_width = rs.getDouble("carport.width");
+
+                    newOrder = new Order(order_id, user_id, orderdate, order_state, costprice,
+                            new Carport(carport_id, order_id, c_length, c_width),
+                            new Shed(shed_id, order_id, s_length, s_width, selectFromShedHasMaterial(shed_id)));
+
+                    List<Material> hey = selectFromCarportHasMaterial(carport_id);
+
+                    newOrder.setStkListe(hey);
+
+                    for (Material m : newOrder.getStkListe()) {
+                        if (m.getCategory() == 2) {
+                            newOrder.getCarport().setRoof(mf.getMaterialByMaterialId(m.getMaterial_id()));
+                        }
+                    }
+                }
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+            return newOrder;
+
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
     public List<Order> getOrderByUserId(int user_id) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM carport.carport LEFT OUTER JOIN carport.shed\n" +
@@ -247,9 +297,8 @@ public class OrderMapper {
     public List<Material> selectFromCarportHasMaterial(int carport_id) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM `carport_has_material_list` WHERE carport_id=?";
-            List<Material> stkListe = null;
+            List<Material> stkListe = new ArrayList<>();
             MaterialFacade mf = new MaterialFacade(database);
-
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1,carport_id);
@@ -307,6 +356,24 @@ public class OrderMapper {
 
                 ps.setInt(1, order_id);
 
+                return ps.executeUpdate();
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
+    public int updateOrderTotal(Order order) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE `order` SET costprice = ? WHERE order_id = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1, order.getOrder_id());
+                ps.setDouble(2, order.getCostprice());
                 return ps.executeUpdate();
 
             } catch (SQLException ex) {

@@ -108,6 +108,9 @@ public class MaterialMapper {
 
         of.insertIntoOrderHasMaterial(order);
 
+        of.updateOrderTotal(order);
+
+
         return stkliste;
 
 

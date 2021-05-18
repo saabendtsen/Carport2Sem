@@ -40,9 +40,8 @@
                                     </th>
                                     <th>
                                         <c:if test="${!order.order_state}">
-                                        <form action="orderfinalizer.jsp" method="post">
-                                            <button onclick="" class="btn btn-outline-success edition" type="submit" name="updateOrder" value="${order.order_id}">Færdiggør ordre</button>
-                                            <input type="hidden" name="chosen_userid" value="${order.user_id}">
+                                        <form action="${pageContext.request.contextPath}/fc/showorderdetails" method="post">
+                                            <button onclick="" class="btn btn-outline-success edition" type="submit" name="showorderdetails" value="${order.order_id}">Se denne ordre</button>
                                         </form>
                                         </c:if>
                                     </th>
@@ -51,18 +50,14 @@
                                 <tr>
                                     <th>Carport længde</th>
                                     <th>Carport bredde</th>
-                                    <th>Carport total</th>
                                     <th>Redskabsskur længde</th>
-                                    <th>Redskabsskur bredde</th>
-                                    <th>Redskabsskur total</th>
+                                    <th colspan="2">Redskabsskur bredde</th>
                                 </tr>
                                 <tr>
                                     <td>${order.carport.length}0 cm</td>
                                     <td>${order.carport.width}0 cm</td>
-                                    <td>${order.carport.total}0</td>
                                     <td>${order.shed.length}0 cm</td>
-                                    <td>${order.shed.width}0 cm</td>
-                                    <td>${order.shed.total}0</td>
+                                    <td colspan="2">${order.shed.width}0 cm</td>
                                 </tr>
                             </table>
                         </c:if>
