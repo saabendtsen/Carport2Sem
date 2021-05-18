@@ -17,7 +17,8 @@
         <c:if test="${sessionScope.user == null}">
             <h3>Du skal have en konto for at kunne bestille en Carport</h3>
         </c:if>
-
+        HUSK AT SLETTE:
+        ${requestScope.svgdrawing}
         <c:if test="${sessionScope.role == 'customer' }">
         <div>
             <h2>QUICK-BYG TILBUD - CARPORT</h2>
