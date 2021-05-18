@@ -28,43 +28,39 @@
                 Beklædning: ${requestScope.order.shed.clothing.name}<br>
             </c:if>
 
+            <div>
+
             <h5>total: ${requestScope.order.saleprice}<br></h5>
-
-
-            <form name="newPrice" action="${pageContext.request.contextPath}/fc/showorderdetails"  method="POST">
-                <div class="row mb-3">
-                    <label class="col-form-label" for="newPrice">Indtast ny pris</label>
-                    <div class="col-sm-4">
-                        <input id="newPrice" class="form-control" type="text" name="newPrice" >
-                        <input id="oldPrice" type="hidden" value="${requestScope.order.saleprice}" >
-                        <input id="showorderdetails" type="hidden" value="${requestScope.order.order_id}" >
-
-                    </div>
-                </div>
-
-                Rabat givet: ${requestScope.Discount}
-
-
-
-                <c:if test="${not empty param.msg}">
-                    <p style="font-size: large">${param.msg}</p>
-                </c:if>
-                <button class="btn btn-primary" type="submit" value="Login">Beregn rabat</button>
+                <c:if test="${!requestScope.order.order_state}">
+            <form action="${pageContext.request.contextPath}/fc/showorderdetails" method="get">
+                <label class="col-form-label" for="newPrice">Indtast ny pris</label>
+                <input class="text" type="text" value="${requestScope.newPrice}" id="newPrice" name="newPrice">
+                <input type="hidden" name="showorderdetails" value="${requestScope.order.order_id}">
+                <input type="hidden" name="oldPrice" value="${requestScope.order.saleprice}">
+                <button class="btn btn-success" type="submit" name="rabat" value="${requestScope.order.order_id}">Giv rabat</button>
             </form>
 
+        </div>
+        <p>Rabat givet: ${requestScope.Discount}%</p>
 
+            <form action="${pageContext.request.contextPath}/fc/showorderdetails" method="get">
+                <button class="btn btn-success" type="submit" name="godkendRabat" value="${requestScope.newPrice}">Godkend rabat</button>
+                <input type="hidden" name="showorderdetails" value="${requestScope.order.order_id}">
+                <input type="hidden" name="newPrice" value="${requestScope.newPrice}">
+            </form>
 
-            <br>
+            </c:if>
+        <br>
 
-            <c:if test="${requestScope.svgdrawing != null}">
+        <c:if test="${requestScope.svgdrawing != null}">
             <p>Tegning af Carport</p>
             ${requestScope.svgdrawing}
-            </c:if>
+        </c:if>
 
-            <c:if test="${requestScope.order.stkListe != null}">
+        <c:if test="${requestScope.order.stkListe != null}">
             <h4>Styk liste: </h4>
 
-            <c:forEach items="${requestScope.order.stkListe}" var="mats" >
+            <c:forEach items="${requestScope.order.stkListe}" var="mats">
                 ${mats.name} <br>
                 Længde: ${mats.length}<br>
                 Bredde: ${mats.width}<br>
@@ -73,7 +69,7 @@
                 Total Mat price: ${mats.price * mats.quantity}<br>
                 <br>
             </c:forEach>
-            </c:if>
+        </c:if>
         </div>
     </jsp:body>
 

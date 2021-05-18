@@ -7,6 +7,8 @@ import business.services.OrderFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class ShowOrderDetailsCommand extends CommandProtectedPage{
     OrderFacade of = new OrderFacade(database);
@@ -19,24 +21,41 @@ public class ShowOrderDetailsCommand extends CommandProtectedPage{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
+        try {
+
+            int showorderdetails = Integer.parseInt(request.getParameter("showorderdetails"));
+
+            Order order = of.getOrderByOrderId(showorderdetails);
+            request.setAttribute("order", order);
 
 
+            String rabat = request.getParameter("rabat");
+            if (rabat != null) {
+                double newPrice = Double.parseDouble(request.getParameter("newPrice"));
+                request.setAttribute("newPrice", newPrice);
+                double oldPrice = Double.parseDouble(request.getParameter("oldPrice"));
+                NumberFormat formatter = new DecimalFormat("#0.00");
+                double discount = (((oldPrice - newPrice) / oldPrice) * 100);
 
-        int showorderdetails = Integer.parseInt(request.getParameter("showorderdetails"));
+                request.setAttribute("Discount", formatter.format(discount));
+                return pageToShow;
+            }
 
-        Order order = of.getOrderByOrderId(showorderdetails);
-        request.setAttribute("order",order);
+            String godkendRabat = request.getParameter("godkendRabat");
+            if (godkendRabat != null) {
+                double newPrice = Double.parseDouble(request.getParameter("newPrice"));
+                if (!order.isOrder_state()){
+                  of.updateOrderTotal(order, newPrice);
+                  of.updateOrder(order.getOrder_id());
+                  order.setOrder_state(true);
+                  order.setSaleprice(newPrice);
+                }
+                return pageToShow;
+            }
 
-
-
-        if(request.getParameter("newPrice") != null){
-            double newPrice = Double.parseDouble(request.getParameter("newPrice"));
-            double oldPrice = Double.parseDouble(request.getParameter("oldPrice"));
-            double discount = ((oldPrice - newPrice) / oldPrice) * 100;
-            request.setAttribute("Discount",discount);
-            return pageToShow;
+        } catch (Exception e) {
+            request.setAttribute("error", "hov hov");
         }
-
 
         return pageToShow;
 

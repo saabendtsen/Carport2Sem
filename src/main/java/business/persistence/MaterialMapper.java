@@ -108,12 +108,14 @@ public class MaterialMapper {
 
         of.insertIntoOrderHasMaterial(order);
 
-        of.updateOrderTotal(order);
-
+        double stkprice = 0;
+        for (Material material : stkliste) {
+            stkprice += material.getPrice();
+        }
+        order.setSaleprice(stkprice);
+        of.updateOrderTotal(order, stkprice);
 
         return stkliste;
-
-
     }
 
 
