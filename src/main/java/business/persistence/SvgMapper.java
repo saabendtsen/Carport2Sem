@@ -57,8 +57,13 @@ public class SvgMapper {
 
                 //if stolpe
             } else if (m.getCategory() == 5) {
-                for (int i = 0; i < m.getQuantity(); i++) {
-                    // svg.addRect(0,0,m.getWidth(),m.getLength());
+                if (m.getQuantity() != 4){
+                    svg.addRect((int)(order.getCarport().getLength() * 0.25),(int) (order.getCarport().getWidth() * 0.1),m.getWidth(), m.getHeight());
+                    svg.addRect((int)(order.getCarport().getLength() * 0.75),(int) (order.getCarport().getWidth() * 0.1),m.getWidth(), m.getHeight());
+
+                    svg.addRect((int)(order.getCarport().getLength() * 0.25),(int) (order.getCarport().getWidth() * 0.9 - m.getWidth()),m.getWidth(), m.getHeight());
+                    svg.addRect((int)(order.getCarport().getLength() * 0.75),(int) (order.getCarport().getWidth() * 0.9 - m.getWidth()),m.getWidth(), m.getHeight());
+
                 }
             }
         }
