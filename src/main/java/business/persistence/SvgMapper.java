@@ -12,7 +12,7 @@ public class SvgMapper {
     //This draws the entuire carport
 
     //TODO: Skal modtage en ordre
-    public String drawCarport() {
+    public String drawCarport(Order order) {
 
         //String viewBox = "0 0 " + stkListe.getCarport().getWidth() + " " + order.getCarport().getLength();
         String viewBox = "0 0 1080 960";

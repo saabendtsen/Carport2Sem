@@ -67,18 +67,11 @@ public class MakeOrderCommand extends CommandProtectedPage {
             List<Material> stkList = materialFacade.calcMaterialList(order);
 
 
-
             SvgMapper svgMapper = new SvgMapper();
             //TODO: Kun til test, disse skal ud.
-            String svg = svgMapper.drawCarport();
+            String svg = svgMapper.drawCarport(order);
+
             request.setAttribute("svgdrawing",svg);
-//            SvgMapper svgMapper = new SvgMapper();
-//            String svg = svgMapper.drawCarport(stkList);
-//            request.setAttribute("svgdrawing",svg);
-
-
-           // request.setAttribute("stkList",stkList);
-
 
 
         } catch (Exception e) {

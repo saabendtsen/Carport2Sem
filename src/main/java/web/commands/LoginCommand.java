@@ -36,11 +36,6 @@ public class LoginCommand extends CommandUnprotectedPage {
             session.setAttribute("role", user.getRole());
             session.setAttribute("email", email);
 
-            //TODO: FUCK VIRK MAND
-            SvgMapper svgMapper = new SvgMapper();
-            String svg = svgMapper.drawCarport();
-            session.setAttribute("svgdrawing",svg);
-
             if(user.getRole().equals("employee")) {
                 return "employeepage";
             } else {
