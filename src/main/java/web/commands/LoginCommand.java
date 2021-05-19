@@ -1,8 +1,10 @@
 package web.commands;
 
+import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
 import business.persistence.SvgMapper;
+import business.services.OrderFacade;
 import business.services.UserFacade;
 import web.FrontController;
 
@@ -13,9 +15,14 @@ import javax.servlet.http.HttpSession;
 public class LoginCommand extends CommandUnprotectedPage {
     private final UserFacade userFacade;
 
+    //TODO slet efter test
+    private final OrderFacade orderFacade;
+
     public LoginCommand(String pageToShow) {
         super(pageToShow);
         userFacade = new UserFacade(database);
+        //TODO: Slet efter test
+        orderFacade = new OrderFacade(database);
     }
 
     @Override
@@ -36,10 +43,15 @@ public class LoginCommand extends CommandUnprotectedPage {
             session.setAttribute("role", user.getRole());
             session.setAttribute("email", email);
 
-            //TODO: FUCK VIRK MAND
-            SvgMapper svgMapper = new SvgMapper();
-            String svg = svgMapper.drawCarport();
-            session.setAttribute("svgdrawing",svg);
+
+            Order order = orderFacade.getOrderByOrderId(2);
+            SvgMapper svg = new SvgMapper();
+
+            String drawing = svg.drawCarport(order);
+
+            request.setAttribute("svgdrawing", drawing);
+
+
 
             if(user.getRole().equals("employee")) {
                 return "employeepage";

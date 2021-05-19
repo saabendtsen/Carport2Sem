@@ -39,12 +39,9 @@
                                         </c:if>
                                     </th>
                                     <th>
-                                        <c:if test="${!order.order_state}">
-                                        <form action="${pageContext.request.contextPath}/fc/updatestatuscommand" method="post">
-                                            <button onclick="" class="btn btn-outline-success edition" type="submit" name="updateOrder" value="${order.order_id}">Færdiggør ordre</button>
-                                            <input type="hidden" name="chosen_userid" value="${order.user_id}">
+                                        <form action="${pageContext.request.contextPath}/fc/showorderdetails" method="post">
+                                            <button onclick="" class="btn btn-outline-success edition" type="submit" name="showorderdetails" value="${order.order_id}">Se denne ordre</button>
                                         </form>
-                                        </c:if>
                                     </th>
                                     <th colspan="2">Oprettet: ${order.orderDate}</th>
                                 </tr>
