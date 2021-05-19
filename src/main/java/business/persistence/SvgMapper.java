@@ -98,7 +98,6 @@ public class SvgMapper {
             //midt sektion
             svg.addRect(((order.getCarport().getLength() - 90)/3) + 45, (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
             svg.addRect((((order.getCarport().getLength() - 90)/3)*2) + 45, (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
-
         }
         return svg.toString();
 

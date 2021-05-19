@@ -26,13 +26,7 @@ public class Order {
         this.costprice = costprice;
     }
 
-    public double getCostprice() {
-        return costprice;
-    }
 
-    public void setCostprice(double costprice) {
-        this.costprice = costprice;
-    }
 
     public int getOrder_id() {
         return order_id;
@@ -68,6 +62,14 @@ public class Order {
 
     public void setStkListe(List<Material> stkListe) {
         this.stkListe = stkListe;
+    }
+
+    public double getCostprice() {
+        return costprice;
+    }
+
+    public void setCostprice(double costprice) {
+        this.costprice = costprice;
     }
 
     public double getSaleprice() {

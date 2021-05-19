@@ -43,8 +43,8 @@ public class LoginCommand extends CommandUnprotectedPage {
             session.setAttribute("role", user.getRole());
             session.setAttribute("email", email);
 
-
             Order order = orderFacade.getOrderByOrderId(5);
+
             SvgMapper svg = new SvgMapper();
             String drawing = svg.drawCarport(order);
             request.setAttribute("svgdrawing", drawing);
