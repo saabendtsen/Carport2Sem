@@ -9,6 +9,7 @@ import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 public class MaterialMapper {
@@ -109,21 +110,20 @@ public class MaterialMapper {
         //todo: insert stkliste i database på ordre
 
         of.insertIntoOrderHasMaterial(order);
+        Formatter ft = new Formatter();
 
         double salgsprice = 0;
         double costprice = 0;
+
+
         for (Material material : stkliste) {
             salgsprice += material.getPrice() * material.getQuantity();
             costprice += material.getCostPrice() * material.getQuantity();
 
         }
 
-
-
-        NumberFormat ft = new DecimalFormat("###,##");
-        costprice = Double.parseDouble(ft.format(costprice));
-        salgsprice = Double.parseDouble(ft.format(salgsprice));
-
+        ft.format("%.2f", costprice);
+        ft.format("%.2f", salgsprice);
 
         order.setCostprice(costprice);
         order.setSaleprice(salgsprice);
