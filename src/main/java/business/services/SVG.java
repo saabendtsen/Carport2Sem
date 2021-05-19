@@ -20,8 +20,8 @@ public class SVG {
             " preserveAspectRatio=\"xMinYMin\">";
 
     private final String rectTemplate = "<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #ffffff\" />";
-    private final String line = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000;  />";
-    private final String dashArray = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000 stroke-dasharray=\"4 1\" />";
+    private final String line = "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:#000000;  />";
+    private final String dashArray = "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:#000000 stroke-dasharray=\"4 1\" />";
 
 
     public SVG(int x, int y, String viewBox, int width, int height) {
@@ -37,7 +37,7 @@ public class SVG {
         svg.append(String.format(Locale.US,rectTemplate, x, y, height, width));
     }
 
-    public void addLine(int x1,int y1,int x2, int y2,boolean dasharray){
+    public void addLine(double x1,double y1,double x2, double y2,boolean dasharray){
         if(dasharray){
             svg.append(String.format(dashArray,x1,y1,x2,y2));
         } else {
