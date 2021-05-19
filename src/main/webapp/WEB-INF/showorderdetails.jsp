@@ -28,7 +28,7 @@
                 Længde: ${requestScope.order.shed.length}<br>
                 Beklædning: ${requestScope.order.shed.clothing.name}<br>
             </c:if>
-
+            <hr><h5>Kost Pris: ${requestScope.order.costprice} kr.</h5>
             <hr><h5>Salgs Pris: ${requestScope.order.saleprice} kr.</h5>
 
             <c:if test="${!requestScope.order.order_state}">

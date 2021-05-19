@@ -12,6 +12,7 @@ public class Order {
     private Carport carport;
     private Shed shed;
     private double saleprice;
+    private double costprice;
     List<Material> stkListe;
 
     public Order(int order_id, int user_id, Timestamp orderDate, boolean order_state, double saleprice, Carport carport, Shed shed) {
@@ -58,6 +59,14 @@ public class Order {
 
     public void setStkListe(List<Material> stkListe) {
         this.stkListe = stkListe;
+    }
+
+    public double getCostprice() {
+        return costprice;
+    }
+
+    public void setCostprice(double costprice) {
+        this.costprice = costprice;
     }
 
     public double getSaleprice() {
