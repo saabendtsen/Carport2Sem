@@ -40,7 +40,6 @@ public abstract class Command {
 
     public static Command fromPath(HttpServletRequest request, Database db) {
         String action = request.getPathInfo().replaceAll("^/+", "");
-        System.out.println("--> " + action);
 
         if (commands == null) {
             database = db;

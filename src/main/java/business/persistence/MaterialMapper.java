@@ -113,7 +113,9 @@ public class MaterialMapper {
             stkprice += material.getPrice();
         }
         order.setSaleprice(stkprice);
-        of.updateOrderTotal(order, stkprice);
+        order.setCostprice(stkprice);
+        of.updateOrderSale(order, stkprice);
+        of.updateOrderCost(order, stkprice);
 
         return stkliste;
     }

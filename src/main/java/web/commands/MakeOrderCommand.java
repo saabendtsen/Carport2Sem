@@ -73,7 +73,6 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             request.setAttribute("svgdrawing",svg);
 
-
         } catch (Exception e) {
             request.setAttribute("error", "Du mangler at udfylde nogle felter!" + e);
 
@@ -81,11 +80,6 @@ public class MakeOrderCommand extends CommandProtectedPage {
             return command.execute(request,response);
         }
 
-
-
-
-
         return pageToShow;
-
     }
 }
