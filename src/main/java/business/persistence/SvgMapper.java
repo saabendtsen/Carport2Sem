@@ -14,7 +14,7 @@ public class SvgMapper {
     //TODO: Skal modtage en ordre
     public String drawCarport(Order order) {
 
-        String viewBox = "0 0 " + order.getCarport().getLength() * 1.5 + " " + order.getCarport().getWidth() * 1.5;
+        String viewBox = "0 0 " + order.getCarport().getLength() + 100 + " " + order.getCarport().getWidth() + 100;
         SVG svg = new SVG(0, 0, viewBox, 100, 100);
         /*
         String viewBox = "0 0 1080 960";
@@ -25,49 +25,74 @@ public class SvgMapper {
         svg.addLine(0, 0, 500, 500, false);
 */
 
-        svg.addRect(0, 0, order.getCarport().getWidth(), order.getCarport().getLength());
+        Material rem = null;
+        Material spær = null;
+        Material stolpe = null;
+
 
         for (Material m : order.getStkListe()) {
-
-            //if rem
             if (m.getCategory() == 4) {
-                if (m.getQuantity() == 2) {
-                    svg.addRect(0, (int) (order.getCarport().getWidth() * 0.1), m.getWidth(), m.getLength());
-                    svg.addRect(0, (int) (order.getCarport().getWidth() * 0.9), m.getWidth(), m.getLength());
-                } else if (m.getQuantity() > 2) {
-                    svg.addRect(0, (int) (order.getCarport().getWidth() * 0.1), m.getWidth(), m.getLength());
-                    svg.addRect(0, (int) (order.getCarport().getWidth() * 0.9), m.getWidth(), m.getLength());
-                    svg.addRect(0, (int) (order.getCarport().getWidth() * 0.5), m.getWidth(), m.getLength());
-                }
-            }
-
-            //If spær
-            if (m.getCategory() == 3) {
-                svg.addRect(0, 0, order.getCarport().getWidth(), m.getWidth());
-                svg.addRect((int) (order.getCarport().getLength() - m.getWidth()), 0, order.getCarport().getWidth(), m.getWidth());
-
-                double space = order.getCarport().getLength() / m.getQuantity()-1 ;
-                double x = space;
-
-
-                for (int i = 0; i < m.getQuantity()-1; i++) {
-                    svg.addRect((int)(x), 0, order.getCarport().getWidth(), m.getWidth());
-                    x += space + m.getWidth();
-                }
-
-                //if stolpe
+                rem = m;
+            } else if (m.getCategory() == 3) {
+                spær = m;
             } else if (m.getCategory() == 5) {
-                if (m.getQuantity() != 4){
-                    svg.addRect((int)(order.getCarport().getLength() * 0.25),(int) (order.getCarport().getWidth() * 0.1),m.getWidth(), m.getHeight());
-                    svg.addRect((int)(order.getCarport().getLength() * 0.75),(int) (order.getCarport().getWidth() * 0.1),m.getWidth(), m.getHeight());
-
-                    svg.addRect((int)(order.getCarport().getLength() * 0.25),(int) (order.getCarport().getWidth() * 0.9 - m.getWidth()),m.getWidth(), m.getHeight());
-                    svg.addRect((int)(order.getCarport().getLength() * 0.75),(int) (order.getCarport().getWidth() * 0.9 - m.getWidth()),m.getWidth(), m.getHeight());
-
-                }
+                stolpe = m;
             }
         }
+
+       // svg.addRect(0, 0, order.getCarport().getWidth(), order.getCarport().getLength());
+
+
+        //Draw rem
+        if (rem.getQuantity() == 2) {
+            svg.addRect(0,  (order.getCarport().getWidth() * 0.1), rem.getWidth(), order.getCarport().getLength());
+            svg.addRect(0,  (order.getCarport().getWidth() * 0.9), rem.getWidth(), order.getCarport().getLength());
+        } else if (rem.getQuantity() > 2) {
+            svg.addRect(0,  (order.getCarport().getWidth() * 0.1), rem.getWidth(), rem.getLength());
+            svg.addRect(0,  (order.getCarport().getWidth() * 0.9), rem.getWidth(), rem.getLength());
+            svg.addRect(0,  (order.getCarport().getWidth() * 0.5), rem.getWidth(), rem.getLength());
+        }
+
+        //Draw spær
+        //Draw end spær
+        svg.addRect((int) (order.getCarport().getLength() - spær.getWidth()), 0, order.getCarport().getWidth(), spær.getWidth());
+
+        //Draw rest of Spær
+        double space = order.getCarport().getLength() / spær.getQuantity();
+        double x = 0;
+        System.out.println(spær.getQuantity());
+        for (int i = 0; i < spær.getQuantity(); i++) {
+            if(i == spær.getQuantity()-1){
+                svg.addRect(order.getCarport().getLength()- spær.getWidth(), 0, order.getCarport().getWidth(), spær.getWidth());
+                i++;
+            } else {
+
+                svg.addRect((x), 0, order.getCarport().getWidth(), spær.getWidth());
+                x += space + spær.getWidth();
+            }
+        }
+
+        //if stolpe
+
+        System.out.println(stolpe.getQuantity());
+        if (stolpe.getQuantity() == 4) {
+            svg.addRect((order.getCarport().getLength() * 0.25),(order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect( (order.getCarport().getLength() * 0.75), (order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect( (order.getCarport().getLength() * 0.25), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect( (order.getCarport().getLength() * 0.75), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+        } else if (stolpe.getQuantity()  == 6 ){
+
+        } else if (stolpe.getQuantity() == 8 && rem.getQuantity() == 2 ){
+            svg.addRect(order.getCarport().getLength() - 45,(order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect(45, (order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+
+            svg.addRect( (order.getCarport().getLength() * 0.25), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect( (order.getCarport().getLength() * 0.75), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+
+        }
+
         return svg.toString();
 
     }
 }
+

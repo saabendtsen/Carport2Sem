@@ -46,9 +46,7 @@ public class LoginCommand extends CommandUnprotectedPage {
 
             Order order = orderFacade.getOrderByOrderId(2);
             SvgMapper svg = new SvgMapper();
-
             String drawing = svg.drawCarport(order);
-
             request.setAttribute("svgdrawing", drawing);
 
 
