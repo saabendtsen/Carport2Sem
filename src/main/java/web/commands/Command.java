@@ -36,6 +36,7 @@ public abstract class Command {
         commands.put("changeinfo", new CommandProtectedPage("changeuserdata", "customer"));
         commands.put("showorderdetails", new ShowOrderDetailsCommand("showorderdetails","employee"));
         commands.put("calcDiscount", new CalcDiscountCommand());
+        commands.put("showorderdetailsascostumer", new ShowOrderDetailsAsCostumer("showorderdetailsascostumer","customer"));
     }
 
     public static Command fromPath(HttpServletRequest request, Database db) {
