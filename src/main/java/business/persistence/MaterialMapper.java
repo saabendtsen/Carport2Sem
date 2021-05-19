@@ -5,6 +5,8 @@ import business.entities.Order;
 import business.exceptions.UserException;
 import business.services.OrderFacade;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -110,25 +112,23 @@ public class MaterialMapper {
         //todo: insert stkliste i database på ordre
 
         of.insertIntoOrderHasMaterial(order);
-        Formatter ft = new Formatter();
 
         double salgsprice = 0;
         double costprice = 0;
-
-
         for (Material material : stkliste) {
             salgsprice += material.getPrice() * material.getQuantity();
             costprice += material.getCostPrice() * material.getQuantity();
 
         }
 
-        ft.format("%.2f", costprice);
-        ft.format("%.2f", salgsprice);
+        BigDecimal costformat = new BigDecimal(costprice).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal saleformat = new BigDecimal(salgsprice).setScale(2, RoundingMode.HALF_UP);
 
-        order.setCostprice(costprice);
-        order.setSaleprice(salgsprice);
-        of.updateOrderSale(order, salgsprice);
-        of.updateOrderCost(order, costprice);
+        order.setSaleprice(saleformat.doubleValue());
+        of.updateOrderSale(order, saleformat.doubleValue());
+
+        order.setCostprice(costformat.doubleValue());
+        of.updateOrderCost(order, costformat.doubleValue());
 
         return stkliste;
     }
