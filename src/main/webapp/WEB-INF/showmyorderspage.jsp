@@ -5,7 +5,7 @@
 <t:genericpage>
 
     <jsp:attribute name="header">
-         Home
+         Tidligere ordre
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -20,7 +20,7 @@
 
         <c:if test="${sessionScope.role == 'customer' }">
             <div>
-                <h6 class="font-weight-bold">Dine gamle ordre</h6>
+                <h6 class="font-weight-bold">Her er dine tidligere ordre:</h6>
 
 
                 <c:forEach var="order" items="${requestScope.ordersList}">
@@ -28,37 +28,41 @@
                         <table class="table table-dark table-hover">
                             <tr>
                                 <th>Ordrer nr: ${order.order_id}</th>
-                                <th colspan="2">Status:
+                                <th>Status:
                                     <c:if test="${order.order_state}">
-                                    <p style="color: greenyellow">Færdig udarbejdet
-                                    <p>
-                                        </c:if>
+                                        <p style="color: #00ff00">Færdig<p>
+                                    </c:if>
                                         <c:if test="${!order.order_state}">
-                                    <p style="color: red">behandles
-                                    <p>
+                                            <p style="color: red">behandles<p>
                                         </c:if>
                                 </th>
                                 <th>
-                                    <form action="${pageContext.request.contextPath}/fc/showorderdetailsascostumer"
-                                          method="post">
-                                        <button onclick="" class="btn btn-outline-success edition" type="submit"
-                                                name="showorderdetails" value="${order.order_id}">Se denne ordre
-                                        </button>
+                                    <form action="${pageContext.request.contextPath}/fc/showorderdetailsascostumer" method="post">
+                                        <button onclick="" class="btn btn-sm btn-outline-success" type="submit" name="showorderdetails" value="${order.order_id}">Se denne ordre</button>
                                     </form>
                                 </th>
-                                <th colspan="2">Oprettet: ${order.orderDate}</th>
+                                <th>Oprettet: ${order.orderDate}</th>
+                                <c:if test="${order.order_state}">
+                                    <th colspan="2" style="color: #ffffff">Pris: ${order.saleprice} kr.</th>
+                                </c:if>
                             </tr>
                             <tr>
                                 <th>Carport længde</th>
                                 <th>Carport bredde</th>
                                 <th>Redskabsskur længde</th>
                                 <th colspan="2">Redskabsskur bredde</th>
+                                <c:if test="${order.order_state}">
+                                    <th>Tegning</th>
+                                </c:if>
                             </tr>
                             <tr>
                                 <td>${order.carport.length}0 cm</td>
                                 <td>${order.carport.width}0 cm</td>
                                 <td>${order.shed.length}0 cm</td>
                                 <td colspan="2">${order.shed.width}0 cm</td>
+                                <c:if test="${order.order_state}">
+                                    <td><button onclick="" class="btn btn-sm btn-outline-secondary" type="reset" name="download" value="">Download knap</button></td>
+                                </c:if>
                             </tr>
 
                         </table>

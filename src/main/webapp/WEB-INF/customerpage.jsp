@@ -12,7 +12,13 @@
         <h1>Hej ${sessionScope.user.email} </h1>
 
         <p>Her er nogle knapper med funktionalitet du kan udføre</p>
-        <a class="btn btn-primary btn-lg btn-block" href="${pageContext.request.contextPath}/fc/changeinfo" role="button">Skift dine login oplysninger</a>
+
+
+        <div class="card">
+            <a class="btn btn-outline-success btn-lg btn-block" href="${pageContext.request.contextPath}/fc/navigatetoindex" role="button">Bestil Carport</a>
+            <a class="btn btn-outline-secondary btn-lg btn-block" href="${pageContext.request.contextPath}/fc/showmyorders" role="button">Mine Ordre</a>
+            <a class="btn btn-outline-primary btn-lg btn-block" href="${pageContext.request.contextPath}/fc/changeinfo" role="button">Skift dine login oplysninger</a>
+        </div>
 
     </jsp:body>
 </t:genericpage>
