@@ -142,6 +142,7 @@ public class OrderMapper {
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
                     double saleprice = rs.getDouble("saleprice");
+                    double costprice = rs.getDouble("costprice");
 
                     int shed_id = rs.getInt("shed_id");
                     double s_length = rs.getDouble("shed.length");
@@ -151,7 +152,7 @@ public class OrderMapper {
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
-                    newOrder = new Order(order_id, user_id, orderdate, order_state, saleprice,
+                    newOrder = new Order(order_id, user_id, orderdate, order_state, saleprice, costprice,
                                new Carport(carport_id, order_id, c_length, c_width, mf.getMaterialByMaterialId(carportRoof_materialID)),
                                new Shed(shed_id, order_id, s_length, s_width, selectFromShedHasMaterial(shed_id)));
 
@@ -184,6 +185,7 @@ public class OrderMapper {
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
                     double saleprice = rs.getDouble("saleprice");
+                    double costprice = rs.getDouble("costprice");
 
                     int shed_id = rs.getInt("shed_id");
                     double s_length = rs.getDouble("shed.length");
@@ -193,7 +195,7 @@ public class OrderMapper {
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
-                    newOrder = new Order(order_id, user_id, orderdate, order_state, saleprice,
+                    newOrder = new Order(order_id, user_id, orderdate, order_state, saleprice, costprice,
                             new Carport(carport_id, order_id, c_length, c_width),
                             new Shed(shed_id, order_id, s_length, s_width, selectFromShedHasMaterial(shed_id)));
 
@@ -233,6 +235,7 @@ public class OrderMapper {
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
                     double saleprice = rs.getDouble("saleprice");
+                    double costprice = rs.getDouble("costprice");
 
                     int shed_id = rs.getInt("shed_id");
                     double s_length = rs.getDouble("shed.length");
@@ -242,7 +245,7 @@ public class OrderMapper {
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
-                    orderList.add(new Order(order_id, user_id, orderdate, order_state, saleprice,
+                    orderList.add(new Order(order_id, user_id, orderdate, order_state, saleprice, costprice,
                                   new Carport(carport_id, order_id, c_length, c_width),
                                   new Shed(shed_id, order_id, s_length, s_width)));
 
@@ -271,6 +274,7 @@ public class OrderMapper {
                     Timestamp orderdate = rs.getTimestamp("orderdate");
                     boolean order_state = rs.getBoolean("order_state");
                     double saleprice = rs.getDouble("saleprice");
+                    double costprice = rs.getDouble("costprice");
 
                     int shed_id = rs.getInt("shed_id");
                     double s_length = rs.getDouble("shed.length");
@@ -280,7 +284,7 @@ public class OrderMapper {
                     double c_length = rs.getDouble("carport.length");
                     double c_width = rs.getDouble("carport.width");
 
-                    orderList.add(new Order(order_id, user_id, orderdate, order_state, saleprice,
+                    orderList.add(new Order(order_id, user_id, orderdate, order_state, saleprice, costprice,
                                   new Carport(carport_id, order_id, c_length, c_width),
                                   new Shed(shed_id, order_id, s_length, s_width)));
 
@@ -366,14 +370,34 @@ public class OrderMapper {
         }
     }
 
-    public int updateOrderTotal(Order order, double newPrice) throws UserException {
+    public int updateOrderSale(Order order, double newPrice) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "UPDATE `order` SET saleprice = ? WHERE order_id = ?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
-                ps.setInt(2, order.getOrder_id());
                 ps.setDouble(1, newPrice);
+                ps.setInt(2, order.getOrder_id());
+
+                return ps.executeUpdate();
+
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
+    public int updateOrderCost(Order order, double newPrice) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE `order` SET costprice = ? WHERE order_id = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setDouble(1, newPrice);
+                ps.setInt(2, order.getOrder_id());
+
                 return ps.executeUpdate();
 
             } catch (SQLException ex) {

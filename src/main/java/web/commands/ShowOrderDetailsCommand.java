@@ -43,7 +43,7 @@ public class ShowOrderDetailsCommand extends CommandProtectedPage {
             if (godkendRabat != null) {
                 double newPrice = Double.parseDouble(request.getParameter("newPrice"));
                 if (!order.isOrder_state()) {
-                    of.updateOrderTotal(order, newPrice);
+                    of.updateOrderSale(order, newPrice);
                     if (of.updateOrder(order.getOrder_id()) > 0){
                         request.setAttribute("error", "Ordren er leveret til kunden & pris er ændret til "+newPrice+" kr."); } else {request.setAttribute("error", "Ordren kunne ikke leveres");}
                     order.setOrder_state(true);

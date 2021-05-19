@@ -69,6 +69,7 @@ public class SvgMapper {
 
         //if stolpe
 
+
         System.out.println("Stolper: " + stolpe.getQuantity());
         double lengthBetweenPosts = 0;
         if(rem.getQuantity() == 2 && order.getCarport().getLength() < 390) {
@@ -116,7 +117,6 @@ public class SvgMapper {
         if(order.getShed().getLength() > 0){
             svg.addLine(order.getCarport().getLength()-order.getShed().getLength(),order.getCarport().getWidth() * 0.9, order.getCarport().getLength()-order.getShed().getLength(),order.getCarport().getWidth() * 0.9 - order.getShed().getWidth(),false);
         }
-
 
         return svg.toString();
 

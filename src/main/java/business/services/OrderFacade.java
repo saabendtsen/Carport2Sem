@@ -46,8 +46,11 @@ public class OrderFacade {
         orderMapper.insertIntoOrderHasMaterial(order);
     }
 
-    public int updateOrderTotal(Order order, double newPrice) throws UserException {
-        return orderMapper.updateOrderTotal(order, newPrice);
+    public int updateOrderSale(Order order, double newPrice) throws UserException {
+        return orderMapper.updateOrderSale(order, newPrice);
     }
 
+    public int updateOrderCost(Order order, double newPrice) throws UserException {
+        return orderMapper.updateOrderCost(order, newPrice);
+    }
 }

@@ -36,11 +36,11 @@ public abstract class Command {
         commands.put("changeinfo", new CommandProtectedPage("changeuserdata", "customer"));
         commands.put("showorderdetails", new ShowOrderDetailsCommand("showorderdetails","employee"));
         commands.put("calcDiscount", new CalcDiscountCommand());
+        commands.put("showorderdetailsascostumer", new ShowOrderDetailsAsCostumer("showorderdetailsascostumer","customer"));
     }
 
     public static Command fromPath(HttpServletRequest request, Database db) {
         String action = request.getPathInfo().replaceAll("^/+", "");
-        System.out.println("--> " + action);
 
         if (commands == null) {
             database = db;

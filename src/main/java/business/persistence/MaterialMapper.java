@@ -5,8 +5,13 @@ import business.entities.Order;
 import business.exceptions.UserException;
 import business.services.OrderFacade;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 public class MaterialMapper {
@@ -108,12 +113,22 @@ public class MaterialMapper {
 
         of.insertIntoOrderHasMaterial(order);
 
-        double stkprice = 0;
+        double salgsprice = 0;
+        double costprice = 0;
         for (Material material : stkliste) {
-            stkprice += material.getPrice();
+            salgsprice += material.getPrice() * material.getQuantity();
+            costprice += material.getCostPrice() * material.getQuantity();
+
         }
-        order.setSaleprice(stkprice);
-        of.updateOrderTotal(order, stkprice);
+
+        BigDecimal costformat = new BigDecimal(costprice).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal saleformat = new BigDecimal(salgsprice).setScale(2, RoundingMode.HALF_UP);
+
+        order.setSaleprice(saleformat.doubleValue());
+        of.updateOrderSale(order, saleformat.doubleValue());
+
+        order.setCostprice(costformat.doubleValue());
+        of.updateOrderCost(order, costformat.doubleValue());
 
         return stkliste;
     }
@@ -211,9 +226,7 @@ public class MaterialMapper {
         counter *= remCount;
         stolpeList.get(0).setQuantity(counter);
         stkliste.add(stolpeList.get(0));
-
     }
-
 }
 
 
