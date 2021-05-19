@@ -83,14 +83,23 @@ public class SvgMapper {
         } else if (stolpe.getQuantity()  == 6 ){
 
         } else if (stolpe.getQuantity() == 8 && rem.getQuantity() == 2 ){
+            //Foreste stolpe
             svg.addRect(order.getCarport().getLength() - 45,(order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
-            svg.addRect(45, (order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+            //Bageste stolpe
+            svg.addRect(45, order.getCarport().getWidth() * 0.1, stolpe.getWidth(), stolpe.getHeight());
+            //midt sektion
+            svg.addRect(((order.getCarport().getLength() - 90)/3) + 45, order.getCarport().getWidth() * 0.1, stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect((((order.getCarport().getLength() - 90)/3)*2) + 45, order.getCarport().getWidth() * 0.1, stolpe.getWidth(), stolpe.getHeight());
 
-            svg.addRect( (order.getCarport().getLength() * 0.25), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
-            svg.addRect( (order.getCarport().getLength() * 0.75), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+            //Foreste stolpe
+            svg.addRect(order.getCarport().getLength() - 45,order.getCarport().getWidth() * 0.9 - rem.getWidth(), stolpe.getWidth(), stolpe.getHeight());
+            //Bageste stolpe
+            svg.addRect(45, order.getCarport().getWidth() * 0.9 - rem.getWidth(), stolpe.getWidth(), stolpe.getHeight());
+            //midt sektion
+            svg.addRect(((order.getCarport().getLength() - 90)/3) + 45, (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect((((order.getCarport().getLength() - 90)/3)*2) + 45, (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
 
         }
-
         return svg.toString();
 
     }
