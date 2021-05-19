@@ -14,7 +14,7 @@ public class SvgMapper {
     //TODO: Skal modtage en ordre
     public String drawCarport(Order order) {
 
-        String viewBox = "0 0 " + order.getCarport().getLength() * 1.5 + " " + order.getCarport().getWidth() * 1.5;
+        String viewBox = "0 0 " + order.getCarport().getLength() + 100 + " " + order.getCarport().getWidth() + 100;
         SVG svg = new SVG(0, 0, viewBox, 100, 100);
         /*
         String viewBox = "0 0 1080 960";
@@ -40,13 +40,13 @@ public class SvgMapper {
             }
         }
 
-        svg.addRect(0, 0, order.getCarport().getWidth(), order.getCarport().getLength());
+       // svg.addRect(0, 0, order.getCarport().getWidth(), order.getCarport().getLength());
 
 
         //Draw rem
         if (rem.getQuantity() == 2) {
-            svg.addRect(0,  (order.getCarport().getWidth() * 0.1), rem.getWidth(), rem.getLength());
-            svg.addRect(0,  (order.getCarport().getWidth() * 0.9), rem.getWidth(), rem.getLength());
+            svg.addRect(0,  (order.getCarport().getWidth() * 0.1), rem.getWidth(), order.getCarport().getLength());
+            svg.addRect(0,  (order.getCarport().getWidth() * 0.9), rem.getWidth(), order.getCarport().getLength());
         } else if (rem.getQuantity() > 2) {
             svg.addRect(0,  (order.getCarport().getWidth() * 0.1), rem.getWidth(), rem.getLength());
             svg.addRect(0,  (order.getCarport().getWidth() * 0.9), rem.getWidth(), rem.getLength());
@@ -55,7 +55,7 @@ public class SvgMapper {
 
         //Draw spær
         //Draw end spær
-        //svg.addRect((int) (order.getCarport().getLength() - spær.getWidth()), 0, order.getCarport().getWidth(), spær.getWidth());
+        svg.addRect((int) (order.getCarport().getLength() - spær.getWidth()), 0, order.getCarport().getWidth(), spær.getWidth());
 
         //Draw rest of Spær
         double space = order.getCarport().getLength() / spær.getQuantity();
@@ -63,22 +63,31 @@ public class SvgMapper {
         System.out.println(spær.getQuantity());
         for (int i = 0; i < spær.getQuantity(); i++) {
             if(i == spær.getQuantity()-1){
-                svg.addRect(order.getCarport().getLength()-spær.getWidth(), 0, order.getCarport().getWidth(), spær.getWidth());
+                svg.addRect(order.getCarport().getLength()- spær.getWidth(), 0, order.getCarport().getWidth(), spær.getWidth());
                 i++;
-            }
+            } else {
 
-            svg.addRect((x), 0, order.getCarport().getWidth(), spær.getWidth());
-            x += space + spær.getWidth();
+                svg.addRect((x), 0, order.getCarport().getWidth(), spær.getWidth());
+                x += space + spær.getWidth();
+            }
         }
 
         //if stolpe
 
-        if (stolpe.getQuantity() != 4) {
-            svg.addRect((int) (order.getCarport().getLength() * 0.25), (int) (order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
-            svg.addRect((int) (order.getCarport().getLength() * 0.75), (int) (order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+        System.out.println(stolpe.getQuantity());
+        if (stolpe.getQuantity() == 4) {
+            svg.addRect((order.getCarport().getLength() * 0.25),(order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect( (order.getCarport().getLength() * 0.75), (order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect( (order.getCarport().getLength() * 0.25), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect( (order.getCarport().getLength() * 0.75), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+        } else if (stolpe.getQuantity()  == 6 ){
 
-            svg.addRect((int) (order.getCarport().getLength() * 0.25), (int) (order.getCarport().getWidth() * 0.9 - stolpe.getWidth()), stolpe.getWidth(), stolpe.getHeight());
-            svg.addRect((int) (order.getCarport().getLength() * 0.75), (int) (order.getCarport().getWidth() * 0.9 - stolpe.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+        } else if (stolpe.getQuantity() == 8 && rem.getQuantity() == 2 ){
+            svg.addRect(order.getCarport().getLength() - 45,(order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect(45, (order.getCarport().getWidth() * 0.1), stolpe.getWidth(), stolpe.getHeight());
+
+            svg.addRect( (order.getCarport().getLength() * 0.25), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
+            svg.addRect( (order.getCarport().getLength() * 0.75), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
 
         }
 
