@@ -46,7 +46,7 @@ public class MaterialMapper {
                     //Kostpris Easymode. 30%
                     double costPrice = salesPrice * 0.7;
 
-                    materials.add(new Material(id,name, length, width, height, salesPrice, costPrice,materialCategory_id));
+                    materials.add(new Material(id, name, length, width, height, salesPrice, costPrice, materialCategory_id));
 
                 }
             } catch (SQLException ex) {
@@ -80,7 +80,7 @@ public class MaterialMapper {
                     double costPrice = salesPrice * 0.7;
                     int materialCategory_id = rs.getInt("material_category_id");
 
-                    newMaterial = new Material(material_id,name, length, width, height, salesPrice, costPrice,materialCategory_id);
+                    newMaterial = new Material(material_id, name, length, width, height, salesPrice, costPrice, materialCategory_id);
 
                 }
             } catch (SQLException ex) {
@@ -103,7 +103,7 @@ public class MaterialMapper {
         //Beregn rem længde
         remCalc(order);
         spærCalc(order);
-        if (order.getShed().getClothing() != null){
+        if (order.getShed().getClothing() != null) {
             beklædningCalc(order);
         }
 
@@ -118,7 +118,6 @@ public class MaterialMapper {
         for (Material material : stkliste) {
             salgsprice += material.getPrice() * material.getQuantity();
             costprice += material.getCostPrice() * material.getQuantity();
-
         }
 
         BigDecimal costformat = new BigDecimal(costprice).setScale(2, RoundingMode.HALF_UP);
@@ -139,8 +138,8 @@ public class MaterialMapper {
         //2cm overlap på hver side af tagpap
 
         //count length roof
-        int counter = (int) Math.ceil(order.getCarport().getLength() / (order.getCarport().getRoof().getLength())-4);
-        counter += (int) Math.ceil(order.getCarport().getWidth() / (order.getCarport().getRoof().getWidth())-4);
+        int counter = (int) Math.ceil(order.getCarport().getLength() / (order.getCarport().getRoof().getLength()) - 4);
+        counter += (int) Math.ceil(order.getCarport().getWidth() / (order.getCarport().getRoof().getWidth()) - 4);
         order.getCarport().getRoof().setQuantity(counter);
         stkliste.add(order.getCarport().getRoof());
     }
@@ -209,25 +208,25 @@ public class MaterialMapper {
         List<Material> stolpeList = getMaterialByCategoryId(5);
 
 
-         if (order.getShed().getLength() > 0){
-            //There is a shed
-            counter += 3;
-            if ((order.getCarport().getLength() - 45 - order.getShed().getLength()) > 300) {
-                counter += 1;
-            }
-        } else  {
+        counter += 2;
+        if (order.getCarport().getLength() - 90 >= 600) {
             counter += 2;
-            if (order.getCarport().getLength() - 90 >= 600) {
-                counter += 2;
-            } else if (order.getCarport().getLength() - 90 >= 300) {
-                counter += 1;
-            }
+        } else if (order.getCarport().getLength() - 90 >= 300) {
+            counter += 1;
         }
         counter *= remCount;
+
+        if (order.getShed().getLength() > 0) {
+            //There is a shed
+            counter = 3;
+        }
+
+
         stolpeList.get(0).setQuantity(counter);
         stkliste.add(stolpeList.get(0));
     }
 }
+
 
 
 
