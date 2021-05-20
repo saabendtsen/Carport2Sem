@@ -56,15 +56,12 @@ public class SvgMapper {
             svg.addRect(0,  (order.getCarport().getWidth() * 0.9), rem.getWidth(), order.getCarport().getLength());
         }
 
-        //draw first
-        svg.addRect(0,0,order.getCarport().getWidth(), spær.getWidth());
 
-        //Draw rest of Spær
         double space = (order.getCarport().getLength()-spær.getWidth()) / (spær.getQuantity()-1);
 
         double x = 0;
-        for (int i = 0; i < spær.getQuantity()-1; i++) {
-                svg.addRect(space+x, 0, order.getCarport().getWidth(), spær.getWidth());
+        for (int i = 0; i < spær.getQuantity(); i++) {
+                svg.addRect(x, 0, order.getCarport().getWidth(), spær.getWidth());
                 x += space;
         }
 
