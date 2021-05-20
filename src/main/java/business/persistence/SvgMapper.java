@@ -28,7 +28,7 @@ public class SvgMapper {
         Material rem = null;
         Material spær = null;
         Material stolpe = null;
-
+        Material beklædning = null;
 
         for (Material m : order.getStkListe()) {
             if (m.getCategory() == 4) {
@@ -40,12 +40,18 @@ public class SvgMapper {
             }
         }
 
-       // svg.addRect(0, 0, order.getCarport().getWidth(), order.getCarport().getLength());
 
+        if(order.getShed().getWidth() > 0){
+            System.out.println("Hvor meget længden på carporten: " + order.getCarport().getLength());
+            System.out.println("Hvor mange remme: " + rem.getQuantity());
+            System.out.println("Hvor mange stolper der: " + stolpe.getQuantity());
+            svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9 ) - order.getShed().getWidth(),order.getShed().getWidth() + rem.getWidth(), order.getShed().getLength());
+            svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9 ) - order.getShed().getWidth(),stolpe.getHeight(),stolpe.getWidth());
+            svg.addRectColor(order.getCarport().getLength() - 45 ,(order.getCarport().getWidth() * 0.9 ) - order.getShed().getWidth(), stolpe.getHeight(), stolpe.getWidth());
+            svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9) - rem.getWidth() , stolpe.getWidth(), stolpe.getHeight());
+        }
 
         //Draw rem
-        System.out.println("Rem: " + rem.getQuantity());
-        System.out.println("Rem længde: " + rem.getLength());
         if (rem.getQuantity() == 2) {
             svg.addRect(0,  (order.getCarport().getWidth() * 0.1), rem.getWidth(), order.getCarport().getLength());
             svg.addRect(0,  (order.getCarport().getWidth() * 0.9), rem.getWidth(), order.getCarport().getLength());
@@ -69,8 +75,6 @@ public class SvgMapper {
 
         //if stolpe
 
-
-        System.out.println("Stolper: " + stolpe.getQuantity());
         double lengthBetweenPosts = 0;
         if(rem.getQuantity() == 2 && order.getCarport().getLength() < 390) {
             for (int i = 0; i < stolpe.getQuantity() / rem.getQuantity(); i++) {
@@ -111,11 +115,6 @@ public class SvgMapper {
                 svg.addRect((45 + lengthBetweenPosts), (order.getCarport().getWidth() * 0.9 - rem.getWidth()), stolpe.getWidth(), stolpe.getHeight());
                 lengthBetweenPosts += (order.getCarport().getLength() - 90) / 3;
             }
-        }
-
-
-        if(order.getShed().getLength() > 0){
-            svg.addLine(order.getCarport().getLength()-order.getShed().getLength(),order.getCarport().getWidth() * 0.9, order.getCarport().getLength()-order.getShed().getLength(),order.getCarport().getWidth() * 0.9 - order.getShed().getWidth(),false);
         }
 
         return svg.toString();
