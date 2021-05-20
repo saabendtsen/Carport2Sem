@@ -26,22 +26,21 @@ public class MakeOrderCommand extends CommandProtectedPage {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
         try {
             double carportLength = Double.parseDouble(request.getParameter("carportLength"));
-            request.setAttribute("carportLength",carportLength);
+
 
             double carportWidth = Double.parseDouble(request.getParameter("carportWidth"));
-            request.setAttribute("carportWidth",carportWidth);
+
 
             double shedLength = Double.parseDouble(request.getParameter("shedLength"));
-            request.setAttribute("shedLength",shedLength);
 
             double shedWidth = Double.parseDouble(request.getParameter("shedWidth"));
-            request.setAttribute("shedWidth",shedWidth);
+
 
             int carportRoof_materialID = Integer.parseInt(request.getParameter("carportRoof"));
-            request.setAttribute("carportRoof_materialID",materialFacade.getMaterialByMaterialId(carportRoof_materialID));
+
 
             int shedClothing_materialID = Integer.parseInt(request.getParameter("shedClothing"));
-            request.setAttribute("shedClothing_materialID",materialFacade.getMaterialByMaterialId(shedClothing_materialID));
+
 
 
             double totalLength = carportLength-shedLength;
@@ -57,20 +56,16 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             User user = (User) request.getSession().getAttribute("user");
             int user_id = user.getUser_id();
-
             int orderid = orderFacade.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
-
             Order order = orderFacade.getOrderByOrderId(orderid,carportRoof_materialID);
-
             order.getShed().setClothing(materialFacade.getMaterialByMaterialId(shedClothing_materialID));
 
             List<Material> stkList = materialFacade.calcMaterialList(order);
+            request.setAttribute("order",order);
 
-
+            //Drawing
             SvgMapper svgMapper = new SvgMapper();
-            //TODO: Kun til test, disse skal ud.
             String svg = svgMapper.drawCarport(order);
-
             request.setAttribute("svgdrawing",svg);
 
         } catch (Exception e) {

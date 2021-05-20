@@ -220,8 +220,6 @@ public class MaterialMapper {
             //There is a shed
             counter += 3;
         }
-
-
         stolpeList.get(0).setQuantity(counter);
         stkliste.add(stolpeList.get(0));
     }
