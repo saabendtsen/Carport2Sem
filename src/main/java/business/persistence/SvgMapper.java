@@ -14,7 +14,7 @@ public class SvgMapper {
     //TODO: Skal modtage en ordre
     public String drawCarport(Order order) {
 
-        String viewBox = "0 0 " + (order.getCarport().getLength()+250) + " " + (order.getCarport().getWidth()+250);
+        String viewBox = "0 0 " + (order.getCarport().getLength()+100) + " " + (order.getCarport().getWidth()+125);
         SVG svg = new SVG(0, 0, viewBox, 100, 100);
 
 //        String viewBox = "0 0 1080 960";
@@ -34,6 +34,7 @@ public class SvgMapper {
             }
         }
 
+        svg.addRect(0,0,order.getCarport().getWidth(),order.getCarport().getLength());
 
         if(order.getShed().getWidth() > 0){
             System.out.println("Hvor meget længden på carporten: " + order.getCarport().getLength());
@@ -73,8 +74,8 @@ public class SvgMapper {
         svg.arrowsMoreShizeTemplate();
 
         // carport width
-        svg.addArrow((order.getCarport().getWidth()+40),0,(order.getCarport().getWidth()+40), order.getCarport().getWidth());
-        svg.addText( order.getCarport().getWidth()+75, order.getCarport().getWidth()/2, "small", "", order.getCarport().getWidth() + " cm");
+        svg.addArrow((order.getCarport().getLength()+15),0,(order.getCarport().getLength()+15), order.getCarport().getWidth());
+        svg.addText( order.getCarport().getLength()+50, order.getCarport().getWidth()/2, "small", "", order.getCarport().getWidth() + " cm");
         // carport length
         svg.addArrow(0,(order.getCarport().getWidth()+15), (order.getCarport().getLength()), (order.getCarport().getWidth()+15));
         svg.addText( 0, 0, "small", "translate("+ xMid +", " + yMax+")",order.getCarport().getLength() + " cm");
