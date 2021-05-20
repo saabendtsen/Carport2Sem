@@ -14,7 +14,7 @@ public class SvgMapper {
     //TODO: Skal modtage en ordre
     public String drawCarport(Order order) {
 
-        String viewBox = "0 0 " + order.getCarport().getLength() + 100 + " " + order.getCarport().getWidth() + 100;
+        String viewBox = "0 0 " + (order.getCarport().getLength()+250) + " " + (order.getCarport().getWidth()+250);
         SVG svg = new SVG(0, 0, viewBox, 100, 100);
         /*
         String viewBox = "0 0 1080 960";
@@ -72,6 +72,18 @@ public class SvgMapper {
                 svg.addRect(space+x, 0, order.getCarport().getWidth(), spær.getWidth());
                 x += space;
         }
+
+        //add lines and arrows
+        String xMid = String.valueOf((order.getCarport().getLength() + 100)/2);
+        String yMax = String.valueOf(order.getCarport().getWidth()+30);
+        svg.arrowsMoreShizeTemplate();
+
+        // carport width
+        svg.addArrow((order.getCarport().getWidth()+40),0,(order.getCarport().getWidth()+40), order.getCarport().getWidth());
+        svg.addText( order.getCarport().getWidth()+75, order.getCarport().getWidth()/2, "small", "", order.getCarport().getWidth() + " cm");
+        // carport length
+        svg.addArrow(0,(order.getCarport().getWidth()+15), (order.getCarport().getLength()), (order.getCarport().getWidth()+15));
+        svg.addText( 0, 0, "small", "translate("+ xMid +", " + yMax+")",order.getCarport().getLength() + " cm");
 
         //if stolpe
 
