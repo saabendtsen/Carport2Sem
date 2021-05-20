@@ -16,14 +16,8 @@ public class SvgMapper {
 
         String viewBox = "0 0 " + order.getCarport().getLength() + 100 + " " + order.getCarport().getWidth() + 100;
         SVG svg = new SVG(0, 0, viewBox, 100, 100);
-        /*
-        String viewBox = "0 0 1080 960";
 
-
-
-        svg.addRect(50, 50, 100, 100);
-        svg.addLine(0, 0, 500, 500, false);
-*/
+//        String viewBox = "0 0 1080 960";
 
         Material rem = null;
         Material spær = null;
@@ -118,7 +112,6 @@ public class SvgMapper {
         }
 
         return svg.toString();
-
 
     }
 }
