@@ -31,15 +31,13 @@
         <hr>
         <h5>Salgs pris: ${requestScope.order.saleprice} kr.</h5>
 
-        ${requestScope.svgdrawing}
-
         <c:if test="${requestScope.svgdrawing != null}">
             <hr>
             <p>Tegning af Carport</p>
             ${requestScope.svgdrawing}
         </c:if>
         <br>
-        <c:if test="${requestScope.order.order_state == 1}">
+        <c:if test="${requestScope.order.order_state == true}">
             <c:if test="${requestScope.order.stkListe != null}">
                 <hr>
                 <h4>Styk Liste: </h4><br>

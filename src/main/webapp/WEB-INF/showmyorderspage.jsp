@@ -61,7 +61,10 @@
                                 <td>${order.shed.length}0 cm</td>
                                 <td colspan="2">${order.shed.width}0 cm</td>
                                 <c:if test="${order.order_state}">
-                                    <td><button onclick="" class="btn btn-sm btn-outline-secondary" type="reset" name="download" value="">Download knap</button></td>
+                                <form action="${pageContext.request.contextPath}/fc/showorderdetailsascostumer" method="post">
+                                <td><button onclick="" class="btn btn-sm btn-outline-secondary" type="submit" name="showorderdetails" value="">Se tegning</button></td>
+                                </form>
+
                                 </c:if>
                             </tr>
 
