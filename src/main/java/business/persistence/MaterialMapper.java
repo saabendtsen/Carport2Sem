@@ -218,7 +218,7 @@ public class MaterialMapper {
 
         if (order.getShed().getLength() > 0) {
             //There is a shed
-            counter = 3;
+            counter += 3;
         }
 
 

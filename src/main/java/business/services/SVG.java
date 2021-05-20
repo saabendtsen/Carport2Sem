@@ -24,6 +24,7 @@ public class SVG {
     private final String line = "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:#000000; \" />";
     private final String dashArray = "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:#000000; stroke-dasharray=\"4 1\" />";
 
+
     private final String arrowsMoreShizeTemplate =
             "<defs> \n" + "<marker \n" + "id=\"beginArrow\" \n" + "markerWidth=\"12\" \n" + "markerHeight=\"12\" \n"+ "refX=\"0\" \n" + "refY=\"6\" \n" + "orient=\"auto\"> \n" +
             "<path d=\"M0,6 L12,0 L12,12 L0,6\" style=\"fill: black;\" /> \n" + "</marker> \n" + "<marker \n" + "id=\"endArrow\" \n" + "markerWidth=\"12\" \n" +
