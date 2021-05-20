@@ -11,43 +11,31 @@
     </jsp:attribute>
 
     <jsp:body>
-        <h2>Tak for din ordre.</h2>
+        <h2>Tak for din bestilling.</h2>
         <h2>Du vil blive kontaktet af en sælger hurtigst muligt</h2><br><br><br>
         <div>
             <h4>Du har bestilt følgende</h4>
             <h6>Carport i målende</h6>
-            Bredde: ${requestScope.carportWidth}<br>
-            Længde: ${requestScope.carportLength}<br>
-            Tag: ${requestScope.carportRoof_materialID.name}<br>
-
-            <c:if test="${requestScope.shedLength != 0}">
-                <h3>Tilvalgt:</h3>
+            Bredde: ${requestScope.order.carport.width}<br>
+            Længde: ${requestScope.order.carport.length}<br>
+            Tag: ${requestScope.order.carport.roof.name}<br>
+            <br>
+            <c:if test="${requestScope.order.shed.length != 0}">
+                <h4>Tilvalgt:</h4>
                 <h6>Redskabsskur i målene</h6>
-                Bredde ${requestScope.shedWidth}<br>
-                Længde: ${requestScope.shedLength}<br>
-                Beklædning: ${requestScope.shedClothing_materialID.name}<br>
+                Bredde ${requestScope.order.shed.width}<br>
+                Længde: ${requestScope.order.shed.length}<br>
+                Beklædning: ${requestScope.order.shed.clothing.name}<br>
             </c:if>
 
             <br>
+            <h4>Total pris: ${requestScope.order.saleprice}</h4>
 
             <c:if test="${requestScope.svgdrawing != null}">
             <p>Tegning af Carport</p>
             ${requestScope.svgdrawing}
             </c:if>
 
-            <c:if test="${requestScope.stkList != null}">
-            <h4>Styk liste: </h4>
-
-            <c:forEach items="${requestScope.stkList}" var="mats" >
-                ${mats.name} <br>
-                Længde: ${mats.length}<br>
-                Bredde: ${mats.width}<br>
-                Antal: ${mats.quantity}<br>
-                Pris/stk: ${mats.price}<br>
-                Total: ${mats.price * mats.quantity}<br>
-                <br>
-            </c:forEach>
-            </c:if>
         </div>
     </jsp:body>
 

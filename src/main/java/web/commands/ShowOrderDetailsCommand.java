@@ -2,6 +2,7 @@ package web.commands;
 
 import business.entities.Order;
 import business.exceptions.UserException;
+import business.persistence.SvgMapper;
 import business.services.OrderFacade;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,10 @@ public class ShowOrderDetailsCommand extends CommandProtectedPage {
             int showorderdetails = Integer.parseInt(request.getParameter("showorderdetails"));
             Order order = of.getOrderByOrderId(showorderdetails);
             request.setAttribute("order", order);
+
+            SvgMapper svg = new SvgMapper();
+
+            request.setAttribute("svgdrawing",svg.drawCarport(order));
 
             String rabat = request.getParameter("rabat");
             if (rabat != null) {
