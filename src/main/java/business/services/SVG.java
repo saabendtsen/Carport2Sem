@@ -20,7 +20,7 @@ public class SVG {
             " preserveAspectRatio=\"xMinYMin\">";
 
     private final String rectTemplate = "<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\" style=\"stroke:#000000; fill: #ffffff\" />";
-    final String rectTemplateNuMedFarve = "<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\" style=\"stroke:#ff0000; fill: #ffffff\" />";
+    final String rectTemplateNuMedFarve = "<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\" style=\"stroke-width:2; stroke:#000000; fill: #ffffff\" />";
     private final String line = "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:#000000;  />";
     private final String dashArray = "<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:#000000 stroke-dasharray=\"4 1\" />";
 

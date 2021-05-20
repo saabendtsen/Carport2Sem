@@ -48,7 +48,7 @@ public class SvgMapper {
             svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9 ) - order.getShed().getWidth(),order.getShed().getWidth() + rem.getWidth(), order.getShed().getLength());
             svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9 ) - order.getShed().getWidth(),stolpe.getHeight(),stolpe.getWidth());
             svg.addRectColor(order.getCarport().getLength() - 45 ,(order.getCarport().getWidth() * 0.9 ) - order.getShed().getWidth(), stolpe.getHeight(), stolpe.getWidth());
-            svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9) - rem.getWidth() , stolpe.getWidth(), stolpe.getHeight());
+            svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9) -rem.getWidth() , stolpe.getWidth(), stolpe.getHeight());
         }
 
         //Draw rem
