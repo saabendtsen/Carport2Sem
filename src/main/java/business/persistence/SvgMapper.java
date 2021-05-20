@@ -14,8 +14,8 @@ public class SvgMapper {
     //TODO: Skal modtage en ordre
     public String drawCarport(Order order) {
 
-        String viewBox = "0 0 " + (order.getCarport().getLength()+100) + " " + (order.getCarport().getWidth()+125);
-        SVG svg = new SVG(0, 0, viewBox, 100, 100);
+        String viewBox = "-100 -100 " + (order.getCarport().getLength()+200) + " " + (order.getCarport().getWidth()+225);
+        SVG svg = new SVG(0, 0, viewBox, 50, 50);
 
 //        String viewBox = "0 0 1080 960";
 
@@ -37,13 +37,14 @@ public class SvgMapper {
         svg.addRect(0,0,order.getCarport().getWidth(),order.getCarport().getLength());
 
         if(order.getShed().getWidth() > 0){
-            System.out.println("Hvor meget længden på carporten: " + order.getCarport().getLength());
-            System.out.println("Hvor mange remme: " + rem.getQuantity());
-            System.out.println("Hvor mange stolper der: " + stolpe.getQuantity());
             svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9 ) - order.getShed().getWidth(),order.getShed().getWidth() + rem.getWidth(), order.getShed().getLength());
             svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9 ) - order.getShed().getWidth(),stolpe.getHeight(),stolpe.getWidth());
             svg.addRectColor(order.getCarport().getLength() - 45 ,(order.getCarport().getWidth() * 0.9 ) - order.getShed().getWidth(), stolpe.getHeight(), stolpe.getWidth());
             svg.addRectColor(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),(order.getCarport().getWidth() * 0.9) -rem.getWidth() , stolpe.getWidth(), stolpe.getHeight());
+            svg.addArrow(order.getCarport().getLength() + 10, order.getCarport().getWidth() * 0.9 ,order.getCarport().getLength() + 10, order.getCarport().getWidth() * 0.9 - order.getShed().getWidth());
+            svg.addText(order.getCarport().getLength() + 30, (order.getCarport().getWidth() * 0.9)-(order.getShed().getWidth()/2),"small","",order.getShed().getWidth() + "");
+            svg.addArrow(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),order.getCarport().getWidth()+10,order.getCarport().getLength()-45+stolpe.getWidth(),order.getCarport().getWidth()+10);
+            svg.addText(order.getCarport().getLength() - (order.getShed().getLength()/2)-45+stolpe.getWidth(),order.getCarport().getWidth()+30,"small","",order.getShed().getLength() + "");
         }
 
         //Draw rem
@@ -56,26 +57,28 @@ public class SvgMapper {
             svg.addRect(0,  (order.getCarport().getWidth() * 0.9), rem.getWidth(), order.getCarport().getLength());
         }
 
-
         double space = (order.getCarport().getLength()-spær.getWidth()) / (spær.getQuantity()-1);
-
         double x = 0;
         for (int i = 0; i < spær.getQuantity(); i++) {
-                svg.addRect(x, 0, order.getCarport().getWidth(), spær.getWidth());
-                x += space;
+            svg.addRect(x, 0, order.getCarport().getWidth(), spær.getWidth());
+            x += space;
         }
-
+        x = 0;
+        int spaceInt = (int)space;
+        for (int i = 0; i < spær.getQuantity()-1; i++) {
+            svg.addArrow(x+spær.getWidth()/2,-10,x+space+spær.getWidth()/2,-10);
+            svg.addText(space/2+x,-20,"small","",spaceInt + "");
+            x += space;
+        }
         //add lines and arrows
-        String xMid = String.valueOf((order.getCarport().getLength() + 100)/2);
-        String yMax = String.valueOf(order.getCarport().getWidth()+30);
         svg.arrowsMoreShizeTemplate();
 
         // carport width
-        svg.addArrow((order.getCarport().getLength()+15),0,(order.getCarport().getLength()+15), order.getCarport().getWidth());
-        svg.addText( order.getCarport().getLength()+50, order.getCarport().getWidth()/2, "small", "", order.getCarport().getWidth() + " cm");
+        svg.addArrow(-10,0,(-10), order.getCarport().getWidth());
+        svg.addText( -30, order.getCarport().getWidth()/2, "small", "", order.getCarport().getWidth() + "");
         // carport length
-        svg.addArrow(0,(order.getCarport().getWidth()+15), (order.getCarport().getLength()), (order.getCarport().getWidth()+15));
-        svg.addText( 0, 0, "small", "translate("+ xMid +", " + yMax+")",order.getCarport().getLength() + " cm");
+        svg.addArrow(0,(order.getCarport().getWidth()+40), (order.getCarport().getLength()), (order.getCarport().getWidth()+40));
+        svg.addText( order.getCarport().getLength()/2, order.getCarport().getWidth()+55, "small", "",order.getCarport().getLength() + "");
 
         //if stolpe
 
