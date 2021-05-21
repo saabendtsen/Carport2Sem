@@ -51,21 +51,12 @@
                                 <th>Carport bredde</th>
                                 <th>Redskabsskur længde</th>
                                 <th colspan="2">Redskabsskur bredde</th>
-                                <c:if test="${order.order_state}">
-                                    <th>Tegning</th>
-                                </c:if>
                             </tr>
                             <tr>
                                 <td>${order.carport.length}0 cm</td>
                                 <td>${order.carport.width}0 cm</td>
                                 <td>${order.shed.length}0 cm</td>
                                 <td colspan="2">${order.shed.width}0 cm</td>
-                                <c:if test="${order.order_state}">
-                                <form action="${pageContext.request.contextPath}/fc/showorderdetailsascostumer" method="post">
-                                <td><button onclick="" class="btn btn-sm btn-outline-secondary" type="submit" name="showorderdetails" value="">Se tegning</button></td>
-                                </form>
-
-                                </c:if>
                             </tr>
 
                         </table>
