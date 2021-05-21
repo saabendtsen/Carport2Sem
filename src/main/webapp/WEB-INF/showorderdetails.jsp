@@ -56,6 +56,9 @@
             <hr><p>Tegning af Carport</p>
             ${requestScope.svgdrawing}
         </c:if>
+
+
+
             <br>
         <c:if test="${requestScope.order.stkListe != null}">
             <hr><h4>Styk Liste: </h4><br>

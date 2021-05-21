@@ -43,7 +43,7 @@
                                 </th>
                                 <th>Oprettet: ${order.orderDate}</th>
                                 <c:if test="${order.order_state}">
-                                    <th colspan="2" style="color: #ffffff">Pris: ${order.saleprice} kr.</th>
+                                    <th colspan="2">Pris: ${order.saleprice} kr.</th>
                                 </c:if>
                             </tr>
                             <tr>

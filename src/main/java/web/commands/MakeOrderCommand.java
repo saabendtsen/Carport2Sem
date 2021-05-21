@@ -26,22 +26,11 @@ public class MakeOrderCommand extends CommandProtectedPage {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
         try {
             double carportLength = Double.parseDouble(request.getParameter("carportLength"));
-
-
             double carportWidth = Double.parseDouble(request.getParameter("carportWidth"));
-
-
             double shedLength = Double.parseDouble(request.getParameter("shedLength"));
-
             double shedWidth = Double.parseDouble(request.getParameter("shedWidth"));
-
-
             int carportRoof_materialID = Integer.parseInt(request.getParameter("carportRoof"));
-
-
             int shedClothing_materialID = Integer.parseInt(request.getParameter("shedClothing"));
-
-
 
             double totalLength = carportLength-shedLength;
             double totalwidth = carportWidth-shedWidth;
@@ -53,6 +42,12 @@ public class MakeOrderCommand extends CommandProtectedPage {
                 return command.execute(request,response);
             }
 
+            if (shedLength > 0 && shedWidth == 0 && shedClothing_materialID == 0 || shedLength == 0 && shedWidth > 0 && shedClothing_materialID == 0){
+                request.setAttribute("error", "Du mangler at udflyde et felt");
+
+                Command command = new NavigateToIndexCommand("index", "customer");
+                return command.execute(request,response);
+            }
 
             User user = (User) request.getSession().getAttribute("user");
             int user_id = user.getUser_id();
@@ -60,7 +55,8 @@ public class MakeOrderCommand extends CommandProtectedPage {
             Order order = orderFacade.getOrderByOrderId(orderid,carportRoof_materialID);
             order.getShed().setClothing(materialFacade.getMaterialByMaterialId(shedClothing_materialID));
 
-            List<Material> stkList = materialFacade.calcMaterialList(order);
+            materialFacade.calcMaterialList(order);
+
             request.setAttribute("order",order);
 
             //Drawing

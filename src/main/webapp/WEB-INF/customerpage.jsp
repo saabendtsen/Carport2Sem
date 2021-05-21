@@ -13,12 +13,9 @@
 
         <p>Her er nogle knapper med funktionalitet du kan udføre</p>
 
-
-        <div class="card">
-            <a class="btn btn-outline-success btn-lg btn-block" href="${pageContext.request.contextPath}/fc/navigatetoindex" role="button">Bestil Carport</a>
-            <a class="btn btn-outline-secondary btn-lg btn-block" href="${pageContext.request.contextPath}/fc/showmyorders" role="button">Mine Ordre</a>
-            <a class="btn btn-outline-primary btn-lg btn-block" href="${pageContext.request.contextPath}/fc/changeinfo" role="button">Skift dine login oplysninger</a>
-        </div>
+            <a class="btn btn-outline-success btn-block" href="${pageContext.request.contextPath}/fc/navigatetoindex" role="button">Bestil Carport</a>
+            <a class="btn btn-outline-secondary btn-block" href="${pageContext.request.contextPath}/fc/showmyorders" role="button">Mine Ordre</a>
+            <a class="btn btn-outline-primary btn-block" href="${pageContext.request.contextPath}/fc/changeinfo" role="button">Skift dine login oplysninger</a>
 
     </jsp:body>
 </t:genericpage>

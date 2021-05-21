@@ -25,7 +25,7 @@
 <header class="d-flex flex-column flex-md-row align-items-center p-3 pb-0 px-md-4 mb-4 bg-white border-bottom shadow-sm">
     <div class="h5 my-0 me-md-auto fw-normal">
 
-        <a class="navbar-brand" href="<%=request.getContextPath()%>"><img src="https://www.johannesfog.dk/globalassets/forsiden/fog-logo1.svg" width="60" height="60" alt=""></a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/fc/navigatetoindex"><img src="https://www.johannesfog.dk/globalassets/forsiden/fog-logo1.svg" width="60" height="60" alt=""></a>
 
         <p style="font-size: larger">
             <jsp:invoke fragment="header"/>
@@ -82,6 +82,7 @@
 <div class="container">
 
     <hr>
+    Johannes Fog A/S - Firskovvej 20 - 2800 Lyngby - CVR-nr. 16314439
     <br>
     <jsp:invoke fragment="footer"/>
 </div>

@@ -12,10 +12,9 @@
         <h1>Hej ${sessionScope.user.email} </h1>
 
         <p>Her er nogle knapper med funktionalitet du kan udføre</p>
-        <div class="card">
-        <a href="${pageContext.request.contextPath}/fc/showcustomers" class="btn btn-lg btn btn-outline-success" role="button">Se alle brugere</a>
-        <a href="${pageContext.request.contextPath}/fc/showactiveorders" class="btn btn-lg btn btn-outline-secondary" role="button">Se Aktive Ordre</a>
-        </div>
+
+        <a href="${pageContext.request.contextPath}/fc/showcustomers" class="btn btn btn-outline-success" role="button">Se alle brugere</a>
+        <a href="${pageContext.request.contextPath}/fc/showactiveorders" class="btn btn btn-outline-secondary" role="button">Se Aktive Ordre</a>
 
 
     </jsp:body>
