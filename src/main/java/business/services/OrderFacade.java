@@ -1,12 +1,9 @@
 package business.services;
 
-import business.entities.Material;
 import business.entities.Order;
-import business.entities.User;
 import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.OrderMapper;
-import business.persistence.UserMapper;
 
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class OrderFacade {
         return orderMapper.createOrder(user_id, carportLength, carportWidth, shedLength, shedWidth);
     }
 
-        public List<Order> getOrderByUserId(int user_id) throws UserException {
+    public List<Order> getOrderByUserId(int user_id) throws UserException {
         return orderMapper.getOrderByUserId(user_id);
     }
 
@@ -38,6 +35,7 @@ public class OrderFacade {
     public Order getOrderByOrderId(int order_id, int carportRoof_materialID) throws UserException {
         return orderMapper.getOrderByOrderId(order_id, carportRoof_materialID);
     }
+
     public Order getOrderByOrderId(int order_id) throws UserException {
         return orderMapper.getOrderByOrderId(order_id);
     }

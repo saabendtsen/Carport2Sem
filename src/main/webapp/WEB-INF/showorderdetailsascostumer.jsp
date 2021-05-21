@@ -39,8 +39,7 @@
                         <hr>
                         <c:if test="${requestScope.order.order_state == true}">
                             <c:if test="${requestScope.order.stkListe != null}">
-                                <hr>
-                                <h4>Styk Liste: </h4><br>
+                                <h4>Styk Liste: </h4>
                                 <c:forEach items="${requestScope.order.stkListe}" var="mats">
                                     <h6>${mats.name}</h6>
                                     Længde: ${mats.length} cm<br>

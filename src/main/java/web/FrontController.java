@@ -2,7 +2,6 @@ package web;
 
 import business.exceptions.UserException;
 import business.persistence.Database;
-import business.persistence.SvgMapper;
 import web.commands.Command;
 import web.commands.CommandUnknown;
 

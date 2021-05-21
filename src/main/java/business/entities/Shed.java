@@ -2,13 +2,11 @@ package business.entities;
 
 public class Shed {
 
-    private int shed_id;
-    private int order_id;
+    private final int shed_id;
+    private final int order_id;
     private double length;
     private double width;
     private Material clothing;
-
-    //TODO: Set cloting fra bestilling
 
     public Shed(int shed_id, int order_id, double length, double width, Material clothing) {
         this.shed_id = shed_id;
@@ -24,7 +22,6 @@ public class Shed {
         this.length = length;
         this.width = width;
     }
-
 
 
     public int getShed_id() {

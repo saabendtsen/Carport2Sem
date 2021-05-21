@@ -7,11 +7,11 @@ import business.services.OrderFacade;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
 
 public class MaterialMapper {
@@ -109,8 +109,6 @@ public class MaterialMapper {
 
         carportroofCalc(order);
         order.setStkListe(stkliste);
-        //todo: insert stkliste i database på ordre
-
         of.insertIntoOrderHasMaterial(order);
 
         double salgsprice = 0;

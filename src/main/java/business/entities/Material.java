@@ -2,15 +2,15 @@ package business.entities;
 
 
 public class Material {
-    private int material_id;
     private final String name;
-    private double length;
     private final double width;
-    private double height;
-    private final double salesPrice;
-    private final double costPrice;
-    private int quantity;
+    private double salesPrice;
+    private double costPrice;
     private final int category;
+    private final int material_id;
+    private double length;
+    private double height;
+    private int quantity;
 
 
     public Material(int material_id, String name, double length, double width, double height, double price, double costPrice, int category) {
@@ -26,14 +26,6 @@ public class Material {
 
     public double getHeight() {
         return height;
-    }
-
-    public double getSalesPrice() {
-        return salesPrice;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
     }
 
     public double getCostPrice() {
@@ -52,16 +44,16 @@ public class Material {
         return length;
     }
 
+    public void setLength(double length) {
+        this.length = length;
+    }
+
     public double getWidth() {
         return width;
     }
 
     public double getPrice() {
         return salesPrice;
-    }
-
-    public void setLength(double length) {
-        this.length = length;
     }
 
     public int getQuantity() {

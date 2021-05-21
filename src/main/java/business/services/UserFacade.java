@@ -24,15 +24,15 @@ public class UserFacade {
         return user;
     }
 
-    public int UpdateUserPassword(String newPassword, User user) throws UserException{
-        return userMapper.UpdateUserPassword(newPassword,user);
+    public int UpdateUserPassword(String newPassword, User user) throws UserException {
+        return userMapper.UpdateUserPassword(newPassword, user);
     }
 
-    public int UpdateUserEmail(String newEmail, User user) throws UserException{
+    public int UpdateUserEmail(String newEmail, User user) throws UserException {
         return userMapper.UpdateUserEmail(newEmail, user);
     }
 
-    public boolean CheckUserEmail(String email) throws UserException{
+    public boolean CheckUserEmail(String email) throws UserException {
         return userMapper.CheckUserEmail(email);
     }
 

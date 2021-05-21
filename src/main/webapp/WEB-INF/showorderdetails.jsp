@@ -5,11 +5,10 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Ordre detajler
+         Ordre Detajler
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
-
     <jsp:body>
         <c:if test="${requestScope.error != null }">
             <p style="color:black">
@@ -69,24 +68,20 @@
                                                 Total materiale pris: ${total} kr <br><br>
                                             </c:forEach>
                                     </c:if>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                                <div class="col-sm-9">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <c:if test="${requestScope.svgdrawing != null}">
-                                                                <h6>Tegning af Carport</h6>
-                                                                ${requestScope.svgdrawing}
-                                                            </c:if>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                    </div>
-                                <br>
-
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <c:if test="${requestScope.svgdrawing != null}">
+                                    <h6>Tegning af Carport</h6>
+                                    ${requestScope.svgdrawing}
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <br>
     </jsp:body>
-
 </t:genericpage>
-

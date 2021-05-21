@@ -25,7 +25,7 @@ public abstract class Command {
         commands.put("registercommand", new RegisterCommand(""));
         commands.put("customerpage", new CommandProtectedPage("customerpage", "customer"));
         commands.put("employeepage", new CommandProtectedPage("employeepage", "employee"));
-        commands.put("updateuserdata", new UpdateUserDataCommand("customerpage","customer"));
+        commands.put("updateuserdata", new UpdateUserDataCommand("customerpage", "customer"));
         commands.put("orderPage", new MakeOrderCommand("receiptPage", "customer"));
         commands.put("updatestatuscommand", new ShowOrdersCommand("showcustomerorderpage", "employee"));
         commands.put("navigatetoindex", new NavigateToIndexCommand("index", "customer"));
@@ -34,9 +34,9 @@ public abstract class Command {
         commands.put("showcustomersorders", new ShowCustomersForEmployeeCommand("showcustomerorderpage", "employee"));
         commands.put("showactiveorders", new ShowActiveOrdersForEmployeeCommand("showallactiveorderpage", "employee"));
         commands.put("changeinfo", new CommandProtectedPage("changeuserdata", "customer"));
-        commands.put("showorderdetails", new ShowOrderDetailsCommand("showorderdetails","employee"));
+        commands.put("showorderdetails", new ShowOrderDetailsCommand("showorderdetails", "employee"));
         commands.put("calcDiscount", new CalcDiscountCommand());
-        commands.put("showorderdetailsascostumer", new ShowOrderDetailsAsCostumer("showorderdetailsascostumer","customer"));
+        commands.put("showorderdetailsascostumer", new ShowOrderDetailsAsCostumer("showorderdetailsascostumer", "customer"));
     }
 
     public static Command fromPath(HttpServletRequest request, Database db) {

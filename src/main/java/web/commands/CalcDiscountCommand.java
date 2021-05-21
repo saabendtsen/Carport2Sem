@@ -19,9 +19,7 @@ public class CalcDiscountCommand extends CommandUnknown {
 
         double discount = ((oldPrice - newPrice) / oldPrice) * 100;
 
-        request.setAttribute("Discount",discount);
-
-
+        request.setAttribute("Discount", discount);
 
         return super.execute(request, response);
     }

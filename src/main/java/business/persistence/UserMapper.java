@@ -1,7 +1,7 @@
 package business.persistence;
 
-import business.exceptions.UserException;
 import business.entities.User;
+import business.exceptions.UserException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,12 +27,10 @@ public class UserMapper {
                 ids.next();
                 int id = ids.getInt(1);
                 user.setUser_id(id);
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
         }
     }
@@ -54,12 +52,10 @@ public class UserMapper {
                 } else {
                     throw new UserException("Could not validate user");
                 }
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new UserException("Connection to database could not be established");
         }
     }
@@ -99,16 +95,14 @@ public class UserMapper {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, email);
                 ResultSet rs = ps.executeQuery();
-                if(rs.next()){
+                if (rs.next()) {
                     userExist = true;
                 }
 
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new UserException("Connection to database could not be established");
         }
         return userExist;
@@ -124,12 +118,10 @@ public class UserMapper {
                 ps.setInt(2, user.getUser_id());
                 rowsAffeted = ps.executeUpdate();
 
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
         }
         return rowsAffeted;
@@ -145,12 +137,10 @@ public class UserMapper {
                 ps.setInt(2, user.getUser_id());
                 rowsAffeted = ps.executeUpdate();
 
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new UserException(ex.getMessage());
         }
         return rowsAffeted;

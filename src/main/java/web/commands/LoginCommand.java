@@ -1,12 +1,9 @@
 package web.commands;
 
-import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
-import business.persistence.SvgMapper;
 import business.services.OrderFacade;
 import business.services.UserFacade;
-import web.FrontController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +41,7 @@ public class LoginCommand extends CommandUnprotectedPage {
             session.setAttribute("email", email);
 
 
-            if(user.getRole().equals("employee")) {
+            if (user.getRole().equals("employee")) {
                 return "employeepage";
             } else {
                 return getDataAndIndex;

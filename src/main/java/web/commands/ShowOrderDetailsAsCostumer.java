@@ -26,7 +26,6 @@ public class ShowOrderDetailsAsCostumer extends CommandProtectedPage {
         String drawing = svg.drawCarport(order);
         request.setAttribute("svgdrawing", drawing);
 
-
         return pageToShow;
     }
 }
