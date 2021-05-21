@@ -15,7 +15,10 @@
     <jsp:body>
 
         <c:if test="${sessionScope.user == null}">
-            <h3>Du skal have en konto for at kunne bestille en Carport</h3>
+            <p><h3>Velkommen til fogs carport bestillings side.</h3></p>
+            <h5>Du skal have en konto for at kunne bestille en Carport. <br>Tryk på log ind eller registre dig for at forstætte</h5>
+
+
         </c:if>
         <c:if test="${sessionScope.role == 'customer' }">
         <div>
