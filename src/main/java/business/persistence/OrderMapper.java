@@ -202,12 +202,14 @@ public class OrderMapper {
 
                     List<Material> stklist = selectFromCarportHasMaterial(carport_id);
 
-                    stklist.add(selectFromShedHasMaterial(shed_id));
+                    if (shed_id != 0) {
+                        stklist.add(selectFromShedHasMaterial(shed_id));
+                    }
 
                     newOrder.setStkListe(stklist);
 
                     for (Material m : newOrder.getStkListe()) {
-                        if (m.getCategory() == 2) {
+                        if (m.getCategory() == 2 ) {
                             newOrder.getCarport().setRoof(mf.getMaterialByMaterialId(m.getMaterial_id()));
                         }
                     }
