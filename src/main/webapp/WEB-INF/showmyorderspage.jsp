@@ -25,7 +25,7 @@
 
                 <c:forEach var="order" items="${requestScope.ordersList}">
                     <c:if test="${order != null && not empty order}">
-                        <table class="table table-dark table-hover">
+                        <table class="table table-active table-hover">
                             <tr>
                                 <th>Ordrer nr: ${order.order_id}</th>
                                 <th>Status:
@@ -43,7 +43,7 @@
                                 </th>
                                 <th>Oprettet: ${order.orderDate}</th>
                                 <c:if test="${order.order_state}">
-                                    <th colspan="2" style="color: #ffffff">Pris: ${order.saleprice} kr.</th>
+                                    <th colspan="2">Pris: ${order.saleprice} kr.</th>
                                 </c:if>
                             </tr>
                             <tr>

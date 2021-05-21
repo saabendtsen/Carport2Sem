@@ -199,9 +199,11 @@ public class OrderMapper {
                             new Carport(carport_id, order_id, c_length, c_width),
                             new Shed(shed_id, order_id, s_length, s_width, selectFromShedHasMaterial(shed_id)));
 
-                    List<Material> hey = selectFromCarportHasMaterial(carport_id);
+                    List<Material> stklist = selectFromCarportHasMaterial(carport_id);
 
-                    newOrder.setStkListe(hey);
+                    stklist.add(selectFromShedHasMaterial(shed_id));
+
+                    newOrder.setStkListe(stklist);
 
                     for (Material m : newOrder.getStkListe()) {
                         if (m.getCategory() == 2) {

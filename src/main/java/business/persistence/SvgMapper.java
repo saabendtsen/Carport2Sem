@@ -15,7 +15,7 @@ public class SvgMapper {
     public String drawCarport(Order order) {
 
         String viewBox = "-100 -100 " + (order.getCarport().getLength()+200) + " " + (order.getCarport().getWidth()+225);
-        SVG svg = new SVG(0, 0, viewBox, 50, 50);
+        SVG svg = new SVG(0, 0, viewBox, 100, 100);
 
 //        String viewBox = "0 0 1080 960";
 

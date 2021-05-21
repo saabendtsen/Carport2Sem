@@ -48,10 +48,6 @@
                     Længde: ${mats.length} cm<br>
                     Bredde: ${mats.width} cm<br>
                     Antal: ${mats.quantity} stk<br>
-                    <fmt:formatNumber var="price" type="number" minFractionDigits="2" maxFractionDigits = "2" value="${mats.price}" />
-                    Pris/stk: ${price} kr<br>
-                    <fmt:formatNumber var="total" type="number" minFractionDigits="2" maxFractionDigits = "2" value="${mats.price * mats.quantity}" />
-                    Total materiale pris: ${total} kr<br>
                     <br>
                 </c:forEach>
             </c:if>
