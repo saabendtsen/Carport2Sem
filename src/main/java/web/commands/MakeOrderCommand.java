@@ -69,7 +69,7 @@ public class MakeOrderCommand extends CommandProtectedPage {
             request.setAttribute("svgdrawing",svg);
 
         } catch (Exception e) {
-            request.setAttribute("error", "Du mangler at udfylde nogle felter!" + e);
+            request.setAttribute("error", "Du mangler at udfylde nogle felter!");
 
             Command command = new NavigateToIndexCommand("index", "customer");
             return command.execute(request,response);

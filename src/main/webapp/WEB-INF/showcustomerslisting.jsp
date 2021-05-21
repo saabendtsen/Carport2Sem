@@ -22,7 +22,7 @@
             <div>
                 <h6 class="font-weight-bold">Liste over brugere i databasen</h6>
 
-                <table class="table table-dark">
+                <table class="table table-active">
                     <tr>
                         <th>Kunde id</th>
                         <th>Kunde navn</th>
