@@ -45,6 +45,7 @@ public class SvgMapper {
             svg.addText(order.getCarport().getLength() + 30, (order.getCarport().getWidth() * 0.9)-(order.getShed().getWidth()/2),"small","",order.getShed().getWidth() + "");
             svg.addArrow(order.getCarport().getLength() - order.getShed().getLength()-45+stolpe.getWidth(),order.getCarport().getWidth()+10,order.getCarport().getLength()-45+stolpe.getWidth(),order.getCarport().getWidth()+10);
             svg.addText(order.getCarport().getLength() - (order.getShed().getLength()/2)-45+stolpe.getWidth(),order.getCarport().getWidth()+30,"small","",order.getShed().getLength() + "");
+
         }
 
         //Draw rem
@@ -57,6 +58,7 @@ public class SvgMapper {
             svg.addRect(0,  (order.getCarport().getWidth() * 0.9), rem.getWidth(), order.getCarport().getLength());
         }
 
+        //Draw spær
         double space = (order.getCarport().getLength()-spær.getWidth()) / (spær.getQuantity()-1);
         double x = 0;
         for (int i = 0; i < spær.getQuantity(); i++) {
@@ -65,6 +67,7 @@ public class SvgMapper {
         }
         x = 0;
         int spaceInt = (int)space;
+        //Draws arrows between spær
         for (int i = 0; i < spær.getQuantity()-1; i++) {
             svg.addArrow(x+spær.getWidth()/2,-10,x+space+spær.getWidth()/2,-10);
             svg.addText(space/2+x,-20,"small","",spaceInt + "");
@@ -123,9 +126,10 @@ public class SvgMapper {
                 lengthBetweenPosts += (order.getCarport().getLength() - 90) / 3;
             }
         }
-        svg.addRectStroke(order.getCarport().getLength() - 45,order.getCarport().getWidth() * 0.9  - order.getShed().getWidth(), stolpe.getWidth(),stolpe.getHeight());
-
-
+        //Draws bottom right stolpe, with storke if there is a shed
+        if(order.getShed().getLength() > 0) {
+            svg.addRectStroke(order.getCarport().getLength() - 45, order.getCarport().getWidth() * 0.9 - rem.getWidth(), stolpe.getWidth(), stolpe.getHeight());
+        }
         return svg.toString();
 
     }

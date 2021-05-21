@@ -16,7 +16,6 @@
         <div>
             <h4>Du har bestilt følgende</h4>
 
-
             <div class="row">
                 <div class="col-sm-3">
                     <div class="card">

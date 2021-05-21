@@ -15,14 +15,16 @@
     <jsp:body>
 
         <c:if test="${sessionScope.user == null}">
-            <h3>Du skal have en konto for at kunne bestille en Carport</h3>
+            <p><h3>Velkommen til fogs carport bestillings side.</h3></p>
+            <h5>Du skal have en konto for at kunne bestille en Carport. <br>Tryk på log ind eller registre dig for at forstætte</h5>
+
+
         </c:if>
         <c:if test="${sessionScope.role == 'customer' }">
         <div>
             <h2>QUICK-BYG TILBUD - CARPORT</h2>
             <p>Med et specialudviklet computerprogram kan vi lynhurtigt beregne prisen og udskrive en skitsetegning på en carport indenfor vores standardprogram.</p>
-            <p>Tilbud og skitsetegning fremsendes med post hurtigst muligt.
-            Standardbyggevejledning medfølger ved bestilling.</p>
+            <p>Tilbud og skitsetegning fremsendes med post hurtigst muligt. Standardbyggevejledning medfølger ved bestilling. Dit redskabsskur må ikke være større eller bredder end din carport.</p>
             <h6 class="font-weight-bold">Udfyld nedenstående omhyggeligt og klik på "Bestil tilbud"</h6>
 
             <form id="form" method="post" action="${pageContext.request.contextPath}/fc/orderPage">
