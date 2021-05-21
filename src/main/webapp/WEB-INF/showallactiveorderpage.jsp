@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <t:genericpage>
 
@@ -51,13 +52,17 @@
                                     <th>Carport længde</th>
                                     <th>Carport bredde</th>
                                     <th>Redskabsskur længde</th>
-                                    <th colspan="2">Redskabsskur bredde</th>
+                                    <th>Redskabsskur bredde</th>
+                                    <th>Total pris</th>
+
                                 </tr>
                                 <tr>
                                     <td>${order.carport.length}0 cm</td>
                                     <td>${order.carport.width}0 cm</td>
                                     <td>${order.shed.length}0 cm</td>
-                                    <td colspan="2">${order.shed.width}0 cm</td>
+                                    <td>${order.shed.width}0 cm</td>
+                                    <fmt:formatNumber var="saleprice" type="number" minFractionDigits="2" maxFractionDigits = "2" value="${order.saleprice}" />
+                                    <td>${saleprice} kr</td>
                                 </tr>
                             </table>
                         </c:if>
