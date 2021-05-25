@@ -172,7 +172,6 @@ public class MaterialMapper {
                 break;
             }
         }
-
     }
 
     public void remCalc(Order order) throws UserException {

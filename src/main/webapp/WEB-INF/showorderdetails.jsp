@@ -16,6 +16,7 @@
             </p>
         </c:if><br>
             <h4>Kunden har bestilt følgende:</h4>
+                <h3> Kontakt kunden : ${}</h3>
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="card">
