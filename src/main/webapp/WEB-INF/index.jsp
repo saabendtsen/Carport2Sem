@@ -15,11 +15,14 @@
     <jsp:body>
 
         <c:if test="${sessionScope.user == null}">
-            <p><h3>Velkommen til fogs carport bestillings side.</h3></p>
+            <h3>Velkommen til fogs carport bestillings side.</h3>
             <h5>Du skal have en konto for at kunne bestille en Carport. <br>Tryk på log ind eller registre dig for at forstætte</h5>
-
-
+            <div class="card-body">
+            <a type="button" class="btn btn-outline-info" href="${pageContext.request.contextPath}/fc/loginpage">Log ind</a>
+            <a type="button" class="btn btn-outline-success" href="${pageContext.request.contextPath}/fc/registerpage">Register dig</a>
+            </div>
         </c:if>
+
         <c:if test="${sessionScope.role == 'customer' }">
         <div>
             <h2>QUICK-BYG TILBUD - CARPORT</h2>
