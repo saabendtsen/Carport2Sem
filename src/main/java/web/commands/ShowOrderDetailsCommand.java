@@ -4,6 +4,7 @@ import business.entities.Order;
 import business.exceptions.UserException;
 import business.persistence.SvgMapper;
 import business.services.OrderFacade;
+import business.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import java.text.NumberFormat;
 
 public class ShowOrderDetailsCommand extends CommandProtectedPage {
     OrderFacade of = new OrderFacade(database);
+    UserFacade uf = new UserFacade(database);
 
 
     public ShowOrderDetailsCommand(String pageToShow, String role) {
@@ -30,6 +32,9 @@ public class ShowOrderDetailsCommand extends CommandProtectedPage {
             SvgMapper svg = new SvgMapper();
 
             request.setAttribute("svgdrawing", svg.drawCarport(order));
+
+            String username = uf.returnUserName(order.getUser_id());
+            request.setAttribute("username", username);
 
             String rabat = request.getParameter("rabat");
             if (rabat != null) {
@@ -61,7 +66,7 @@ public class ShowOrderDetailsCommand extends CommandProtectedPage {
             }
 
         } catch (Exception e) {
-            request.setAttribute("error", "hov hov");
+            request.setAttribute("error", "hov");
         }
 
         return pageToShow;

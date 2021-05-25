@@ -15,7 +15,11 @@
                     ${requestScope.error}
             </p>
         </c:if><br>
-            <h4>Kunden har bestilt følgende:</h4>
+            <h4>${requestScope.username} har bestilt følgende:</h4>
+            <h6>Kontakt info</h6>
+            <p>Email: ${requestScope.username}</p>
+        <%--her kunne man tilføje flere person data--%>
+
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="card">
