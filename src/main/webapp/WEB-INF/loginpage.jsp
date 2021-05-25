@@ -4,7 +4,7 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Login page
+         Log ind Siden
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -22,7 +22,7 @@
                 <div class="row mb-3">
                     <label class="col-form-label" for="password">Password</label>
                     <div class="col-sm-4">
-                        <input id="password" class="form-control" type="password" name="password" placeholder="***********">
+                        <input id="password" class="form-control" type="password" name="password" placeholder="****">
                     </div>
                 </div>
                 <c:if test="${requestScope.error != null }">
