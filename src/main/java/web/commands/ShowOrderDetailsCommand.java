@@ -29,7 +29,7 @@ public class ShowOrderDetailsCommand extends CommandProtectedPage {
 
             SvgMapper svg = new SvgMapper();
 
-            request.setAttribute("svgdrawing",svg.drawCarport(order));
+            request.setAttribute("svgdrawing", svg.drawCarport(order));
 
             String rabat = request.getParameter("rabat");
             if (rabat != null) {
@@ -49,8 +49,11 @@ public class ShowOrderDetailsCommand extends CommandProtectedPage {
                 double newPrice = Double.parseDouble(request.getParameter("newPrice"));
                 if (!order.isOrder_state()) {
                     of.updateOrderSale(order, newPrice);
-                    if (of.updateOrder(order.getOrder_id()) > 0){
-                        request.setAttribute("error", "Ordren er leveret til kunden & pris er ændret til "+newPrice+" kr."); } else {request.setAttribute("error", "Ordren kunne ikke leveres");}
+                    if (of.updateOrder(order.getOrder_id()) > 0) {
+                        request.setAttribute("error", "Ordren er leveret til kunden & pris er ændret til " + newPrice + " kr.");
+                    } else {
+                        request.setAttribute("error", "Ordren kunne ikke leveres");
+                    }
                     order.setOrder_state(true);
                     order.setSaleprice(newPrice);
                 }

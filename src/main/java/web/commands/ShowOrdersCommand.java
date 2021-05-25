@@ -19,7 +19,7 @@ public class ShowOrdersCommand extends CommandProtectedPage {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException {
 
         try {
-            User user = (User)request.getSession().getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user");
 
             request.setAttribute("ordersList", orderFacade.getOrderByUserId(user.getUser_id()));
 
@@ -28,15 +28,15 @@ public class ShowOrdersCommand extends CommandProtectedPage {
         }
 
         String updateOrder = request.getParameter("updateOrder");
-        if (updateOrder != null){
+        if (updateOrder != null) {
             int order_id = Integer.parseInt(updateOrder);
-            if (orderFacade.updateOrder(order_id) > 0){
-                System.out.println("Ordre: "+order_id+" status er nu opdateret!");
+            if (orderFacade.updateOrder(order_id) > 0) {
+                System.out.println("Ordre: " + order_id + " status er nu opdateret!");
             } else {
                 System.out.println("Der skete en fejl under status ændringen");
             }
             Command command = new ShowCustomersForEmployeeCommand("showcustomerorderpage", "employee");
-            return command.execute(request,response);
+            return command.execute(request, response);
         }
 
         return pageToShow;

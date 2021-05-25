@@ -37,8 +37,8 @@ public class RegisterCommand extends CommandUnprotectedPage {
                 return "registerpage";
             }
 
-        } catch (UserException e){
-            request.setAttribute("error", "Bruger med Email: "+ email +" eksistere allerede!");
+        } catch (UserException e) {
+            request.setAttribute("error", "Bruger med Email: " + email + " eksistere allerede!");
             return "registerpage";
         }
 

@@ -12,7 +12,7 @@
 
     <jsp:body>
         <h2>Tak for din bestilling.</h2>
-        <h2>Du vil blive kontaktet af en sælger hurtigst muligt</h2><br><br><br>
+        <h2>Du vil blive kontaktet af en sælger hurtigst muligt</h2><br>
         <div>
             <h4>Du har bestilt følgende</h4>
 
@@ -35,7 +35,7 @@
                             </c:if>
 
                             <br>
-                            <h4>Total pris: ${requestScope.order.saleprice}</h4>
+                            <h4>Salgs pris: ${requestScope.order.saleprice} kr.</h4>
                         </div>
                     </div>
                 </div>

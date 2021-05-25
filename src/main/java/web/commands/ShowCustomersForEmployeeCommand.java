@@ -1,13 +1,11 @@
 package web.commands;
 
-import business.entities.User;
 import business.exceptions.UserException;
 import business.services.OrderFacade;
 import business.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 public class ShowCustomersForEmployeeCommand extends CommandProtectedPage {
     private final OrderFacade orderFacade;

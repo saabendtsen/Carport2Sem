@@ -14,12 +14,13 @@ import java.util.List;
 public class OrderMapper {
 
     private final Database database;
+
     public OrderMapper(Database database) {
         this.database = database;
 
     }
 
-    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth ) throws UserException {
+    public int createOrder(int user_id, double carportLength, double carportWidth, double shedLength, double shedWidth) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO `order` (user_id) VALUES (?)";
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -54,7 +55,7 @@ public class OrderMapper {
                 for (Material m : order.getStkListe()) {
                     //Check if Shed clothing
                     if (m.getCategory() == 1) {
-                        insertIntoShedHasMaterial(order.getShed().getShed_id(),m.getMaterial_id(),m.getQuantity());
+                        insertIntoShedHasMaterial(order.getShed().getShed_id(), m.getMaterial_id(), m.getQuantity());
                     } else {
                         ps.setInt(1, order.getCarport().getCarport_id());
                         ps.setInt(2, m.getMaterial_id());
@@ -153,8 +154,8 @@ public class OrderMapper {
                     double c_width = rs.getDouble("carport.width");
 
                     newOrder = new Order(order_id, user_id, orderdate, order_state, saleprice, costprice,
-                               new Carport(carport_id, order_id, c_length, c_width, mf.getMaterialByMaterialId(carportRoof_materialID)),
-                               new Shed(shed_id, order_id, s_length, s_width, selectFromShedHasMaterial(shed_id)));
+                            new Carport(carport_id, order_id, c_length, c_width, mf.getMaterialByMaterialId(carportRoof_materialID)),
+                            new Shed(shed_id, order_id, s_length, s_width, selectFromShedHasMaterial(shed_id)));
 
                     newOrder.setStkListe(selectFromCarportHasMaterial(carport_id));
                 }
@@ -201,12 +202,14 @@ public class OrderMapper {
 
                     List<Material> stklist = selectFromCarportHasMaterial(carport_id);
 
-                    stklist.add(selectFromShedHasMaterial(shed_id));
+                    if (shed_id != 0) {
+                        stklist.add(selectFromShedHasMaterial(shed_id));
+                    }
 
                     newOrder.setStkListe(stklist);
 
                     for (Material m : newOrder.getStkListe()) {
-                        if (m.getCategory() == 2) {
+                        if (m.getCategory() == 2 ) {
                             newOrder.getCarport().setRoof(mf.getMaterialByMaterialId(m.getMaterial_id()));
                         }
                     }
@@ -247,8 +250,8 @@ public class OrderMapper {
                     double c_width = rs.getDouble("carport.width");
 
                     orderList.add(new Order(order_id, user_id, orderdate, order_state, saleprice, costprice,
-                                  new Carport(carport_id, order_id, c_length, c_width),
-                                  new Shed(shed_id, order_id, s_length, s_width)));
+                            new Carport(carport_id, order_id, c_length, c_width),
+                            new Shed(shed_id, order_id, s_length, s_width)));
 
                 }
             } catch (SQLException ex) {
@@ -286,8 +289,8 @@ public class OrderMapper {
                     double c_width = rs.getDouble("carport.width");
 
                     orderList.add(new Order(order_id, user_id, orderdate, order_state, saleprice, costprice,
-                                  new Carport(carport_id, order_id, c_length, c_width),
-                                  new Shed(shed_id, order_id, s_length, s_width)));
+                            new Carport(carport_id, order_id, c_length, c_width),
+                            new Shed(shed_id, order_id, s_length, s_width)));
 
                 }
             } catch (SQLException ex) {
@@ -306,7 +309,7 @@ public class OrderMapper {
             MaterialFacade mf = new MaterialFacade(database);
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1,carport_id);
+                ps.setInt(1, carport_id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
 
@@ -333,7 +336,7 @@ public class OrderMapper {
             MaterialFacade mf = new MaterialFacade(database);
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1,shed_id);
+                ps.setInt(1, shed_id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
 

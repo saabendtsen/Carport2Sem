@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Order {
 
-    private int order_id;
-    private int user_id;
-    private Timestamp orderDate;
+    List<Material> stkListe;
+    private final int order_id;
+    private final int user_id;
+    private final Timestamp orderDate;
     private boolean order_state;
     private Carport carport;
     private Shed shed;
     private double saleprice;
     private double costprice;
-    List<Material> stkListe;
 
     public Order(int order_id, int user_id, Timestamp orderDate, boolean order_state, double saleprice, double costprice, Carport carport, Shed shed) {
         this.order_id = order_id;
@@ -27,13 +27,8 @@ public class Order {
     }
 
 
-
     public int getOrder_id() {
         return order_id;
-    }
-
-    public int getUser_id() {
-        return user_id;
     }
 
     public Timestamp getOrderDate() {
@@ -42,6 +37,10 @@ public class Order {
 
     public boolean isOrder_state() {
         return order_state;
+    }
+
+    public void setOrder_state(boolean order_state) {
+        this.order_state = order_state;
     }
 
     public Carport getCarport() {
@@ -54,10 +53,6 @@ public class Order {
 
     public List<Material> getStkListe() {
         return stkListe;
-    }
-
-    public void setOrder_state(boolean order_state) {
-        this.order_state = order_state;
     }
 
     public void setStkListe(List<Material> stkListe) {
