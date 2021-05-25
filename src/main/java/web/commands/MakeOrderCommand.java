@@ -30,8 +30,8 @@ public class MakeOrderCommand extends CommandProtectedPage {
             int carportRoof_materialID = Integer.parseInt(request.getParameter("carportRoof"));
             int shedClothing_materialID = Integer.parseInt(request.getParameter("shedClothing"));
 
-            double totalLength = carportLength - shedLength;
-            double totalwidth = carportWidth - shedWidth;
+            double totalLength = (carportLength-45) - shedLength;
+            double totalwidth = (carportWidth*0.9) - shedWidth;
 
             if (totalLength < 30 || totalwidth < 30) {
                 request.setAttribute("error", "Redskabsrums er større end carporten, vælg en mindre størrelse");
