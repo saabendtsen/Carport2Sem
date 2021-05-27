@@ -12,7 +12,7 @@
 
     <jsp:body>
         <div style="margin-top: 5em;" class="container">
-            <form name="login" action="${pageContext.request.contextPath}/fc/logincommand"  method="POST">
+            <form name="login" action="${pageContext.request.contextPath}/fc/logincommand"  method="post">
                 <div class="row mb-3">
                     <label class="col-form-label" for="email">Email</label>
                     <div class="col-sm-4">

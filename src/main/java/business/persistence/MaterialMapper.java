@@ -136,8 +136,8 @@ public class MaterialMapper {
         //2cm overlap på hver side af tagpap
 
         //count length roof
-        int counter = (int) Math.ceil(order.getCarport().getLength() / (order.getCarport().getRoof().getLength()) - 4);
-        counter += (int) Math.ceil(order.getCarport().getWidth() / (order.getCarport().getRoof().getWidth()) - 4);
+        int counter = (int) Math.ceil(order.getCarport().getLength() / ((order.getCarport().getRoof().getLength()) - 4));
+        counter += (int) Math.ceil(order.getCarport().getWidth() / ((order.getCarport().getRoof().getWidth()) - 4));
         order.getCarport().getRoof().setQuantity(counter);
         stkliste.add(order.getCarport().getRoof());
     }

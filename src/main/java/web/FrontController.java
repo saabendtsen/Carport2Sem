@@ -2,7 +2,6 @@ package web;
 
 import business.exceptions.UserException;
 import business.persistence.Database;
-import business.persistence.SvgMapper;
 import web.commands.Command;
 import web.commands.CommandUnknown;
 
@@ -18,8 +17,8 @@ import java.util.logging.Logger;
 
 @WebServlet(name = "FrontController", urlPatterns = {"/fc/*"})
 public class FrontController extends HttpServlet {
-    private final static String USER = "slide";
-    private final static String PASSWORD = "Spasser1!";
+    private final static String USER = "root";
+    private final static String PASSWORD = "1234";
     private final static String URL = "jdbc:mysql://localhost:3306/carport?serverTimezone=CET";
 
     public static Database database;

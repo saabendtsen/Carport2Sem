@@ -33,7 +33,7 @@
                                     <th>Ordrer nr: ${order.order_id}</th>
                                     <th colspan="2">Status:
                                         <c:if test="${order.order_state}">
-                                            <p style="color: greenyellow">Færdig udarbejdet<p>
+                                            <p>Færdig udarbejdet<p>
                                         </c:if>
                                         <c:if test="${!order.order_state}">
                                             <p style="color: red">Behandles<p>
