@@ -10,7 +10,7 @@
     </jsp:attribute>
     <jsp:body>
         <div style="margin-top: 5em;">
-            <form name="login" action="${pageContext.request.contextPath}/fc/registercommand" method="POST">
+            <form name="login" action="${pageContext.request.contextPath}/fc/registercommand" method="post">
                 <div class="row mb-3">
                     <label class="col-form-label" for="email">Email</label>
                     <div class="col-sm-4">

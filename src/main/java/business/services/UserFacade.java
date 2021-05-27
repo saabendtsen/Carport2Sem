@@ -28,6 +28,10 @@ public class UserFacade {
         return userMapper.UpdateUserPassword(newPassword, user);
     }
 
+    public String returnUserName(int user_id) throws UserException {
+        return userMapper.returnUserName(user_id);
+    }
+
     public int UpdateUserEmail(String newEmail, User user) throws UserException {
         return userMapper.UpdateUserEmail(newEmail, user);
     }

@@ -32,19 +32,17 @@ public class MakeOrderCommand extends CommandProtectedPage {
             int carportRoof_materialID = Integer.parseInt(request.getParameter("carportRoof"));
             int shedClothing_materialID = Integer.parseInt(request.getParameter("shedClothing"));
 
-            double totalLength = carportLength - shedLength;
-            double totalwidth = carportWidth - shedWidth;
+            double totalLength = (carportLength-45) - shedLength;
+            double totalwidth = (carportWidth*0.9) - shedWidth;
 
             if (totalLength < 30 || totalwidth < 30) {
                 request.setAttribute("error", "Redskabsrums er større end carporten, vælg en mindre størrelse");
-
                 Command command = new NavigateToIndexCommand("index", "customer");
                 return command.execute(request, response);
             }
 
             if (shedLength > 0 && shedWidth == 0 && shedClothing_materialID == 0 || shedLength == 0 && shedWidth > 0 && shedClothing_materialID == 0) {
                 request.setAttribute("error", "Du mangler at udflyde et felt");
-
                 Command command = new NavigateToIndexCommand("index", "customer");
                 return command.execute(request, response);
             }
@@ -59,7 +57,6 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             request.setAttribute("order", order);
 
-            //Drawing
             SvgMapper svgMapper = new SvgMapper();
             String svg = svgMapper.drawCarport(order);
             request.setAttribute("svgdrawing", svg);

@@ -30,7 +30,7 @@
                                 <th>Ordrer nr: ${order.order_id}</th>
                                 <th>Status:
                                     <c:if test="${order.order_state}">
-                                        <p style="color: #00ff00">Færdig<p>
+                                        <p>Færdig<p>
                                     </c:if>
                                         <c:if test="${!order.order_state}">
                                             <p style="color: red">behandles<p>

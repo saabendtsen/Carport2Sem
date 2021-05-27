@@ -60,6 +60,27 @@ public class UserMapper {
         }
     }
 
+
+    public String returnUserName(int user_id) throws UserException {
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT email FROM user WHERE user_id=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, user_id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    return rs.getString("email");
+                } else {
+                    throw new UserException("Could not validate user");
+                }
+            } catch (SQLException ex) {
+                throw new UserException(ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
     public List<User> getAllUsers() throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT user_id, email, password, role FROM user";

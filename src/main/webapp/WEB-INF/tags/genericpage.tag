@@ -25,7 +25,15 @@
 <header class="d-flex flex-column flex-md-row align-items-center p-3 pb-0 px-md-4 mb-4 bg-white border-bottom shadow-sm">
     <div class="h5 my-0 me-md-auto fw-normal">
 
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/fc/navigatetoindex"><img src="https://www.johannesfog.dk/globalassets/forsiden/fog-logo1.svg" width="60" height="60" alt=""></a>
+        <c:if test="${sessionScope.role == 'customer'}">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/fc/navigatetoindex"><img src="https://www.johannesfog.dk/globalassets/forsiden/fog-logo1.svg" width="60" height="60" alt=""></a>
+        </c:if>
+        <c:if test="${sessionScope.role == 'employee'}">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/fc/employeepage"><img src="https://www.johannesfog.dk/globalassets/forsiden/fog-logo1.svg" width="60" height="60" alt=""></a>
+        </c:if>
+        <c:if test="${sessionScope.user == null}">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}"><img src="https://www.johannesfog.dk/globalassets/forsiden/fog-logo1.svg" width="60" height="60" alt=""></a>
+        </c:if>
 
         <p style="font-size: larger">
             <jsp:invoke fragment="header"/>
@@ -34,23 +42,21 @@
     <nav class="my-2 my-md-0 me-md-3">
 
 
-        <c:if test="${sessionScope.role == 'employee' }">
+        <c:if test="${sessionScope.role == 'employee'}">
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/employeepage">Admin side</a>
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showcustomers">Se Brugere</a>
-            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showactiveorders">Se Aktive Ordre</a>
+            <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showactiveorders">Aktive Ordre</a>
         </c:if>
 
-        <c:if test="${sessionScope.role == 'customer' }">
+        <c:if test="${sessionScope.role == 'customer'}">
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/navigatetoindex">Bestil Carport</a>
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/customerpage">Min side</a>
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/fc/showmyorders">Mine Ordre</a>
         </c:if>
 
-
     </nav>
 
     <div>
-
         <c:if test="${sessionScope.user != null }">
             ${sessionScope.user.email}
         </c:if>
@@ -82,7 +88,7 @@
 <div class="container">
 
     <hr>
-    Johannes Fog A/S - Firskovvej 20 - 2800 Lyngby - CVR-nr. 16314439
+    Johannes Fog A/S - Firskovvej 20 - 2800 Lyngby - CVR-nr. 163144
     <br>
     <jsp:invoke fragment="footer"/>
 </div>

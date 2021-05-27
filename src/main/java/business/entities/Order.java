@@ -71,6 +71,10 @@ public class Order {
         return saleprice;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
     public void setSaleprice(double saleprice) {
         this.saleprice = saleprice;
     }

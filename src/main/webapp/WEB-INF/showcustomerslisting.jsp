@@ -37,7 +37,7 @@
                                 <td>${kunde.role}</td>
                                 <td>
                                     <c:if test="${not kunde.role.equals('employee')}">
-                                        <form action="${pageContext.request.contextPath}/fc/showcustomers" method="get">
+                                        <form action="${pageContext.request.contextPath}/fc/showcustomers" method="post">
                                             <button class="btn btn-info" type="submit" name="chosen_userid" value="${kunde.user_id}">Se ordre</button>
                                         </form>
                                     </c:if>

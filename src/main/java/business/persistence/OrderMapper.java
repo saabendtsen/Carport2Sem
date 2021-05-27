@@ -214,7 +214,6 @@ public class OrderMapper {
                         }
                     }
                 }
-
             } catch (SQLException ex) {
                 throw new UserException(ex.getMessage());
             }
