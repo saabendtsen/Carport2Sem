@@ -3,6 +3,7 @@ package web.commands;
 import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
+import business.persistence.MaterialMapper;
 import business.persistence.SvgMapper;
 import business.services.MaterialFacade;
 import business.services.OrderFacade;
@@ -18,6 +19,7 @@ public class MakeOrderCommand extends CommandProtectedPage {
         super(pageToShow, role);
         this.orderFacade = new OrderFacade(database);
         this.materialFacade = new MaterialFacade(database);
+
     }
 
     @Override
