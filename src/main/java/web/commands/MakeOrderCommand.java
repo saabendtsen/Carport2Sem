@@ -35,14 +35,12 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             if (totalLength < 30 || totalwidth < 30) {
                 request.setAttribute("error", "Redskabsrums er større end carporten, vælg en mindre størrelse");
-
                 Command command = new NavigateToIndexCommand("index", "customer");
                 return command.execute(request, response);
             }
 
             if (shedLength > 0 && shedWidth == 0 && shedClothing_materialID == 0 || shedLength == 0 && shedWidth > 0 && shedClothing_materialID == 0) {
                 request.setAttribute("error", "Du mangler at udflyde et felt");
-
                 Command command = new NavigateToIndexCommand("index", "customer");
                 return command.execute(request, response);
             }
@@ -57,7 +55,6 @@ public class MakeOrderCommand extends CommandProtectedPage {
 
             request.setAttribute("order", order);
 
-            //Drawing
             SvgMapper svgMapper = new SvgMapper();
             String svg = svgMapper.drawCarport(order);
             request.setAttribute("svgdrawing", svg);
